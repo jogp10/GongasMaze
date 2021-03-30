@@ -1,0 +1,3 @@
+/home/joao/Documents/c++/T02_G11/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/joao/Documents/c++/T02_G11/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/joao/Documents/c++/T02_G11/cmake-build-debug/CMakeFiles/T02_G11.dir
