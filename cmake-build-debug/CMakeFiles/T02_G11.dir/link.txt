@@ -1,1 +1,0 @@
-/usr/bin/c++  -g   CMakeFiles/T02_G11.dir/main.cpp.o  -o T02_G11 
