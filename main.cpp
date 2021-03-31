@@ -36,10 +36,6 @@ int main() {
 
     switch(menu_choice)
     {
-        case 0:     //Exit Game
-            this_thread::sleep_for(chrono::seconds(2));
-            break;
-
         case 1:     // Rules of the game
             while ( getline (myfile,line) )
             {
@@ -55,8 +51,8 @@ int main() {
             break;
 
         default:
-            cerr << "Something went wrong!";
-            main();
+            this_thread::sleep_for(chrono::seconds(2));
+            break;
     }
 
     return 0;
