@@ -1,3 +1,4 @@
+
 Gongas is trapped into a maze and he really needs your help in order to escape!
 The task isn't easy though...
 
@@ -32,10 +33,13 @@ Each play you can move Gongas in 8 different directions only using your keyboard
 You also have the option to make him stay in the same position as in the previous 
 play. 
 
-------------------------------------------
-|    Q       |      W      |      E      |
-|----------------------------------------|
-|    A       |      S      |      D      |
-|----------------------------------------|
-|    Z       |      X      |      C      |
-------------------------------------------
+                 -------------------------------------------
+                 |      Q      |      W      |      E      |
+                 |-----------------------------------------|
+                 |      A      |      S      |      D      |
+                 |-----------------------------------------|
+                 |      Z      |      X      |      C      |
+                 -------------------------------------------
+                 
+                 
+                 
