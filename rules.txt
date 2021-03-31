@@ -27,7 +27,7 @@ making them hit the fences and posts.
 Good luck, our future on Earth relies 101% on you two!
 
 
----------------------------------- CONTROLS -------------------------------------
+--------------------------------- CONTROLS --------------------------------------
 
 Each play you can move Gongas in 8 different directions only using your keyboard.
 You also have the option to make him stay in the same position as in the previous 
