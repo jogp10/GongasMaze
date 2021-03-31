@@ -3,6 +3,8 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <thread>
+#include <chrono>
 
 using namespace std;
 
@@ -28,13 +30,14 @@ int main() {
     while(cin.fail() || (menu_choice!=0 && menu_choice !=1 && menu_choice != 2)){
         cin.clear();
         cin.ignore(10000, '\n');
-        cout << "Input a valid operation!" << endl;
+        cerr << "Input a valid operation! (0, 1 or 2 to proceed)" << endl;
         cin >> menu_choice;
     }
 
     switch(menu_choice)
     {
         case 0:     //Exit Game
+            this_thread::sleep_for(chrono::seconds(2));
             break;
 
         case 1:     // Rules of the game
@@ -42,7 +45,7 @@ int main() {
             {
                 cout << line << '\n';
             }
-            cout << "Press 0 to go to the main menu" << endl;
+            cout << "Press '0' to go to the main menu" << endl;
             cin >> goBack;
             while(goBack != 0) cin >> goBack;
             return main();
@@ -50,7 +53,15 @@ int main() {
         case 2:    // Start the game
             play();
             break;
+
+        default:
+            cerr << "Something went wrong!";
+            main();
     }
 
     return 0;
+}
+
+void play(){
+
 }

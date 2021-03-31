@@ -6,6 +6,3 @@
 
 using namespace std;
 
-void play(){
-    cout << 1;
-}
