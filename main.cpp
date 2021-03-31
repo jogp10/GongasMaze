@@ -24,12 +24,12 @@ int main() {
     cout << "0) Exit" << endl;
     cin >> menu_choice;
 
-    // If the menu_choice is not an integer
-    if(cin.fail()){
+    // If the menu_choice is not valid
+    while(cin.fail() || (menu_choice!=0 && menu_choice !=1 && menu_choice != 2)){
         cin.clear();
         cin.ignore(10000, '\n');
         cout << "Input a valid operation!" << endl;
-        return main();
+        cin >> menu_choice;
     }
 
     switch(menu_choice)
@@ -44,16 +44,12 @@ int main() {
             }
             cout << "Press 0 to go to the main menu" << endl;
             cin >> goBack;
-            if(goBack == 0) return main();
-            break;
+            while(goBack != 0) cin >> goBack;
+            return main();
 
         case 2:    // Start the game
             play();
             break;
-
-        default:  // If the menu_choice is neither 0, 1 or 2
-            cout << "Invalid choice! Please choose between 0, 1 and 2!" << endl;
-            return main();
     }
 
     return 0;
