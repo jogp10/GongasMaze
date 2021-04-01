@@ -31,7 +31,7 @@ int menu(){
 
 void ReadRules(){
     string line;
-    ifstream myfile ("/home/joao/Documents/c++/T02_G11/rules.txt");
+    ifstream myfile ("rules.txt");
     int goBack;
 
     // Open file and print all the lines
@@ -56,9 +56,9 @@ void ReadRules(){
 
 
 void winner(string name,int time,int maze){
-    string path= "/home/joao/Documents/c++/T02_G11/Maze/MAZE_XX_WINNERS.TXT";
-    path[43] = (char)(maze/10+'0');
-    path[44] = (char)(maze%10+'0');
+    string path= "Maze/MAZE_XX_WINNERS.TXT";
+    path[10] = (char)(maze/10+'0');
+    path[11] = (char)(maze%10+'0');
     string line;
 
     fstream win(path);  // open file to read and write

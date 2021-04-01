@@ -38,7 +38,7 @@ void winner(string name, int time, int maze);
 
 
 int main() {
-    winner("ze", 120, 1);
+    //winner("joao", 200, 1);
     int menu_choice;
 
 Menu:
