@@ -63,9 +63,9 @@ void ReadRules(){
 
 void print(vector <string> vec){
     //Displaying maze to user using elements stored in vec
-    for (int i=0; i < vec.size(); i++)
+    for (auto & i : vec)
     {
-        cout << vec.at(i) << endl;
+        cout << i << endl;
     }
 }
 
@@ -87,7 +87,6 @@ void ReadMaze(int n){
 }
 
 void DisplayMaze(int n){
-    int i=0;
     string path = "Maze/MAZE_xx.TXT";
     //replacing 'xx' with the number of maze
     path[10]= (char)(n/10 + '0');
@@ -127,9 +126,20 @@ void play(){
 
     while (start != 'S' && start != 's') cin >> start;
 
-    
+    // Start timer
+    chrono::steady_clock time;
+    auto start_time = time.now();
+    /**
+     * for the end of game, time of the play
+    auto end_time = time.now();
+    auto time_lapsed = static_cast<chrono::duration<double>>(end_time-start_time);
+    int(time_lapsed.count()); */
+
+    // display board, ready to start
     ReadMaze(MazeSelect); 
     cout << "Done!" << endl;
+
+    //develop here
 }
 
 bool order(string a, string b) {return (stoi (a.substr(16, 8), nullptr) < stoi (b.substr(16, 8), nullptr));}
