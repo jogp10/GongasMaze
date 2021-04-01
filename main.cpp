@@ -6,7 +6,9 @@
 #include <thread>
 #include <chrono>
 #include <iomanip>
-#include <C:\Users\zebar\Source\Repos\zearaujo11\T02_G11\play.cpp>
+#include <vector>
+#include <algorithm>
+//#include <C:\Users\zebar\Source\Repos\zearaujo11\T02_G11\play.cpp>
 
 using namespace std;
 
@@ -35,7 +37,6 @@ void play();
  * @param time of the play
  * @param maze in which level
  */
-
 void winner(string name, int time, int maze);
 
 
