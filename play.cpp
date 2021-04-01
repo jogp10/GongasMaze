@@ -7,21 +7,16 @@
 
 using namespace std;
 
-void winner(string name,int time,int maze){
+void winner(int name,int time,int maze){
     string path= "/home/joao/Documents/c++/T02_G11/Maze/MAZE_XX_WINNERS.TXT";
     path[43] = (char)(maze/10+'0');
     path[44] = (char)(maze%10+'0');
     string line;
 
-    streampos begin, end;
-    ofstream win(path);
-    begin = win.tellp();
-    cout << win.tellp();
-
-/**
-    win << setw(16) << name;
-    win << time;
+    fstream win(path);  // open file to read and write
+    win.seekp(0, ios::end);  // starting point at the end of file
+    win << left << setw(15) << name;  // size of name component
+    win << internal << setw(8) << time << '\n';
     win.close();
-    */
 }
 

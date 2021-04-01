@@ -13,8 +13,11 @@ Start of the game
 Let's play
  */
 void play();
+void winner(int name, int time, int maze);
 
 int main() {
+    winner(120, 120, 1);
+
     int menu_choice;
     int goBack;
     string line;
