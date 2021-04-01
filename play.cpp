@@ -18,7 +18,7 @@ int menu(){
     cout << "1) Rules" << endl;
     cout << "2) Play" << endl;
     cout << "0) Exit" << endl;
-    cin >> menu_choice;
+    cout << "Option: " ; cin >> menu_choice;
 
     // If the menu_choice is not valid
     while(cin.fail() || (menu_choice!=0 && menu_choice !=1 && menu_choice != 2)){
@@ -108,10 +108,44 @@ void ReadMaze(int n){
     print(vec); //call function print
 }
 
+void DisplayMaze(int n)
+{
+    int i=0; 
+    string path = "Maze\\MAZE_xx.txt"; 
+    //replacing 'xx' with the number of maze 
+    path[10]= (char)(n/10 + '0');
+    path[11]= (char)(n%10 + '0'); 
+    string line; //variable where we store individual lines
+
+    ifstream file(path) ; 
+
+    while (getline(file, line))
+    {
+        if (i==0){
+            cout << setw(9) << "(" << n << ")" << endl; 
+            i++;
+        }
+        else{
+            cout << line << endl; 
+        }
+    }
+}
+
 void play(){
-    int MazeSelect; 
+    int MazeSelect; char start; 
+
+    DisplayMaze(1); 
+    DisplayMaze(2); 
     
-    cin >> MazeSelect; 
+    cout << "What Maze do you like the most?" << endl; cin >> MazeSelect; 
+    cout << endl << "Good choice, let's start!" << endl << "Enter S when you are READY..." << endl; 
+    cin >> start; 
+
+    while (start != 'S' && start != 's')
+    {
+        cin >> start; 
+    }
+    
     ReadMaze(MazeSelect); 
     cout << "Done!" << endl;
 }
