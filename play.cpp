@@ -34,7 +34,7 @@ int menu(){
 
 void ReadRules(){
     string line;
-    ifstream myfile ("rules.txt");
+    ifstream myfile ("rules.TXT");
     int goBack;
 
     // Open file and print all the lines
