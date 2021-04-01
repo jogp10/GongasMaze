@@ -3,14 +3,19 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <iomanip>
 
 using namespace std;
 
 void winner(string name,int time,int maze){
-    char* file= "MAZE_XX_WINNERS.TXT";
-    file[5] = maze/10;
-    file[6] = maze%10;
+    string path= "/home/joao/Documents/c++/T02_G11/Maze/MAZE_XX_WINNERS.TXT";
+    path[43] = (char)(maze/10+'0');
+    path[44] = (char)(maze%10+'0');
+    string line;
 
-
+    ofstream win(path);
+    win << setw(16) << name;
+    win << time;
+    win.close();
 }
 
