@@ -6,6 +6,8 @@
 #include <thread>
 #include <chrono>
 #include <iomanip>
+#include <vector>
+
 
 using namespace std;
 
@@ -31,7 +33,7 @@ int menu(){
 
 void ReadRules(){
     string line;
-    ifstream myfile ("/home/joao/Documents/c++/T02_G11/rules.txt");
+    ifstream myfile ("rules.txt");
     int goBack;
 
     // Open file and print all the lines
@@ -56,9 +58,9 @@ void ReadRules(){
 
 
 void winner(string name,int time,int maze){
-    string path= "/home/joao/Documents/c++/T02_G11/Maze/MAZE_XX_WINNERS.TXT";
-    path[43] = (char)(maze/10+'0');
-    path[44] = (char)(maze%10+'0');
+    string path= "Maze/MAZE_XX_WINNERS.TXT";
+    path[10] = (char)(maze/10+'0');
+    path[11] = (char)(maze%10+'0');
     string line;
 
     fstream win(path);  // open file to read and write
@@ -68,7 +70,48 @@ void winner(string name,int time,int maze){
     win.close();
 }
 
+void print(vector <string> vec){
+    int i; 
+
+    //displaying maze to user using elements stored in vec
+    for (i=0; i < vec.size(); i++)
+    {
+        cout << vec.at(i) << endl;
+    }
+}
+
+void ReadMaze(int n){ 
+    int i=0; 
+
+    string path = "Maze\\MAZE_xx.txt"; 
+    //replacing 'xx' with the number of maze 
+    path[10]= (char)(n/10 + '0');
+    path[11]= (char)(n%10 + '0'); 
+    string line; //variable where we store individual lines
+    vector <string> vec; //place where we will be storing all the lines
+
+    ifstream file(path); //open file
+
+    //insert in vector
+    while (getline(file, line))
+    {   
+        //to ignore maze dimensions
+        if (i==0){           
+            vec.push_back(" "); 
+            i++;
+        }
+        //add line to vector
+        else{
+            vec.push_back(line);
+        }   
+    } 
+    print(vec); //call function print
+}
 
 void play(){
+    int MazeSelect; 
+    
+    cin >> MazeSelect; 
+    ReadMaze(MazeSelect); 
     cout << "Done!" << endl;
 }
