@@ -63,10 +63,8 @@ void ReadRules(){
 
 void print(vector <string> vec){
     //Displaying maze to user using elements stored in vec
-    for (auto & i : vec)
-    {
-        cout << i << endl;
-    }
+    for (auto & i : vec) cout << i << endl;
+    
 }
 
 
