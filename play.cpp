@@ -72,7 +72,7 @@ void print(vector <string> vec){
 void ReadMaze(int n){ 
     int i=0; 
 
-    string path = "Maze/MAZE_xx.txt";
+    string path = "Maze/MAZE_xx.TXT";
     //replacing 'xx' with the number of maze 
     path[10]= (char)(n/10 + '0');
     path[11]= (char)(n%10 + '0'); 
@@ -100,7 +100,7 @@ void ReadMaze(int n){
 void DisplayMaze(int n)
 {
     int i=0; 
-    string path = "Maze/MAZE_xx.txt";
+    string path = "Maze/MAZE_xx.TXT";
     //replacing 'xx' with the number of maze 
     path[10]= (char)(n/10 + '0');
     path[11]= (char)(n%10 + '0'); 
