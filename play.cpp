@@ -7,7 +7,7 @@
 #include <chrono>
 #include <iomanip>
 #include <vector>
-#include <algorithm>
+
 
 using namespace std;
 
@@ -57,56 +57,61 @@ void ReadRules(){
 }
 
 
-bool order(string a, string b) {return (stoi (a.substr(16, 8), nullptr) < stoi (b.substr(16, 8), nullptr));}
-
-
 void winner(string name,int time,int maze){
-    string path= "Maze/MAZE_XX_WINNERS.TXT";   // path of file to write winners
-
-    //Which maze, change path
+    string path= "Maze/MAZE_XX_WINNERS.TXT";
     path[10] = (char)(maze/10+'0');
     path[11] = (char)(maze%10+'0');
-
-    // open file to write win
-    fstream win(path);
-
-    if (win.is_open()) {
-        win.seekp(0, ios::end);  // starting point at the end of file
-        win << left << setw(15) << name;  // size of name component
-        win << internal << setw(8) << time << '\n';
-        win.close();
-    }
-
-    // write all lines in a vector
-    ifstream readf(path);
-    vector<string> file;
     string line;
 
-    if(readf.is_open()) {
-        while (getline(readf, line)) {
-            file.push_back(line);
-        }
-        readf.close();
-    }
+    fstream win(path);  // open file to read and write
+    win.seekp(0, ios::end);  // starting point at the end of file
+    win << left << setw(15) << name;  // size of name component
+    win << internal << setw(8) << time << '\n';
+    win.close();
+}
 
-    //sort the vector
-    sort(file.begin()+4, file.end(), order);
+void print(vector <string> vec){
+    int i; 
 
-
-    // write back into the file
-    ofstream writef(path);  // open file to read and write
-
-    if (writef.is_open()) {
-        for(int i=0; i<=file.size()-1; i++){
-            writef << file[i] << endl;
-        }
-        int j = file.size();
-        writef << file[j];
-        writef.close();
+    //displaying maze to user using elements stored in vec
+    for (i=0; i < vec.size(); i++)
+    {
+        cout << vec.at(i) << endl;
     }
 }
 
+void ReadMaze(int n){ 
+    int i=0; 
+
+    string path = "Maze\\MAZE_xx.txt"; 
+    //replacing 'xx' with the number of maze 
+    path[10]= (char)(n/10 + '0');
+    path[11]= (char)(n%10 + '0'); 
+    string line; //variable where we store individual lines
+    vector <string> vec; //place where we will be storing all the lines
+
+    ifstream file(path); //open file
+
+    //insert in vector
+    while (getline(file, line))
+    {   
+        //to ignore maze dimensions
+        if (i==0){           
+            vec.push_back(" "); 
+            i++;
+        }
+        //add line to vector
+        else{
+            vec.push_back(line);
+        }   
+    } 
+    print(vec); //call function print
+}
 
 void play(){
+    int MazeSelect; 
+    
+    cin >> MazeSelect; 
+    ReadMaze(MazeSelect); 
     cout << "Done!" << endl;
 }

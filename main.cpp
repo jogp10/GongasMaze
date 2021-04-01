@@ -6,6 +6,7 @@
 #include <thread>
 #include <chrono>
 #include <iomanip>
+#include <C:\Users\zebar\Source\Repos\zearaujo11\T02_G11\play.cpp>
 
 using namespace std;
 
@@ -34,11 +35,12 @@ void play();
  * @param time of the play
  * @param maze in which level
  */
+
 void winner(string name, int time, int maze);
 
 
 int main() {
-    //winner("joao", 200, 1);
+    //winner("ze", 120, 1);
     int menu_choice;
 
 Menu:
