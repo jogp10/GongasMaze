@@ -41,7 +41,7 @@ int main() {
             {
                 cout << line << '\n';
             }
-            myfile.close()
+            myfile.close();
             cout << "Press '0' to go to the main menu" << endl;
             cin >> goBack;
             while(goBack != 0) cin >> goBack;

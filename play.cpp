@@ -13,9 +13,15 @@ void winner(string name,int time,int maze){
     path[44] = (char)(maze%10+'0');
     string line;
 
+    streampos begin, end;
     ofstream win(path);
+    begin = win.tellp();
+    cout << win.tellp();
+
+/**
     win << setw(16) << name;
     win << time;
     win.close();
+    */
 }
 
