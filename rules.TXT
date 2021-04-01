@@ -1,0 +1,45 @@
+
+Gongas is trapped into a maze and he really needs your help in order to escape!
+The task isn't easy though...
+
+He is surrounded by the security guards of The Dark Empire. This evil 
+organisation is trying to convert all Humans to Zombies and only Gongas can 
+save everyone.  
+
+Here are some rules and details you must be aware of: 
+
+1) The Maze Gongas is placed in is made up of high-voltage fences and posts. If
+you happen to bump him against any of those he instantly dies and as you may
+assume the human race will be forever extinct... but don´t worry, the Guards will 
+equally die if they collide in them and that is precisely what you should attempt
+to induce; 
+
+2) The security guards can't literally see Gongas because they don't have any 
+vision sensors, but what they do have is an extremely sensitive odour sensor 
+which allows them to follow Gongas very accurately. Each step he takes, each step
+they take closer to him and it is impossible to trick them. Choose wisely! ;  
+
+3) Gongas will be able to escape and save the humanity once you manage to help 
+him kill all the Guards and you already know the only way to achieve that is by 
+making them hit the fences and posts. 
+
+
+Good luck, our future on Earth relies 101% on you two!
+
+
+--------------------------------- CONTROLS --------------------------------------
+
+Each play you can move Gongas in 8 different directions only using your keyboard.
+You also have the option to make him stay in the same position as in the previous 
+play. 
+
+                 -------------------------------------------
+                 |      Q      |      W      |      E      |
+                 |-----------------------------------------|
+                 |      A      |      S      |      D      |
+                 |-----------------------------------------|
+                 |      Z      |      X      |      C      |
+                 -------------------------------------------
+                 
+                 
+                 
