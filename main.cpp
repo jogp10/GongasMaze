@@ -38,10 +38,11 @@ void play();
  * @param maze in which level
  */
 void winner(string name, int time, int maze);
+bool order(string a, string b);
 
 
 int main() {
-    //winner("ze", 120, 1);
+    winner("ze", 120, 1);
     int menu_choice;
 
 Menu:

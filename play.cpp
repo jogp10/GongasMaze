@@ -72,7 +72,7 @@ void print(vector <string> vec){
 void ReadMaze(int n){ 
     int i=0; 
 
-    string path = "Maze\\MAZE_xx.txt"; 
+    string path = "Maze/MAZE_xx.txt";
     //replacing 'xx' with the number of maze 
     path[10]= (char)(n/10 + '0');
     path[11]= (char)(n%10 + '0'); 
@@ -100,7 +100,7 @@ void ReadMaze(int n){
 void DisplayMaze(int n)
 {
     int i=0; 
-    string path = "Maze\\MAZE_xx.txt"; 
+    string path = "Maze/MAZE_xx.txt";
     //replacing 'xx' with the number of maze 
     path[10]= (char)(n/10 + '0');
     path[11]= (char)(n%10 + '0'); 
@@ -173,8 +173,9 @@ void winner(string name,int time,int maze){
     }
 
     //sort the vector
-    sort(file.begin()+4, file.end(), order);
-
+    if(file.size()>5) {
+        sort(file.begin() + 4, file.end()-1, order);
+    }
 
     // write back into the file
     ofstream writef(path);  // open file to read and write
