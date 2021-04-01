@@ -8,7 +8,7 @@
 #include <iomanip>
 #include <vector>
 #include <algorithm>
-//#include <C:\Users\zebar\Source\Repos\zearaujo11\T02_G11\play.cpp>
+#include <C:\Users\zebar\Source\Repos\zearaujo11\T02_G11\play.cpp>
 
 using namespace std;
 
@@ -17,19 +17,16 @@ Main menu
  */
 int menu();
 
-
 /**
 Rules of the game
  */
 void ReadRules();
-
 
 /**
 Start of the game
 Let's play
  */
 void play();
-
 
 /**
  * Write winner's name and time in record
@@ -40,9 +37,7 @@ void play();
 void winner(string name, int time, int maze);
 bool order(string a, string b);
 
-
 int main() {
-    winner("ze", 120, 1);
     int menu_choice;
 
 Menu:

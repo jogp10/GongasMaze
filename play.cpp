@@ -9,7 +9,6 @@
 #include <vector>
 #include <algorithm>
 
-
 using namespace std;
 
 int menu(){
@@ -30,7 +29,6 @@ int menu(){
     }
     return menu_choice;  // return choice
 }
-
 
 void ReadRules(){
     string line;
@@ -57,7 +55,6 @@ void ReadRules(){
     }
 }
 
-
 void print(vector <string> vec){
     int i; 
 
@@ -67,7 +64,6 @@ void print(vector <string> vec){
         cout << vec.at(i) << endl;
     }
 }
-
 
 void ReadMaze(int n){ 
     int i=0; 
@@ -139,9 +135,7 @@ void play(){
     cout << "Done!" << endl;
 }
 
-
 bool order(string a, string b) {return (stoi (a.substr(16, 8), nullptr) < stoi (b.substr(16, 8), nullptr));}
-
 
 void winner(string name,int time,int maze){
     string path= "Maze/MAZE_XX_WINNERS.TXT";   // path of file to write winners
