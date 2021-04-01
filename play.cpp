@@ -11,6 +11,7 @@
 
 using namespace std;
 
+
 int menu(){
     int menu_choice;
 
@@ -20,24 +21,28 @@ int menu(){
     cout << "0) Exit" << endl;
     cout << "Option: " ; cin >> menu_choice;
 
-    // If the menu_choice is not valid
-    while(cin.fail() || (menu_choice!=0 && menu_choice !=1 && menu_choice != 2)){
+    // If the menu_choice is not valid, ask for a valid one
+    while(cin.fail() || (menu_choice!=0 && menu_choice !=1 && menu_choice != 2))
+    {
         cin.clear();
         cin.ignore(10000, '\n');
         cerr << "Input a valid operation! (0, 1 or 2 to proceed)" << endl;
         cout << "Option: "; cin >> menu_choice;
     }
-    return menu_choice;  // return choice
+    return menu_choice;
 }
+
 
 void ReadRules(){
     string line;
-    ifstream myfile ("rules.TXT");
+    ifstream myfile ("rules.TXT");  // file where are the rules
     int goBack;
 
     // Open file and print all the lines
-    if(myfile.is_open()) {
-        while (getline(myfile, line)) {
+    if(myfile.is_open())
+    {
+        while (getline(myfile, line))
+        {
             cout << line << '\n';
         }
         myfile.close();
@@ -55,75 +60,60 @@ void ReadRules(){
     }
 }
 
-void print(vector <string> vec){
-    int i; 
 
-    //displaying maze to user using elements stored in vec
-    for (i=0; i < vec.size(); i++)
+void print(vector <string> vec){
+    //Displaying maze to user using elements stored in vec
+    for (int i=0; i < vec.size(); i++)
     {
         cout << vec.at(i) << endl;
     }
 }
 
-void ReadMaze(int n){ 
-    int i=0; 
 
+void ReadMaze(int n){
     string path = "Maze/MAZE_xx.TXT";
-    //replacing 'xx' with the number of maze 
+    //replacing 'XX' with the number of maze
     path[10]= (char)(n/10 + '0');
-    path[11]= (char)(n%10 + '0'); 
+    path[11]= (char)(n%10 + '0');
     string line; //variable where we store individual lines
     vector <string> vec; //place where we will be storing all the lines
 
-    ifstream file(path); //open file
+    ifstream file(path); //open file for read
 
-    //insert in vector
-    while (getline(file, line))
-    {   
-        //to ignore maze dimensions
-        if (i==0){           
-            vec.push_back(" "); 
-            i++;
-        }
-        //add line to vector
-        else{
-            vec.push_back(line);
-        }   
-    } 
+    //insert maze in a vector
+    getline(file, line);
+    while (getline(file, line)) vec.push_back(line);
     print(vec); //call function print
 }
 
-void DisplayMaze(int n)
-{
-    int i=0; 
+void DisplayMaze(int n){
+    int i=0;
     string path = "Maze/MAZE_xx.TXT";
-    //replacing 'xx' with the number of maze 
+    //replacing 'xx' with the number of maze
     path[10]= (char)(n/10 + '0');
-    path[11]= (char)(n%10 + '0'); 
+    path[11]= (char)(n%10 + '0');
     string line; //variable where we store individual lines
 
-    ifstream file(path) ; 
+    ifstream file(path) ;
 
-    while (getline(file, line))
-    {
-        if (i==0){
-            cout << setw(9) << "(" << n << ")" << endl; 
-            i++;
-        }
-        else{
-            cout << line << endl; 
-        }
-    }
+    // display the maze on interface
+    getline(file, line);
+    cout << setw(9) << "(" << n << ")" << endl;
+    while (getline(file, line)) cout << line << endl;
 }
 
+
 void play(){
-    int MazeSelect; char start; 
+    int MazeSelect;
+    char start;
 
+    //display levels
     DisplayMaze(1); 
-    DisplayMaze(2); 
-    
-    cout << "What Maze do you like the most?" << endl; cin >> MazeSelect; 
+    DisplayMaze(2);
 
+    cout << "What Maze do you like the most?" << endl; cin >> MazeSelect;  // which one the player wants to try
+
+    // if he choose an invalid one, ask for another input while invalid!
     while (cin.fail() || (MazeSelect != 1 && MazeSelect != 2))
     {
         cin.clear(); 
@@ -131,13 +121,12 @@ void play(){
         cout << "Choose a Maze between 1 and 2! " << endl; cin >> MazeSelect; 
     }
 
+    // Very start of the game
     cout << endl << "Good choice, let's start!" << endl << "Enter S when you are READY..." << endl; 
     cin >> start; 
 
-    while (start != 'S' && start != 's')
-    {
-        cin >> start; 
-    }
+    while (start != 'S' && start != 's') cin >> start;
+
     
     ReadMaze(MazeSelect); 
     cout << "Done!" << endl;

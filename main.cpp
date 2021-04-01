@@ -55,7 +55,7 @@ void winner(string name, int time, int maze);
 bool order(string a, string b);
 
 
-int main() {
+int main(){
     int menu_choice;  // menu option
 
 Menu:  // label
