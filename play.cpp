@@ -25,7 +25,7 @@ int menu(){
         cin.clear();
         cin.ignore(10000, '\n');
         cerr << "Input a valid operation! (0, 1 or 2 to proceed)" << endl;
-        cin >> menu_choice;
+        cout << "Option: "; cin >> menu_choice;
     }
     return menu_choice;  // return choice
 }
@@ -123,6 +123,14 @@ void play(){
     DisplayMaze(2); 
     
     cout << "What Maze do you like the most?" << endl; cin >> MazeSelect; 
+
+    while (cin.fail() || (MazeSelect != 1 && MazeSelect != 2))
+    {
+        cin.clear(); 
+        cin.ignore(10000, '\n'); 
+        cout << "Choose a Maze between 1 and 2! " << endl; cin >> MazeSelect; 
+    }
+
     cout << endl << "Good choice, let's start!" << endl << "Enter S when you are READY..." << endl; 
     cin >> start; 
 
