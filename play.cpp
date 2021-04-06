@@ -8,6 +8,7 @@
 #include <iomanip>
 #include <vector>
 #include <algorithm>
+#include "header.h"
 
 using namespace std;
 
@@ -114,7 +115,7 @@ void play(){
     {
         cin.clear(); 
         cin.ignore(10000, '\n'); 
-        cout << "Choose a Maze between 1 and 2! " << endl; cin >> MazeSelect; 
+        cerr << "Choose a Maze between 1 and 2! " << endl; cin >> MazeSelect;
     }
 
     // Very start of the game
