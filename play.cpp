@@ -28,6 +28,7 @@ int menu(){
         cin.clear();
         cin.ignore(10000, '\n');
         cerr << "Input a valid operation! (0, 1 or 2 to proceed)" << endl;
+        for(int i=0; i<=20000000; i++);  // loop to make time, so cerr always prints first than cout
         cout << "Option: "; cin >> menu_choice;
     }
     return menu_choice;
