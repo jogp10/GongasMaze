@@ -8,7 +8,7 @@
 #include <iomanip>
 #include <vector>
 #include <algorithm>
-#include "header.h"
+//#include "header.h"
 
 using namespace std;
 
@@ -103,11 +103,17 @@ void DisplayMaze(int n){
 
 
 bool player(vector<string> &vec){
-    char play;
+    char play; 
+    string check = "QWEASDZXC"; 
 
     //Ask the user wich move he wants to do
     cout << "What's your play" << endl; cin >> play;
 
+    while (check.find(toupper(play)) == string::npos) {
+        cin.clear(); 
+        cin.ignore(10000, '\n'); 
+        cin >> play; 
+    }
     // Find player and move, if colision he dies. Game over
     for(int y=0; y<=vec.size(); y++)
     {
@@ -146,11 +152,61 @@ bool player(vector<string> &vec){
                 return true;
             }
         }
+    } 
+}
+
+
+bool order(string a, string b) {return (stoi (a.substr(16, 8), nullptr) < stoi (b.substr(16, 8), nullptr));}
+
+void winner(string name,int time,int maze) {
+    string path = "Maze/MAZE_XX_WINNERS.TXT";   // path of file to write winners
+
+    //Which maze, change path
+    path[10] = (char) (maze / 10 + '0');
+    path[11] = (char) (maze % 10 + '0');
+
+    // open file to write win
+    fstream win(path);
+
+    if (win.is_open()) {
+        win.seekp(0, ios::end);  // starting point at the end of file
+        win << left << setw(15) << name;  // size of name component
+        win << internal << setw(8) << time << '\n';
+        win.close();
+    }
+
+    // write all lines in a vector
+    ifstream readf(path);
+    vector<string> file;
+    string line;
+
+    if (readf.is_open()) {
+        while (getline(readf, line)) {
+            file.push_back(line);
+        }
+        readf.close();
+    }
+
+    //sort the vector
+    if (file.size() > 5) {
+        sort(file.begin() + 4, file.end() - 1, order);
+    }
+
+    // write back into the file
+    ofstream writef(path);  // open file to read and write
+
+    if (writef.is_open()) {
+        for (int i = 0; i <= file.size() - 1; i++) {
+            writef << file[i] << endl;
+        }
+        int j = file.size();
+        writef << file[j];
+        writef.close();
     }
 }
 
 
-bool play() {
+void play() {
     int MazeSelect;
     char start;
 
@@ -210,70 +266,9 @@ bool play() {
         string name;
 
         auto time_lapsed = static_cast<chrono::duration<double>>(end_time-start_time);
-        cout << "What a fantastic show!! Tell me your name, so i can remember it!!"; cin >> name;
+        cout << "What a fantastic show!! Tell me your name so i can remember it!!"; cin >> setw(15) >> name;
         winner(name, int(time_lapsed.count()), MazeSelect);
     }
-
-    //ask to play again
-    char choice;
-    cout << "Do you wanna play again? (Y/N)" << endl; cin >> choice;
-    while(cin.fail())
-    {
-        cin.clear();
-        cin.ignore(10000, '\n');
-        cin >> choice;
-    }
-    if(toupper(choice) == 'Y') return true;
-    return false;
 }
 
 
-
-bool order(string a, string b) {return (stoi (a.substr(16, 8), nullptr) < stoi (b.substr(16, 8), nullptr));}
-
-void winner(string name,int time,int maze) {
-    string path = "Maze/MAZE_XX_WINNERS.TXT";   // path of file to write winners
-
-    //Which maze, change path
-    path[10] = (char) (maze / 10 + '0');
-    path[11] = (char) (maze % 10 + '0');
-
-    // open file to write win
-    fstream win(path);
-
-    if (win.is_open()) {
-        win.seekp(0, ios::end);  // starting point at the end of file
-        win << left << setw(15) << name;  // size of name component
-        win << internal << setw(8) << time << '\n';
-        win.close();
-    }
-
-    // write all lines in a vector
-    ifstream readf(path);
-    vector<string> file;
-    string line;
-
-    if (readf.is_open()) {
-        while (getline(readf, line)) {
-            file.push_back(line);
-        }
-        readf.close();
-    }
-
-    //sort the vector
-    if (file.size() > 5) {
-        sort(file.begin() + 4, file.end() - 1, order);
-    }
-
-    // write back into the file
-    ofstream writef(path);  // open file to read and write
-
-    if (writef.is_open()) {
-        for (int i = 0; i <= file.size() - 1; i++) {
-            writef << file[i] << endl;
-        }
-        int j = file.size();
-        writef << file[j];
-        writef.close();
-    }
-}

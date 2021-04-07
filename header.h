@@ -34,7 +34,7 @@ void DisplayMaze(int n);
 Start of the game
 Let's play
  */
-bool play();
+void play();
 bool player(vector <string> &vec);
 
 /**

@@ -8,7 +8,8 @@
 #include <iomanip>
 #include <vector>
 #include <algorithm>
-#include "header.h"
+#include "play.cpp"
+//#include "header.h"
 
 using namespace std;
 
@@ -28,16 +29,11 @@ Menu:  // label
             goto Menu;
 
         case 2:    // Start the game
-            play_again = play();
-            if(play_again)
-            {
-                goto Menu;
-            }
-            break;
+            play(); 
+            goto Menu; 
 
         default:  // Exit the game
             this_thread::sleep_for(chrono::seconds(2));
-            break;
     }
 
     return 0;
