@@ -103,10 +103,12 @@ void DisplayMaze(int n){
 
 
 bool player(vector<string> &vec){
-    char play; // which move the user wants
+    char play;
 
+    //Ask the user wich move he wants to do
     cout << "What's your play" << endl; cin >> play;
 
+    // Find player and move, if colision he dies. Game over
     for(int y=0; y<=vec.size(); y++)
     {
         for(int x=0; x<= vec[y].size(); x++)
@@ -176,20 +178,16 @@ bool play() {
     // Start timer
     chrono::steady_clock time;
     auto start_time = time.now();
-    /**
-     * for the end of game, time of the play
-    auto end_time = time.now();
-    auto time_lapsed = static_cast<chrono::duration<double>>(end_time-start_time);
-    int(time_lapsed.count()); */
 
     // display board, ready to start
     vector<string> vec = ReadMaze(MazeSelect);
-    //cout << "Done!" << endl;
 
+    // booleans for keep playing if both still alive
     bool player_live = true;
     bool robots_live = true;
 
 
+    // move from player and automatic play from robots
     while(robots_live && player_live)
     {
 
@@ -199,23 +197,34 @@ bool play() {
             print(vec);
         }
     }
-    if (!player_live)
+    auto end_time = time.now(); // finish timer
+
+    // if player dead
+    if (robots_live)
     {
-        char choice;
-        cout << "You lost, do you wanna play again? (Y/N)" << endl; cin >> choice;
-        while(cin.fail())
-        {
-            cin.clear();
-            cin.ignore(10000, '\n');
-            cin >> choice;
-        }
-        if(toupper(choice) == 'Y') return true;
-        return false;
+        cout << "You lost!! Better luck next time." << endl;
     }
+    // if robots dead, register time
     else
     {
-        return false;
+        string name;
+
+        auto time_lapsed = static_cast<chrono::duration<double>>(end_time-start_time);
+        cout << "What a fantastic show!! Tell me your name, so i can remember it!!"; cin >> name;
+        winner(name, int(time_lapsed.count()), MazeSelect);
     }
+
+    //ask to play again
+    char choice;
+    cout << "Do you wanna play again? (Y/N)" << endl; cin >> choice;
+    while(cin.fail())
+    {
+        cin.clear();
+        cin.ignore(10000, '\n');
+        cin >> choice;
+    }
+    if(toupper(choice) == 'Y') return true;
+    return false;
 }
 
 
