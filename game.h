@@ -1,6 +1,6 @@
 //T02_G11
-#ifndef T02_G11_HEADER_H
-#define T02_G11_HEADER_H
+#ifndef T02_G11_GAME_H
+#define T02_G11_GAME_H
 #include <iostream>
 #include <vector>
 
@@ -48,4 +48,4 @@ Boolean function to order time records
 void winner(string name, int time, int maze);
 bool order(string a, string b);
 
-#endif //T02_G11_HEADER_H
+#endif //T02_G11_GAME_H

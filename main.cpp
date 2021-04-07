@@ -8,8 +8,8 @@
 #include <iomanip>
 #include <vector>
 #include <algorithm>
-#include "play.cpp"
-//#include "header.h"
+//#include "play.cpp"
+#include "game.h"
 
 using namespace std;
 
