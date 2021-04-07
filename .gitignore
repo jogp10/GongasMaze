@@ -4,3 +4,4 @@ cmake-build-debug
 .vscode
 main.exe
 mod.txt
+game.cpp
