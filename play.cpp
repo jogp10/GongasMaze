@@ -102,27 +102,74 @@ void DisplayMaze(int n){
 }
 
 
-void play(){
+bool player(vector<string> &vec){
+    char play; // which move the user wants
+
+    cout << "What's your play" << endl; cin >> play;
+
+    for(int y=0; y<=vec.size(); y++)
+    {
+        for(int x=0; x<= vec[y].size(); x++)
+        {
+            if(vec[y][x] == 'H') {
+                switch (toupper(play)) {
+                    case 'S': // stay place
+                        return true;
+                    case 'W': // move up
+                        swap(vec[y - 1][x], vec[y][x]);
+                        break;
+                    case 'E': // move diagonal right up
+                        swap(vec[y - 1][x + 1], vec[y][x]);
+                        break;
+                    case 'D': // move right
+                        swap(vec[y][x + 1], vec[y][x]);
+                        break;
+                    case 'C': // move diagonal right down
+                        swap(vec[y + 1][x + 1], vec[y][x]);
+                        break;
+                    case 'X': // move down
+                        swap(vec[y + 1][x], vec[y][x]);
+                        break;
+                    case 'Z': // move diagonal left down
+                        swap(vec[y + 1][x - 1], vec[y][x]);
+                        break;
+                    case 'A': // move left
+                        swap(vec[y][x - 1], vec[y][x]);
+                        break;
+                    case 'Q': // move diagonal left up
+                        swap(vec[y - 1][x - 1], vec[y][x]);
+                        break;
+                }
+                if (vec[y][x] == '*' || vec[y][x] == 'R' || vec[y][x] == 'r') return false;
+                return true;
+            }
+        }
+    }
+}
+
+
+bool play() {
     int MazeSelect;
     char start;
 
     //display levels
-    DisplayMaze(1); 
+    DisplayMaze(1);
     DisplayMaze(2);
 
-    cout << "What Maze do you like the most?" << endl; cin >> MazeSelect;  // which one the player wants to try
+    cout << "What Maze do you like the most?" << endl;
+    cin >> MazeSelect;  // which one the player wants to try
 
     // if he choose an invalid one, ask for another input while invalid!
-    while (cin.fail() || (MazeSelect != 1 && MazeSelect != 2))
-    {
-        cin.clear(); 
-        cin.ignore(10000, '\n'); 
-        cerr << "Choose a Maze between 1 and 2! " << endl; cin >> MazeSelect;
+    while (cin.fail() || (MazeSelect != 1 && MazeSelect != 2)) {
+        cin.clear();
+        cin.ignore(10000, '\n');
+        cerr << "Choose a Maze between 1 and 2! " << endl;
+        cin >> MazeSelect;
     }
 
     // Very start of the game
-    cout << endl << "Good choice, let's start!" << endl << "Enter S when you are READY..." << endl; 
-    cin >> start; 
+    cout << endl << "Good choice, let's start!" << endl << "Enter S when you are READY..." << endl;
+    cin >> start;
 
     while (start != 'S' && start != 's') cin >> start;
 
@@ -139,54 +186,48 @@ void play(){
     vector<string> vec = ReadMaze(MazeSelect);
     //cout << "Done!" << endl;
 
-    bool player_live;
-    bool robots_live;
+    bool player_live = true;
+    bool robots_live = true;
 
 
     while(robots_live && player_live)
     {
-        //player(&vec);
-        //robots();
-    }
 
-}
-
-
-bool player(vector<string> vec){
-    char play;
-    char temp;
-    cout << "What's your play" << endl; cin >> play;
-    for(int y=0; y<=vec.size(); y++)
-    {
-        for(int x=0; x<= vec[y].size(); x++)
-        {
-            if(vec[y][x] == 'P')
-            {
-                switch(play)
-                {
-                    case 'S': // stay place
-                        return vec;
-                    case 'W': // move one up
-                        temp = vec[y-1][x];
-                        if(temp != " ")
-                        {
-                            return false;
-                        }
-                }
-            }
+        player_live = player(vec);
+        if(player_live){
+            //robots_live = robots();
+            print(vec);
         }
     }
+    if (!player_live)
+    {
+        char choice;
+        cout << "You lost, do you wanna play again? (Y/N)" << endl; cin >> choice;
+        while(cin.fail())
+        {
+            cin.clear();
+            cin.ignore(10000, '\n');
+            cin >> choice;
+        }
+        if(toupper(choice) == 'Y') return true;
+        return false;
+    }
+    else
+    {
+        return false;
+    }
 }
+
 
 
 bool order(string a, string b) {return (stoi (a.substr(16, 8), nullptr) < stoi (b.substr(16, 8), nullptr));}
 
-void winner(string name,int time,int maze){
-    string path= "Maze/MAZE_XX_WINNERS.TXT";   // path of file to write winners
+void winner(string name,int time,int maze) {
+    string path = "Maze/MAZE_XX_WINNERS.TXT";   // path of file to write winners
 
     //Which maze, change path
-    path[10] = (char)(maze/10+'0');
-    path[11] = (char)(maze%10+'0');
+    path[10] = (char) (maze / 10 + '0');
+    path[11] = (char) (maze % 10 + '0');
 
     // open file to write win
     fstream win(path);
@@ -203,7 +244,7 @@ void winner(string name,int time,int maze){
     vector<string> file;
     string line;
 
-    if(readf.is_open()) {
+    if (readf.is_open()) {
         while (getline(readf, line)) {
             file.push_back(line);
         }
@@ -211,15 +252,15 @@ void winner(string name,int time,int maze){
     }
 
     //sort the vector
-    if(file.size()>5) {
-        sort(file.begin() + 4, file.end()-1, order);
+    if (file.size() > 5) {
+        sort(file.begin() + 4, file.end() - 1, order);
     }
 
     // write back into the file
     ofstream writef(path);  // open file to read and write
 
     if (writef.is_open()) {
-        for(int i=0; i<=file.size()-1; i++){
+        for (int i = 0; i <= file.size() - 1; i++) {
             writef << file[i] << endl;
         }
         int j = file.size();

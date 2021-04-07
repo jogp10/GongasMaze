@@ -15,6 +15,7 @@ using namespace std;
 
 int main(){
     int menu_choice;  // menu option
+    bool play_again;
 
 Menu:  // label
     // Iniciate Menu
@@ -27,7 +28,11 @@ Menu:  // label
             goto Menu;
 
         case 2:    // Start the game
-            play();
+            play_again = play();
+            if(play_again)
+            {
+                goto Menu;
+            }
             break;
 
         default:  // Exit the game

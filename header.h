@@ -34,8 +34,8 @@ void DisplayMaze(int n);
 Start of the game
 Let's play
  */
-void play();
-bool player(vector <string> vec);
+bool play();
+bool player(vector <string> &vec);
 
 /**
 Write winner's name and time in record
