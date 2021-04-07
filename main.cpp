@@ -8,7 +8,7 @@
 #include <iomanip>
 #include <vector>
 #include <algorithm>
-#include "play.cpp"
+#include "header.h"
 
 using namespace std;
 
