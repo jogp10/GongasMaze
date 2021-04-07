@@ -9,7 +9,6 @@
 #include <iomanip>
 #include <vector>
 #include <algorithm>
-#include "game.h"
 
 using namespace std;
 
