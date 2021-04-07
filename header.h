@@ -21,7 +21,7 @@ Transform level maze to a vector
 Function to print the vector
 @param vector that's going to be printed
 */
-void ReadMaze(int n);
+vector<string> ReadMaze(int n);
 void print(vector<string> vec);
 
 /**
@@ -35,6 +35,7 @@ Start of the game
 Let's play
  */
 void play();
+bool player(vector <string> vec);
 
 /**
 Write winner's name and time in record

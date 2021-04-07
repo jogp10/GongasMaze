@@ -69,7 +69,7 @@ void print(vector <string> vec){
 }
 
 
-void ReadMaze(int n){
+vector<string> ReadMaze(int n){
     string path = "Maze/MAZE_xx.TXT";
     //replacing 'XX' with the number of maze
     path[10]= (char)(n/10 + '0');
@@ -83,6 +83,7 @@ void ReadMaze(int n){
     getline(file, line);
     while (getline(file, line)) vec.push_back(line);
     print(vec); //call function print
+    return vec;
 }
 
 void DisplayMaze(int n){
@@ -135,11 +136,48 @@ void play(){
     int(time_lapsed.count()); */
 
     // display board, ready to start
-    ReadMaze(MazeSelect); 
-    cout << "Done!" << endl;
+    vector<string> vec = ReadMaze(MazeSelect);
+    //cout << "Done!" << endl;
 
-    //develop here
+    bool player_live;
+    bool robots_live;
+
+
+    while(robots_live && player_live)
+    {
+        //player(&vec);
+        //robots();
+    }
+
 }
+
+
+bool player(vector<string> vec){
+    char play;
+    char temp;
+    cout << "What's your play" << endl; cin >> play;
+    for(int y=0; y<=vec.size(); y++)
+    {
+        for(int x=0; x<= vec[y].size(); x++)
+        {
+            if(vec[y][x] == 'P')
+            {
+                switch(play)
+                {
+                    case 'S': // stay place
+                        return vec;
+                    case 'W': // move one up
+                        temp = vec[y-1][x];
+                        if(temp != " ")
+                        {
+                            return false;
+                        }
+                }
+            }
+        }
+    }
+}
+
 
 bool order(string a, string b) {return (stoi (a.substr(16, 8), nullptr) < stoi (b.substr(16, 8), nullptr));}
 
