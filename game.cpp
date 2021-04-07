@@ -8,7 +8,7 @@
 #include <iomanip>
 #include <vector>
 #include <algorithm>
-//#include "header.h"
+#include "game.h"
 
 using namespace std;
 
@@ -258,7 +258,7 @@ void play() {
     // if player dead
     if (robots_live)
     {
-        cout << "You lost!! Better luck next time." << endl;
+        cout << "You lost!! Better luck next time." << endl << endl;
     }
     // if robots dead, register time
     else
@@ -266,7 +266,7 @@ void play() {
         string name;
 
         auto time_lapsed = static_cast<chrono::duration<double>>(end_time-start_time);
-        cout << "What a fantastic show!! Tell me your name so i can remember it!!"; cin >> setw(15) >> name;
+        cout << "What a fantastic show!! Tell me your name so i can remember it!!" << endl; cin >> setw(15) >> name;
         winner(name, int(time_lapsed.count()), MazeSelect);
     }
 }

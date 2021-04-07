@@ -8,11 +8,11 @@
 #include <iomanip>
 #include <vector>
 #include <algorithm>
-//#include "play.cpp"
 #include "game.h"
 
 using namespace std;
 
+int menu();
 
 int main(){
     int menu_choice;  // menu option
