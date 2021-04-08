@@ -303,6 +303,24 @@ void play() {
         if (vec[y_player][x_player] == 'H') break;
     }
 
+    //get all robot's positions
+    int robots_alive;
+    int y_robot = 0, x_robot = 0;
+    vector<int> robot_x, robot_y;
+    for (y_robot; y_robot <= vec.size()-1; y_robot++)
+    {
+        x_robot = 0;
+        for (x_robot; x_robot <= vec[y_robot].size(); x_robot++)
+        {
+            if(vec[y_robot][x_robot] == 'R')
+            {
+                robots_alive++;
+                robot_x.push_back(x_robot);
+                robot_y.push_back(y_robot);
+            }
+        }
+    }
+
     // move from player and automatic play from robots
     while (robots_live && player_live)
     {
@@ -313,7 +331,11 @@ void play() {
         //robot's turn
         if (player_live)
         {
-            //robots_live = robots(vec);
+            for(int i=0; i<= robot_x.size(); i++)
+            {
+                //if(!robots(vec, y_player, x_player, robot_y[i], robot_x[i])) robots_alive--;
+            }
+            if(robots_alive==0) robots_live = false;
             print(vec);
         }
     }
