@@ -190,7 +190,8 @@ void winner(string name,int time,int maze) {
     // open file to write win
     fstream win(path);
 
-    if (win.is_open()) {
+    if (win.is_open())
+    {
         win.seekp(0, ios::end);  // starting point at the end of file
         win << left << setw(15) << name;  // size of name component
         win << internal << setw(8) << time << '\n';
@@ -202,23 +203,28 @@ void winner(string name,int time,int maze) {
     vector<string> file;
     string line;
 
-    if (readf.is_open()) {
-        while (getline(readf, line)) {
+    if (readf.is_open())
+    {
+        while (getline(readf, line))
+        {
             file.push_back(line);
         }
         readf.close();
     }
 
     //sort the vector
-    if (file.size() > 5) {
+    if (file.size() > 5)
+    {
         sort(file.begin() + 4, file.end() - 1, order);
     }
 
     // write back into the file
     ofstream writef(path);  // open file to read and write
 
-    if (writef.is_open()) {
-        for (int i = 0; i <= file.size() - 1; i++) {
+    if (writef.is_open())
+    {
+        for (int i = 0; i <= file.size() - 1; i++)
+        {
             writef << file[i] << endl;
         }
         int j = file.size();
