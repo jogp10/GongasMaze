@@ -504,6 +504,8 @@ void play() {
         cout << "What a fantastic show!! Tell me your name so i can remember it!!" << endl;
         cin >> setw(15) >> name;
         winner(name, int(time_lapsed.count()), MazeSelect);
+        cin.clear();
+        cin.ignore(10000, '\n');
     }
 }
 
