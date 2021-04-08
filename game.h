@@ -270,41 +270,48 @@ void play() {
     //idrobots(vec);
 
     // move from player and automatic play from robots
-    while (robots_live && player_live) {
+    while (robots_live && player_live)
+    {
         int y_player = 0, x_player = 0;
 
         // get player's positions
-        for (y_player; y_player <= vec.size(); y_player++) {
+        for (y_player; y_player <= vec.size(); y_player++)
+        {
             x_player = 0;
-            for (x_player; x_player <= vec[y_player].size(); x_player++) {
+            for (x_player; x_player <= vec[y_player].size(); x_player++)
+            {
                 if (vec[y_player][x_player] == 'H') break;
             }
             if (vec[y_player][x_player] == 'H') break;
         }
 
+        // ask the user to move
         player_live = player(vec, y_player, x_player);
+
+        //robot's turn
         if (player_live)
         {
             //robots_live = robots(vec);
             print(vec);
         }
     }
-        auto end_time = time.now(); // finish timer
 
-        // if player dead
-        if (robots_live) {
-            cout << "You lost!! Better luck next time." << endl << endl;
-        }
-            // if robots dead, register time
-        else {
-            string name;
+    auto end_time = time.now(); // finish timer
 
-            auto time_lapsed = static_cast<chrono::duration<double>>(end_time - start_time);
-            cout << "What a fantastic show!! Tell me your name so i can remember it!!" << endl;
-            cin >> setw(15) >> name;
-            winner(name, int(time_lapsed.count()), MazeSelect);
-        }
+    // if player dead
+    if (robots_live) {
+        cout << "You lost!! Better luck next time." << endl << endl;
     }
+        // if robots dead, register time
+    else {
+        string name;
+
+        auto time_lapsed = static_cast<chrono::duration<double>>(end_time - start_time);
+        cout << "What a fantastic show!! Tell me your name so i can remember it!!" << endl;
+        cin >> setw(15) >> name;
+        winner(name, int(time_lapsed.count()), MazeSelect);
+    }
+}
 
 
 #endif //T02_G11_GAME_H
