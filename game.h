@@ -135,6 +135,7 @@ bool player(vector<string> &vec, int &y, int &x){
         cin.ignore(10000, '\n');
         cin >> play;
     }
+
     // Move, if collision he dies. Game over
     switch (toupper(play))
     {
@@ -142,30 +143,45 @@ bool player(vector<string> &vec, int &y, int &x){
             return true;
         case 'W': // move up
             swap(vec[y - 1][x], vec[y][x]);
+            if (vec[y][x] == '*' || vec[y][x] == 'R' || vec[y][x] == 'r') return false;
+            y=y-1; x=x;
             break;
         case 'E': // move diagonal right up
             swap(vec[y - 1][x + 1], vec[y][x]);
+            if (vec[y][x] == '*' || vec[y][x] == 'R' || vec[y][x] == 'r') return false;
+            y=y-1; x=x+1;
             break;
         case 'D': // move right
             swap(vec[y][x + 1], vec[y][x]);
+            if (vec[y][x] == '*' || vec[y][x] == 'R' || vec[y][x] == 'r') return false;
+            y=y; x=x+1;
             break;
         case 'C': // move diagonal right down
             swap(vec[y + 1][x + 1], vec[y][x]);
+            if (vec[y][x] == '*' || vec[y][x] == 'R' || vec[y][x] == 'r') return false;
+            y=y+1; x=x+1;
             break;
         case 'X': // move down
             swap(vec[y + 1][x], vec[y][x]);
+            if (vec[y][x] == '*' || vec[y][x] == 'R' || vec[y][x] == 'r') return false;
+            y=y+1; x=x;
             break;
         case 'Z': // move diagonal left down
             swap(vec[y + 1][x - 1], vec[y][x]);
+            if (vec[y][x] == '*' || vec[y][x] == 'R' || vec[y][x] == 'r') return false;
+            y=y+1; x=x-1;
             break;
         case 'A': // move left
             swap(vec[y][x - 1], vec[y][x]);
+            if (vec[y][x] == '*' || vec[y][x] == 'R' || vec[y][x] == 'r') return false;
+            y=y; x=x-1;
             break;
         case 'Q': // move diagonal left up
             swap(vec[y - 1][x - 1], vec[y][x]);
+            if (vec[y][x] == '*' || vec[y][x] == 'R' || vec[y][x] == 'r') return false;
+            y=y-1; x=x-1;
             break;
     }
-    if (vec[y][x] == '*' || vec[y][x] == 'R' || vec[y][x] == 'r') return false;
     return true;
 }
 
@@ -275,21 +291,21 @@ void play() {
     bool robots_live = true;
     //idrobots(vec);
 
+    //get player's position
+    int y_player = 0, x_player = 0;
+    for (y_player; y_player <= vec.size(); y_player++)
+    {
+        x_player = 0;
+        for (x_player; x_player <= vec[y_player].size(); x_player++)
+        {
+            if (vec[y_player][x_player] == 'H') break;
+        }
+        if (vec[y_player][x_player] == 'H') break;
+    }
+
     // move from player and automatic play from robots
     while (robots_live && player_live)
     {
-        int y_player = 0, x_player = 0;
-
-        // get player's positions
-        for (y_player; y_player <= vec.size(); y_player++)
-        {
-            x_player = 0;
-            for (x_player; x_player <= vec[y_player].size(); x_player++)
-            {
-                if (vec[y_player][x_player] == 'H') break;
-            }
-            if (vec[y_player][x_player] == 'H') break;
-        }
 
         // ask the user to move
         player_live = player(vec, y_player, x_player);
