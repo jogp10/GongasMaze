@@ -226,6 +226,7 @@ Start_play:
                 y++;
                 return false;
             }
+            y++;
             break;
         case 'Z': // move diagonal left down
             swap(vec[y + 1][x - 1], vec[y][x]);
