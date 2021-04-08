@@ -5,3 +5,4 @@ cmake-build-debug
 main.exe
 mod.txt
 game.cpp
+building.cpp
