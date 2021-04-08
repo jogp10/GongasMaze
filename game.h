@@ -194,7 +194,7 @@ Everything about robot moves
 @param yr - y position of robot in vec
 @param xr - x position of robot in vec
 */ 
-bool robots(vector<string> &vec, double &yp, double &xp, double &yr, double &xr)  
+bool robots(vector<string> &vec, int &yp, int &xp, int &yr, int &xr)  
 {
     int count = 0, indice; 
     double q,w,e,a,d,z,x,c, minor = 999999; 
@@ -461,7 +461,7 @@ void play() {
         {
             for(int i=0; i<= robot_x.size(); i++)
             {
-                //if(!robots(vec, y_player, x_player, robot_y[i], robot_x[i])) robots_alive--;
+                if(!robots(vec, y_player, x_player, robot_y[i], robot_x[i])) robots_alive--;
             }
             if(robots_alive==0) robots_live = false;
             print(vec);
