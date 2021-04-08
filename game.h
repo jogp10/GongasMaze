@@ -473,11 +473,11 @@ void play() {
                 }
             }
 
-            for(int j=0; j<=temp.size()-1; j++){
-                vector<int>::iterator it = robot_x.begin() + temp[j];
-                robot_x.erase(it);
-                it = robot_y.begin() + temp[j];
-                robot_y.erase(it);
+            int count = 0;
+            for(int j=0; j<temp.size(); j++){
+                robot_x.erase(robot_x.begin()+temp[j]-count);
+                robot_y.erase(robot_y.begin()+temp[j]-count);
+                count++;
             }
 
             if(robot_x.empty()) robots_live = false;

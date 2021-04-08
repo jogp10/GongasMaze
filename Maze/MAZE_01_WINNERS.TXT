@@ -2,5 +2,6 @@ T02_G11
 
 Player          - Time
 -----------------------
-ze                  120
 a                    12
+ze                  120
+vamooooooosss        26
