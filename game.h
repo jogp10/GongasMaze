@@ -432,7 +432,6 @@ void play() {
     }
 
     //get all robot's positions
-    int robots_alive=0;
     int y_robot = 0, x_robot = 0;
     vector<int> robot_x, robot_y;
     for (y_robot; y_robot <= vec.size()-1; y_robot++)
@@ -442,7 +441,6 @@ void play() {
         {
             if(vec[y_robot][x_robot] == 'R')
             {
-                robots_alive++;
                 robot_x.push_back(x_robot);
                 robot_y.push_back(y_robot);
             }
@@ -459,13 +457,30 @@ void play() {
         //robot's turn
         if (player_live)
         {
+            vector<int> temp; // for dead robots
+
             for(int i=0; i<= robot_x.size()-1; i++)
             {
-                cout << robot_y[i] << ' ' << robot_x[i] << endl;
-                if (vec[robot_y[i]][robot_x[i]] == 'r') continue;
-                if(!robots(vec, y_player, x_player, robot_y[i], robot_x[i])) robots_alive--;
+                //cout << robot_y[i] << ' ' << robot_x[i] << endl;
+                if (vec[robot_y[i]][robot_x[i]] == 'r')
+                {
+                    temp.push_back(i);
+                    continue;
+                }
+                if(!robots(vec, y_player, x_player, robot_y[i], robot_x[i]))
+                {
+                    temp.push_back(i);
+                }
             }
-            if(robots_alive==0) robots_live = false;
+
+            for(int j=0; j<=temp.size()-1; j++){
+                vector<int>::iterator it = robot_x.begin() + temp[j];
+                robot_x.erase(it);
+                it = robot_y.begin() + temp[j];
+                robot_y.erase(it);
+            }
+
+            if(robot_x.empty()) robots_live = false;
             print(vec);
         }
     }
