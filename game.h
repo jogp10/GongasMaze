@@ -342,7 +342,7 @@ void winner(string name,int time,int maze) {
         win.close();
     }
 
-    // write all lines in a vector
+    // read all lines in a vector
     ifstream readf(path);
     vector<string> file;
     string line;
@@ -359,7 +359,7 @@ void winner(string name,int time,int maze) {
     //sort the vector
     if (file.size() > 5)
     {
-        sort(file.begin() + 4, file.end() - 1, order);
+        sort(file.begin() + 4, file.end(), order);
     }
 
     // write back into the file
@@ -367,7 +367,7 @@ void winner(string name,int time,int maze) {
 
     if (writef.is_open())
     {
-        for (int i = 0; i <= file.size() - 1; i++)
+        for (int i = 0; i < file.size(); i++)
         {
             writef << file[i] << endl;
         }
@@ -461,18 +461,23 @@ void play() {
 
             for(int i=0; i<= robot_x.size()-1; i++)
             {
-                //cout << robot_y[i] << ' ' << robot_x[i] << endl;
+                //see if robot did die because another's robot move
                 if (vec[robot_y[i]][robot_x[i]] == 'r')
                 {
                     temp.push_back(i);
                     continue;
                 }
+                //move robot
                 if(!robots(vec, y_player, x_player, robot_y[i], robot_x[i]))
                 {
                     temp.push_back(i);
                 }
+
+                // if robot catches player
+                if(y_player == robot_y[i] && x_player == robot_x[i]) player_live = false;
             }
 
+            //remove positions of dead robots
             int count = 0;
             for(int j=0; j<temp.size(); j++){
                 robot_x.erase(robot_x.begin()+temp[j]-count);

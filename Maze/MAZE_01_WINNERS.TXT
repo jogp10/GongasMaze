@@ -2,6 +2,4 @@ T02_G11
 
 Player          - Time
 -----------------------
-a                    12
-ze                  120
-vamooooooosss        26
+record                4

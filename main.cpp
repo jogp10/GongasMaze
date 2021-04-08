@@ -27,11 +27,18 @@ Menu:  // label
     {
         case 1:     // Rules of the game
             ReadRules();
+            cout << endl;
             goto Menu;
 
         case 2:    // Start the game
-            play(); 
-            goto Menu; 
+            play();
+            cout << endl;
+            goto Menu;
+
+        case 3:    // Leaderboard
+            //leaderboard();
+            cout << endl;
+            goto Menu;
 
         default:  // Exit the game
             this_thread::sleep_for(chrono::seconds(2));
