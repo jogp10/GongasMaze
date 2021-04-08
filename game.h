@@ -140,8 +140,10 @@ bool player(vector<string> &vec){
     {
         for(int x=0; x<= vec[y].size(); x++)
         {
-            if(vec[y][x] == 'H') {
-                switch (toupper(play)) {
+            if(vec[y][x] == 'H')
+            {
+                switch (toupper(play))
+                {
                     case 'S': // stay place
                         return true;
                     case 'W': // move up
@@ -275,7 +277,7 @@ void play() {
     // booleans for keep playing if both still alive
     bool player_live = true;
     bool robots_live = true;
-
+    idrobots(vec);
 
     // move from player and automatic play from robots
     while(robots_live && player_live)
