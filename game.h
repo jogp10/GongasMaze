@@ -324,7 +324,7 @@ Boolean function to order time records
 */
 bool order(string a, string b) {return (stoi (a.substr(16, 8), nullptr) < stoi (b.substr(16, 8), nullptr));}
 
-void winner(string name,int time,int maze) {
+void winner(char name[15],int time,int maze) {
     string path = "Maze/MAZE_XX_WINNERS.TXT";   // path of file to write winners
 
     //Which maze, change path
@@ -371,8 +371,8 @@ void winner(string name,int time,int maze) {
         {
             writef << file[i] << endl;
         }
-        int j = file.size();
-        writef << file[j];
+        //int j = file.size();
+        //writef << file[j];
         writef.close();
     }
 }
@@ -498,11 +498,12 @@ void play() {
     }
         // if robots dead, register time
     else {
-        string name;
+        char name[15];
 
         auto time_lapsed = static_cast<chrono::duration<double>>(end_time - start_time);
         cout << "What a fantastic show!! Tell me your name so i can remember it!!" << endl;
-        cin >> setw(15) >> name;
+        cin.ignore();
+        cin.getline(name, sizeof(name));
         winner(name, int(time_lapsed.count()), MazeSelect);
         cin.clear();
         cin.ignore(10000, '\n');
