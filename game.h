@@ -196,7 +196,7 @@ Everything about robot moves
 */ 
 bool robots(vector<string> &vec, int &yp, int &xp, int &yr, int &xr)  
 {
-    int count = 0, indice; 
+    int count = 0, indice;
     double q,w,e,a,d,z,x,c, minor = 999999; 
     vector<double> hold;  
 
@@ -217,12 +217,12 @@ bool robots(vector<string> &vec, int &yp, int &xp, int &yr, int &xr)
     //case 7
     c = sqrt((pow(xp-(xr+1), 2) + pow(yp - (yr+1), 2))); hold.push_back(c);
     
-    while(count <= 8)
+    while(count <= 7)
     {
         if (hold[count] <= minor) 
         {
             minor = hold[count];
-            indice = count; 
+            indice = count;
         }
         count++; 
     }
@@ -299,8 +299,8 @@ bool robots(vector<string> &vec, int &yp, int &xp, int &yr, int &xr)
             }
             yr++; 
             break; 
-        case 7: 
-            swap(vec[yr+1][xr+1], vec[yr][xr]);
+        case 7:
+            swap(vec[yr + 1][xr + 1], vec[yr][xr]);
             if (vec[yr][xr] == '*' || vec[yr][xr] == 'r' || vec[yr][xr] == 'R')
             {
                 vec[yr][xr] = ' '; 
@@ -432,7 +432,7 @@ void play() {
     }
 
     //get all robot's positions
-    int robots_alive;
+    int robots_alive=0;
     int y_robot = 0, x_robot = 0;
     vector<int> robot_x, robot_y;
     for (y_robot; y_robot <= vec.size()-1; y_robot++)
@@ -459,8 +459,10 @@ void play() {
         //robot's turn
         if (player_live)
         {
-            for(int i=0; i<= robot_x.size(); i++)
+            for(int i=0; i<= robot_x.size()-1; i++)
             {
+                cout << robot_y[i] << ' ' << robot_x[i] << endl;
+                if (vec[robot_y[i]][robot_x[i]] == 'r') continue;
                 if(!robots(vec, y_player, x_player, robot_y[i], robot_x[i])) robots_alive--;
             }
             if(robots_alive==0) robots_live = false;
