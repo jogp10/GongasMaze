@@ -3,3 +3,5 @@ T02_G11
 Player          - Time
 -----------------------
 record                4
+try1                  7
+jojo                  9
