@@ -123,7 +123,7 @@ void DisplayMaze(int n){
 /**
 Player's move
  */
-bool player(vector<string> &vec){
+bool player(vector<string> &vec, int &y, int &x){
     char play;
     string check = "QWEASDZXC";
 
@@ -135,48 +135,38 @@ bool player(vector<string> &vec){
         cin.ignore(10000, '\n');
         cin >> play;
     }
-    // Find player and move, if colision he dies. Game over
-    for(int y=0; y<=vec.size(); y++)
+    // Move, if collision he dies. Game over
+    switch (toupper(play))
     {
-        for(int x=0; x<= vec[y].size(); x++)
-        {
-            if(vec[y][x] == 'H')
-            {
-                switch (toupper(play))
-                {
-                    case 'S': // stay place
-                        return true;
-                    case 'W': // move up
-                        swap(vec[y - 1][x], vec[y][x]);
-                        break;
-                    case 'E': // move diagonal right up
-                        swap(vec[y - 1][x + 1], vec[y][x]);
-                        break;
-                    case 'D': // move right
-                        swap(vec[y][x + 1], vec[y][x]);
-                        break;
-                    case 'C': // move diagonal right down
-                        swap(vec[y + 1][x + 1], vec[y][x]);
-                        break;
-                    case 'X': // move down
-                        swap(vec[y + 1][x], vec[y][x]);
-                        break;
-                    case 'Z': // move diagonal left down
-                        swap(vec[y + 1][x - 1], vec[y][x]);
-                        break;
-                    case 'A': // move left
-                        swap(vec[y][x - 1], vec[y][x]);
-                        break;
-                    case 'Q': // move diagonal left up
-                        swap(vec[y - 1][x - 1], vec[y][x]);
-                        break;
-                }
-                if (vec[y][x] == '*' || vec[y][x] == 'R' || vec[y][x] == 'r') return false;
-                return true;
-            }
-        }
+        case 'S': // stay place
+            return true;
+        case 'W': // move up
+            swap(vec[y - 1][x], vec[y][x]);
+            break;
+        case 'E': // move diagonal right up
+            swap(vec[y - 1][x + 1], vec[y][x]);
+            break;
+        case 'D': // move right
+            swap(vec[y][x + 1], vec[y][x]);
+            break;
+        case 'C': // move diagonal right down
+            swap(vec[y + 1][x + 1], vec[y][x]);
+            break;
+        case 'X': // move down
+            swap(vec[y + 1][x], vec[y][x]);
+            break;
+        case 'Z': // move diagonal left down
+            swap(vec[y + 1][x - 1], vec[y][x]);
+            break;
+        case 'A': // move left
+            swap(vec[y][x - 1], vec[y][x]);
+            break;
+        case 'Q': // move diagonal left up
+            swap(vec[y - 1][x - 1], vec[y][x]);
+            break;
     }
-    return false;
+    if (vec[y][x] == '*' || vec[y][x] == 'R' || vec[y][x] == 'r') return false;
+    return true;
 }
 
 
@@ -277,35 +267,44 @@ void play() {
     // booleans for keep playing if both still alive
     bool player_live = true;
     bool robots_live = true;
-    idrobots(vec);
+    //idrobots(vec);
 
     // move from player and automatic play from robots
-    while(robots_live && player_live)
-    {
+    while (robots_live && player_live) {
+        int y_player = 0, x_player = 0;
 
-        player_live = player(vec);
-        if(player_live){
-            //robots_live = robots();
+        // get player's positions
+        for (y_player; y_player <= vec.size(); y_player++) {
+            x_player = 0;
+            for (x_player; x_player <= vec[y_player].size(); x_player++) {
+                if (vec[y_player][x_player] == 'H') break;
+            }
+            if (vec[y_player][x_player] == 'H') break;
+        }
+
+        player_live = player(vec, y_player, x_player);
+        if (player_live)
+        {
+            //robots_live = robots(vec);
             print(vec);
         }
     }
-    auto end_time = time.now(); // finish timer
+        auto end_time = time.now(); // finish timer
 
-    // if player dead
-    if (robots_live)
-    {
-        cout << "You lost!! Better luck next time." << endl << endl;
-    }
-        // if robots dead, register time
-    else
-    {
-        string name;
+        // if player dead
+        if (robots_live) {
+            cout << "You lost!! Better luck next time." << endl << endl;
+        }
+            // if robots dead, register time
+        else {
+            string name;
 
-        auto time_lapsed = static_cast<chrono::duration<double>>(end_time-start_time);
-        cout << "What a fantastic show!! Tell me your name so i can remember it!!" << endl; cin >> setw(15) >> name;
-        winner(name, int(time_lapsed.count()), MazeSelect);
+            auto time_lapsed = static_cast<chrono::duration<double>>(end_time - start_time);
+            cout << "What a fantastic show!! Tell me your name so i can remember it!!" << endl;
+            cin >> setw(15) >> name;
+            winner(name, int(time_lapsed.count()), MazeSelect);
+        }
     }
-}
 
 
 #endif //T02_G11_GAME_H
