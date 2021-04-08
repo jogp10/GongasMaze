@@ -7,6 +7,7 @@
 #include <thread>
 #include <chrono>
 #include <iomanip>
+#include <cmath>
 #include <vector>
 #include <algorithm>
 
@@ -183,6 +184,133 @@ bool player(vector<string> &vec, int &y, int &x){
             break;
     }
     return true;
+}
+
+/**
+Everything about robot moves
+@param vec refers to map after player moves
+@param yp - y position of player in vec
+@param xp - x position of player in vec
+@param yr - y position of robot in vec
+@param xr - x position of robot in vec
+*/ 
+bool robots(vector<string> &vec, double &yp, double &xp, double &yr, double &xr)  
+{
+    int count = 0, indice; 
+    double q,w,e,a,d,z,x,c, minor = 999999; 
+    vector<double> hold;  
+
+    //case 0
+    q = sqrt((pow(xp-(xr-1), 2) + pow(yp - (yr-1), 2))); hold.push_back(q); 
+    //case 1
+    w = sqrt((pow(xp-xr, 2) + pow(yp - (yr-1), 2))); hold.push_back(w);
+    //case 2
+    e = sqrt((pow(xp-(xr+1), 2) + pow(yp - (yr-1), 2))); hold.push_back(e);
+    //case 3
+    a = sqrt((pow(xp-(xr-1), 2) + pow(yp - yr, 2))); hold.push_back(a);
+    //case 4
+    d = sqrt((pow(xp-(xr+1), 2) + pow(yp - yr, 2))); hold.push_back(d);
+    //case 5
+    z = sqrt((pow(xp-(xr-1), 2) + pow(yp - (yr+1), 2))); hold.push_back(z);
+    //case 6
+    x = sqrt((pow(xp-xr, 2) + pow(yp - (yr+1), 2))); hold.push_back(x);
+    //case 7
+    c = sqrt((pow(xp-(xr+1), 2) + pow(yp - (yr+1), 2))); hold.push_back(c);
+    
+    while(count <= 8)
+    {
+        if (hold[count] <= minor) 
+        {
+            minor = hold[count];
+            indice = count; 
+        }
+        count++; 
+    }
+
+    switch(indice)
+    {
+        case 0: 
+            swap(vec[yr-1][xr-1], vec[yr][xr]); 
+            if (vec[yr][xr] == '*' || vec[yr][xr] == 'r' || vec[yr][xr] == 'R')
+            {
+                vec[yr][xr] = ' '; 
+                vec[yr-1][xr-1] = 'r'; 
+                return false; 
+            }
+            yr--; xr--; 
+            break; 
+        case 1:
+            swap(vec[yr-1][xr], vec[yr][xr]);
+            if (vec[yr][xr] == '*' || vec[yr][xr] == 'r' || vec[yr][xr] == 'R')
+            {
+                vec[yr][xr] = ' '; 
+                vec[yr-1][xr] = 'r'; 
+                return false; 
+            }
+            yr--; 
+            break; 
+        case 2:
+            swap(vec[yr-1][xr+1], vec[yr][xr]);
+            if (vec[yr][xr] == '*' || vec[yr][xr] == 'r' || vec[yr][xr] == 'R')
+            {
+                vec[yr][xr] = ' '; 
+                vec[yr-1][xr+1] = 'r'; 
+                return false; 
+            }
+            yr--; xr++; 
+            break; 
+        case 3: 
+            swap(vec[yr][xr-1], vec[yr][xr]);
+            if (vec[yr][xr] == '*' || vec[yr][xr] == 'r' || vec[yr][xr] == 'R')
+            {
+                vec[yr][xr] = ' '; 
+                vec[yr][xr-1] = 'r'; 
+                return false; 
+            }
+            xr--; 
+            break; 
+        case 4: 
+            swap(vec[yr][xr+1], vec[yr][xr]);
+            if (vec[yr][xr] == '*' || vec[yr][xr] == 'r' || vec[yr][xr] == 'R')
+            {
+                vec[yr][xr] = ' '; 
+                vec[yr][xr+1] = 'r'; 
+                return false; 
+            }
+            xr++; 
+            break; 
+        case 5:
+            swap(vec[yr+1][xr-1], vec[yr][xr]);
+            if (vec[yr][xr] == '*' || vec[yr][xr] == 'r' || vec[yr][xr] == 'R')
+            {
+                vec[yr][xr] = ' '; 
+                vec[yr+1][xr-1] = 'r'; 
+                return false; 
+            }
+            yr++; xr--; 
+            break; 
+        case 6: 
+            swap(vec[yr+1][xr], vec[yr][xr]);
+            if (vec[yr][xr] == '*' || vec[yr][xr] == 'r' || vec[yr][xr] == 'R')
+            {
+                vec[yr][xr] = ' '; 
+                vec[yr+1][xr] = 'r'; 
+                return false; 
+            }
+            yr++; 
+            break; 
+        case 7: 
+            swap(vec[yr+1][xr+1], vec[yr][xr]);
+            if (vec[yr][xr] == '*' || vec[yr][xr] == 'r' || vec[yr][xr] == 'R')
+            {
+                vec[yr][xr] = ' '; 
+                vec[yr+1][xr+1] = 'r'; 
+                return false; 
+            }
+            yr++; xr++; 
+            break; 
+    }
+    return true; 
 }
 
 
