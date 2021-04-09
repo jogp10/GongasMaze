@@ -38,6 +38,7 @@ int menu(){
     // Main Menu
     cout << "1) Rules" << endl;
     cout << "2) Play" << endl;
+    cout << "3) Leaderboard" << endl; 
     cout << "0) Exit" << endl;
     cout << "Option: " ; cin >> menu_choice;
 
@@ -585,6 +586,7 @@ void play() {
 
             if(robot_x.empty()) robots_live = false;
         }
+        else vec[y_player][x_player] = 'h';
         print(vec);
     }
 
