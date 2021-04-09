@@ -14,6 +14,7 @@
 
 using namespace std;
 
+
 /**
  *
  * @param level of the maze
@@ -134,9 +135,12 @@ void DisplayMaze(int n){
 }
 
 
-
 /**
-Player's move
+ * Player's move
+ * @param vec maze
+ * @param y player's position
+ * @param x player's position
+ * @return player status
  */
 bool player(vector<string> &vec, int &y, int &x){
     char play;
@@ -274,6 +278,7 @@ Start_play:
     cin.ignore(10000, '\n');
     return true;
 }
+
 
 /**
 Everything about robot moves
