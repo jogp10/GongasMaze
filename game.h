@@ -327,6 +327,7 @@ bool robots(vector<string> &vec, int &yp, int &xp, int &yr, int &xr)
                 vec[yr-1][xr-1] = 'r'; 
                 return false; 
             }
+            if(vec[yr][xr] == 'H') vec[yr][xr] = ' ';
             yr--; xr--; 
             break; 
         case 1:
@@ -337,6 +338,7 @@ bool robots(vector<string> &vec, int &yp, int &xp, int &yr, int &xr)
                 vec[yr-1][xr] = 'r'; 
                 return false; 
             }
+            if(vec[yr][xr] == 'H') vec[yr][xr] = ' ';
             yr--; 
             break; 
         case 2:
@@ -347,6 +349,7 @@ bool robots(vector<string> &vec, int &yp, int &xp, int &yr, int &xr)
                 vec[yr-1][xr+1] = 'r'; 
                 return false; 
             }
+            if(vec[yr][xr] == 'H') vec[yr][xr] = ' ';
             yr--; xr++; 
             break; 
         case 3: 
@@ -357,6 +360,7 @@ bool robots(vector<string> &vec, int &yp, int &xp, int &yr, int &xr)
                 vec[yr][xr-1] = 'r'; 
                 return false; 
             }
+            if(vec[yr][xr] == 'H') vec[yr][xr] = ' ';
             xr--; 
             break; 
         case 4: 
@@ -367,6 +371,7 @@ bool robots(vector<string> &vec, int &yp, int &xp, int &yr, int &xr)
                 vec[yr][xr+1] = 'r'; 
                 return false; 
             }
+            if(vec[yr][xr] == 'H') vec[yr][xr] = ' ';
             xr++; 
             break; 
         case 5:
@@ -377,6 +382,7 @@ bool robots(vector<string> &vec, int &yp, int &xp, int &yr, int &xr)
                 vec[yr+1][xr-1] = 'r'; 
                 return false; 
             }
+            if(vec[yr][xr] == 'H') vec[yr][xr] = ' ';
             yr++; xr--; 
             break; 
         case 6: 
@@ -387,6 +393,7 @@ bool robots(vector<string> &vec, int &yp, int &xp, int &yr, int &xr)
                 vec[yr+1][xr] = 'r'; 
                 return false; 
             }
+            if(vec[yr][xr] == 'H') vec[yr][xr] = ' ';
             yr++; 
             break; 
         case 7:
@@ -397,6 +404,7 @@ bool robots(vector<string> &vec, int &yp, int &xp, int &yr, int &xr)
                 vec[yr+1][xr+1] = 'r'; 
                 return false; 
             }
+            if(vec[yr][xr] == 'H') vec[yr][xr] = ' ';
             yr++; xr++; 
             break; 
     }
@@ -483,7 +491,7 @@ void play() {
     cin >> MazeSelect;  // which one the player wants to try
 
     // if he choose an invalid one, ask for another input while invalid!
-    while ((cin.fail() || !check_path(MazeSelect, path)) && MazeSelect != 0) {
+    while (cin.fail() || (!check_path(MazeSelect, path) && MazeSelect != 0)) {
         cin.clear();
         cin.ignore(10000, '\n');
         cerr << "That's not a valid Maze! try another or '0' to return to main menu" << endl;
