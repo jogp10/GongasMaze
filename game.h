@@ -98,10 +98,6 @@ void print(vector <string> vec){
 
 
 vector<string> ReadMaze(int n, string path){
-    //string path = "Maze/MAZE_xx.TXT";
-    //replacing 'XX' with the number of maze
-    //path[10]= (char)(n/10 + '0');
-    //path[11]= (char)(n%10 + '0');
     string line; //variable where we store individual lines
     vector <string> vec; //place where we will be storing all the lines
 
@@ -580,9 +576,6 @@ void play() {
             }
 
             if(robot_x.empty()) robots_live = false;
-        }
-        else{
-            vec[y_player][x_player] = 'h';
         }
         print(vec);
     }
