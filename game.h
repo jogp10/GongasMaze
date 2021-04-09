@@ -578,6 +578,7 @@ void play() {
 
             if(robot_x.empty()) robots_live = false;
         }
+        else vec[y_player][x_player] = 'h';
         print(vec);
     }
 
