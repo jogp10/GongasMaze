@@ -162,7 +162,7 @@ Start_play:
             swap(vec[y - 1][x], vec[y][x]);
             if(vec[y][x] == 'r') {
                 swap(vec[y - 1][x], vec[y][x]);
-                cout << "Not the play you wanted to do, try another!" << endl;
+                cout << "Not the play you wanted to do, try another! " << endl;
                 goto Start_play;
             }
             if (vec[y][x] == '*' || vec[y][x] == 'R') {
@@ -176,7 +176,7 @@ Start_play:
             swap(vec[y - 1][x + 1], vec[y][x]);
             if(vec[y][x] == 'r') {
                 swap(vec[y - 1][x + 1], vec[y][x]);
-                cout << "Not the play you wanted to do, try another!";
+                cout << "Not the play you wanted to do, try another! ";
                 goto Start_play;
             }
             if (vec[y][x] == '*' || vec[y][x] == 'R') {
@@ -191,7 +191,7 @@ Start_play:
             if(vec[y][x] == 'r') {
                 swap(vec[y][x + 1], vec[y][x]);
 
-                cout << "Not the play you wanted to do, try another!";
+                cout << "Not the play you wanted to do, try another! ";
                 goto Start_play;
             }
             if (vec[y][x] == '*' || vec[y][x] == 'R') {
@@ -205,7 +205,7 @@ Start_play:
             swap(vec[y + 1][x + 1], vec[y][x]);
             if(vec[y][x] == 'r') {
                 swap(vec[y + 1][x + 1], vec[y][x]);
-                cout << "Not the play you wanted to do, try another!";
+                cout << "Not the play you wanted to do, try another! ";
                 goto Start_play;
             }
             if (vec[y][x] == '*' || vec[y][x] == 'R') {
@@ -219,7 +219,7 @@ Start_play:
             swap(vec[y + 1][x], vec[y][x]);
             if(vec[y][x] == 'r') {
                 swap(vec[y + 1][x], vec[y][x]);
-                cout << "Not the play you wanted to do, try another!";
+                cout << "Not the play you wanted to do, try another! ";
                 goto Start_play;
             }
             if (vec[y][x] == '*' || vec[y][x] == 'R') {
@@ -233,7 +233,7 @@ Start_play:
             swap(vec[y + 1][x - 1], vec[y][x]);
             if(vec[y][x] == 'r') {
                 swap(vec[y + 1][x - 1], vec[y][x]);
-                cout << "Not the play you wanted to do, try another!";
+                cout << "Not the play you wanted to do, try another!  ";
                 goto Start_play;
             }
             if (vec[y][x] == '*' || vec[y][x] == 'R') {
@@ -247,7 +247,7 @@ Start_play:
             swap(vec[y][x - 1], vec[y][x]);
             if(vec[y][x] == 'r') {
                 swap(vec[y][x - 1], vec[y][x]);
-                cout << "Not the play you wanted to do, try another!";
+                cout << "Not the play you wanted to do, try another! ";
                 goto Start_play;
             }
             if (vec[y][x] == '*' || vec[y][x] == 'R') {
@@ -261,7 +261,7 @@ Start_play:
             swap(vec[y - 1][x - 1], vec[y][x]);
             if(vec[y][x] == 'r') {
                 swap(vec[y - 1][x - 1], vec[y][x]);
-                cout << "Not the play you wanted to do, try another!";
+                cout << "Not the play you wanted to do, try another! ";
                 goto Start_play;
             }
             if (vec[y][x] == '*' || vec[y][x] == 'R') {
@@ -602,7 +602,6 @@ void play() {
 
         auto time_lapsed = static_cast<chrono::duration<double>>(end_time - start_time);
         cout << "What a fantastic show!! Tell me your name so i can remember it!!" << endl;
-        cin.ignore();
         cin.getline(name, sizeof(name));
         winner(name, int(time_lapsed.count()), MazeSelect);
         cin.clear();
