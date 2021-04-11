@@ -133,7 +133,7 @@ void DisplayMaze(int n){
 
 
 /**
- * Move player
+ * Valid Move
  * @param vec maze level
  * @param y player's position
  * @param x player's position
@@ -143,19 +143,29 @@ void DisplayMaze(int n){
  */
 bool validmove(vector<string> &vec, int &y, int &x, int vertical = 0, int horizontal = 0)
 {
-    if (vec[y + vertical][x + horizontal] == 'r') {
+    if (vec[y + vertical][x + horizontal] == 'r') {   // if player move is against a stuck robot
         cout << "Not the play you wanted to do, try another! ";
         return false;
     }
     return true;
 }
 
+
+/**
+ * Move player
+ * @param vec maze level
+ * @param y player's position
+ * @param x player's position
+ * @param vertical y player's move
+ * @param horizontal x player's move
+ * @return player status ( true for alive, false otherwise)
+ */
 bool movePlayer(vector<string> &vec, int &y, int &x, int vertical = 0, int horizontal = 0)
 {
-    swap(vec[y + vertical][x + horizontal], vec[y][x]);
-    if (vec[y][x] == '*' || vec[y][x] == 'R') {
+    swap(vec[y + vertical][x + horizontal], vec[y][x]);  // move player
+    if (vec[y][x] == '*' || vec[y][x] == 'R') {  // move in case player death
         vec[y][x] = ' ';
-        vec[y + vertical][x + horizontal] = 'h';
+        vec[y + vertical][x + horizontal] = 'h';  // update player
         return false;
     }
     y += vertical;
@@ -187,14 +197,11 @@ bool player(vector<string> &vec, int &y, int &x){
             cin >> play;
         }
 
-        // Move, if collision he dies. Game over
+        // Move, if collision -> he dies. Game over
         switch (toupper(play)) {
-            case 'S': // stay place
-                return true;
-
             case 'W': // move up
-                if (!validmove(vec, y, x, -1)) break;
-                return movePlayer(vec, y, x, -1);
+                if (!validmove(vec, y, x, -1)) break;  // test valid move
+                return movePlayer(vec, y, x, -1);  // update player status ( alive or dead)
 
             case 'E': // move diagonal right up
                 if (!validmove(vec, y, x, -1, +1)) break;
@@ -223,8 +230,35 @@ bool player(vector<string> &vec, int &y, int &x){
             case 'Q': // move diagonal left up
                 if (!validmove(vec, y, x, -1, -1)) break;
                 return movePlayer(vec, y, x, -1, -1);
+
+            default:   // stay place
+                return true;
         }
     }
+}
+
+
+/**
+ * Move Robot
+ * @param vec maze level
+ * @param yr robot's position
+ * @param xr robot's position
+ * @param vertical robot's move
+ * @param horizontal robot's move
+ * @return robot status ( robot alive -> true in case not false)
+ */
+bool moveRobot(vector<string> &vec, int &yr, int &xr, int vertical = 0, int horizontal = 0)
+{
+    swap(vec[yr + vertical][xr + horizontal], vec[yr][xr]);  // move robot
+    if (vec[yr][xr] == '*' || vec[yr][xr] == 'r' || vec[yr][xr] == 'R')
+    {
+        vec[yr][xr] = ' ';
+        vec[yr + vertical][xr + horizontal] = 'r';
+        return false;
+    }
+    else if(vec[yr][xr] == 'H') vec[yr][xr] = ' ';
+    yr += vertical; xr += horizontal;
+    return true;
 }
 
 
@@ -271,96 +305,23 @@ bool robots(vector<string> &vec, int &yp, int &xp, int &yr, int &xr)
 
     switch(indice)
     {
-        case 0: 
-            swap(vec[yr-1][xr-1], vec[yr][xr]); 
-            if (vec[yr][xr] == '*' || vec[yr][xr] == 'r' || vec[yr][xr] == 'R')
-            {
-                vec[yr][xr] = ' '; 
-                vec[yr-1][xr-1] = 'r'; 
-                return false; 
-            }
-            if(vec[yr][xr] == 'H') vec[yr][xr] = ' ';
-            yr--; xr--; 
-            break; 
-        case 1:
-            swap(vec[yr-1][xr], vec[yr][xr]);
-            if (vec[yr][xr] == '*' || vec[yr][xr] == 'r' || vec[yr][xr] == 'R')
-            {
-                vec[yr][xr] = ' '; 
-                vec[yr-1][xr] = 'r'; 
-                return false; 
-            }
-            if(vec[yr][xr] == 'H') vec[yr][xr] = ' ';
-            yr--; 
-            break; 
-        case 2:
-            swap(vec[yr-1][xr+1], vec[yr][xr]);
-            if (vec[yr][xr] == '*' || vec[yr][xr] == 'r' || vec[yr][xr] == 'R')
-            {
-                vec[yr][xr] = ' '; 
-                vec[yr-1][xr+1] = 'r'; 
-                return false; 
-            }
-            if(vec[yr][xr] == 'H') vec[yr][xr] = ' ';
-            yr--; xr++; 
-            break; 
-        case 3: 
-            swap(vec[yr][xr-1], vec[yr][xr]);
-            if (vec[yr][xr] == '*' || vec[yr][xr] == 'r' || vec[yr][xr] == 'R')
-            {
-                vec[yr][xr] = ' '; 
-                vec[yr][xr-1] = 'r'; 
-                return false; 
-            }
-            if(vec[yr][xr] == 'H') vec[yr][xr] = ' ';
-            xr--; 
-            break; 
-        case 4: 
-            swap(vec[yr][xr+1], vec[yr][xr]);
-            if (vec[yr][xr] == '*' || vec[yr][xr] == 'r' || vec[yr][xr] == 'R')
-            {
-                vec[yr][xr] = ' '; 
-                vec[yr][xr+1] = 'r'; 
-                return false; 
-            }
-            if(vec[yr][xr] == 'H') vec[yr][xr] = ' ';
-            xr++; 
-            break; 
-        case 5:
-            swap(vec[yr+1][xr-1], vec[yr][xr]);
-            if (vec[yr][xr] == '*' || vec[yr][xr] == 'r' || vec[yr][xr] == 'R')
-            {
-                vec[yr][xr] = ' '; 
-                vec[yr+1][xr-1] = 'r'; 
-                return false; 
-            }
-            if(vec[yr][xr] == 'H') vec[yr][xr] = ' ';
-            yr++; xr--; 
-            break; 
-        case 6: 
-            swap(vec[yr+1][xr], vec[yr][xr]);
-            if (vec[yr][xr] == '*' || vec[yr][xr] == 'r' || vec[yr][xr] == 'R')
-            {
-                vec[yr][xr] = ' '; 
-                vec[yr+1][xr] = 'r'; 
-                return false; 
-            }
-            if(vec[yr][xr] == 'H') vec[yr][xr] = ' ';
-            yr++; 
-            break; 
-        case 7:
-            swap(vec[yr + 1][xr + 1], vec[yr][xr]);
-            if (vec[yr][xr] == '*' || vec[yr][xr] == 'r' || vec[yr][xr] == 'R')
-            {
-                vec[yr][xr] = ' '; 
-                vec[yr+1][xr+1] = 'r'; 
-                return false; 
-            }
-            if(vec[yr][xr] == 'H') vec[yr][xr] = ' ';
-            yr++; xr++; 
-            break; 
+        case 0:  // Q
+            return moveRobot(vec, yr, xr, -1, -1);
+        case 1: // W
+            return moveRobot(vec, yr, xr, -1);
+        case 2: // E
+            return moveRobot(vec, yr, xr, -1, +1);
+        case 3:  // A
+            return moveRobot(vec, yr, xr, 0, -1);
+        case 4: // D
+            return moveRobot(vec, yr, xr, 0, +1);
+        case 5: // Z
+            return moveRobot(vec, yr, xr, +1, -1);
+        case 6:  // X
+            return moveRobot(vec, yr, xr, +1);
+        case 7: // C
+            return moveRobot(vec, yr, xr, +1, +1);
     }
-    return true; 
 }
 
 
@@ -436,8 +397,10 @@ void play() {
     string path = "Maze/MAZE_xx.TXT";
 
     //display levels
-    DisplayMaze(1);
-    DisplayMaze(2);
+    for(int l=1; l<=99; l++)
+    {
+        if(check_path(l, path)) DisplayMaze(l);
+    }
 
     cout << "What Maze do you like the most?" << endl;
     cin >> MazeSelect;  // which one the player wants to try
@@ -480,7 +443,7 @@ void play() {
         if (vec[y_player][x_player] == 'H') break;
     }
 
-    //get all robot's positions
+    //get all alive robot's positions
     int y_robot = 0, x_robot = 0;
     vector<int> robot_x, robot_y;
     for (y_robot; y_robot <= vec.size()-1; y_robot++)
@@ -517,6 +480,7 @@ void play() {
                     deadRobots.push_back(i);
                     continue;
                 }
+
                 //move robot
                 else if(!robots(vec, y_player, x_player, robot_y[i], robot_x[i]))
                 {

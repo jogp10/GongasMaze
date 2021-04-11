@@ -2,6 +2,4 @@ T02_G11
 
 Player          - Time
 -----------------------
-andre123             22
-issoooo              22
-okok                 35
+record                4
