@@ -4,6 +4,15 @@
 #include <vector>
 
 using namespace std;
+
+
+/**
+ *
+ * @param level of the maze
+ * @return the path of level
+ */
+bool check_path(int level, string &path)
+
 /**
 Main menu
  */
@@ -30,11 +39,56 @@ Function to display all the mazes when selecting level
 void DisplayMaze(int n);
 
 /**
-Start of the game
-Let's play
+ * Valid Move
+ * @param vec maze level
+ * @param y player's position
+ * @param x player's position
+ * @param vertical y player's move
+ * @param horizontal x player's move
+ * @return if invalid play, ask for another
  */
-void play();
+bool validmove(vector<string> &vec, int &y, int &x, int vertical = 0, int horizontal = 0)
+
+/**
+ * Move player
+ * @param vec maze level
+ * @param y player's position
+ * @param x player's position
+ * @param vertical y player's move
+ * @param horizontal x player's move
+ * @return player status ( true for alive, false otherwise)
+ */
+bool movePlayer(vector<string> &vec, int &y, int &x, int vertical = 0, int horizontal = 0)
+
+/**
+ * Player's move
+ * @param vec maze
+ * @param y player's position
+ * @param x player's position
+ * @return player status
+ */
 bool player(vector <string> &vec);
+
+/**
+ * Move Robot
+ * @param vec maze level
+ * @param yr robot's position
+ * @param xr robot's position
+ * @param vertical robot's move
+ * @param horizontal robot's move
+ * @return robot status ( robot alive -> true in case not false)
+ */
+bool moveRobot(vector<string> &vec, int &yr, int &xr, int vertical = 0, int horizontal = 0)
+
+/**
+Calculate which move is better for robot
+@param vec refers to map after player moves
+@param yp - y position of player in vec
+@param xp - x position of player in vec
+@param yr - y position of robot in vec
+@param xr - x position of robot in vec
+*/
+bool robots(vector<string> &vec, int &yp, int &xp, int &yr, int &xr)
 
 /**
 Write winner's name and time in record
@@ -47,4 +101,8 @@ Boolean function to order time records
 void winner(string name, int time, int maze);
 bool order(string a, string b);
 
-
+/**
+Start of the game
+Let's play
+ */
+void play()
