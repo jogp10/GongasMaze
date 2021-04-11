@@ -31,7 +31,7 @@ Transform level maze to a vector
 Function to print the vector
 @param vector that's going to be printed
 */
-vector<string> ReadMaze(int n);
+vector<string> ReadMaze(int n, string path);
 void print(vector<string> vec);
 
 /**
@@ -69,7 +69,7 @@ bool movePlayer(vector<string> &vec, int &y, int &x, int vertical = 0, int horiz
  * @param x player's position
  * @return player status
  */
-bool player(vector <string> &vec);
+bool player(vector<string> &vec, int &y, int &x, char play);
 
 /**
  * Move Robot
@@ -100,7 +100,7 @@ Write winner's name and time in record
 *
 Boolean function to order time records
 */
-void winner(string name, int time, int maze);
+void winner(char name[15],int time,int maze);
 bool order(string a, string b);
 
 /**

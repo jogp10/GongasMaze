@@ -42,13 +42,15 @@ int menu(){
     cout << "Option: " ; cin >> menu_choice;
 
     // If the menu_choice is not valid, ask for a valid one
-    while(cin.fail() || (menu_choice!=0 && menu_choice !=1 && menu_choice != 2))
-    {
+    if(cin.eof()) return 0;
+    while (cin.fail() || (menu_choice != 0 && menu_choice != 1 && menu_choice != 2)) {
         cin.clear();
         cin.ignore(10000, '\n');
         cerr << "Input a valid operation! (0, 1 or 2 to proceed)" << endl;
-        for(int i=0; i<=20000000; i++);  // loop to make time, so cerr always prints first than cout
-        cout << "Option: "; cin >> menu_choice;
+        this_thread::sleep_for(chrono::milliseconds (250));
+        cout << "Option: ";
+        cin >> menu_choice;
+        if(cin.eof()) return 0;
     }
     return menu_choice;
 }
@@ -76,11 +78,12 @@ void ReadRules(){
     cout << "Press '0' to go to the main menu" << endl;
     cin >> goBack;
 
-    while(goBack != 0 || cin.fail())
-    {
+    if(cin.eof()) return;
+    while (goBack != 0 || cin.fail()) {
         cin.clear();
         cin.ignore(10000, '\n');
         cin >> goBack;
+        if(cin.eof()) return;
     }
 }
 
@@ -97,7 +100,7 @@ void print(vector <string> vec){
 }
 
 
-vector<string> ReadMaze(int n, string path){
+vector<string> ReadMaze(string path){
     string line; //variable where we store individual lines
     vector <string> vec; //place where we will be storing all the lines
 
@@ -180,21 +183,8 @@ bool movePlayer(vector<string> &vec, int &y, int &x, int vertical, int horizonta
  * @param x player's position
  * @return player status
  */
-bool player(vector<string> &vec, int &y, int &x){
-    char play;
-    string check = "QWEASDZXC";
-
+bool player(vector<string> &vec, int &y, int &x, char play){
     while(true) {
-        Start_play:
-        //Ask the user which move he wants to do
-        cout << "What's your play" << endl;
-        cin >> play;
-
-        while (check.find(toupper(play)) == string::npos) {
-            cin.clear();
-            cin.ignore(10000, '\n');
-            cin >> play;
-        }
 
         // Move, if collision -> he dies. Game over
         switch (toupper(play)) {
@@ -223,7 +213,7 @@ bool player(vector<string> &vec, int &y, int &x){
                 return movePlayer(vec, y, x, +1, -1);
 
             case 'A': // move left
-                if (!validmove(vec, y, x, 0,-1)) break;
+                if (!validmove(vec, y, x, 0, -1)) break;
                 return movePlayer(vec, y, x, 0, -1);
 
             case 'Q': // move diagonal left up
@@ -405,101 +395,109 @@ void play() {
     cout << "What Maze do you like the most?" << endl;
     cin >> MazeSelect;  // which one the player wants to try
 
+    if(cin.eof()) return;
     // if he choose an invalid one, ask for another input while invalid!
     while (cin.fail() || (!check_path(MazeSelect, path) && MazeSelect != 0)) {
         cin.clear();
         cin.ignore(10000, '\n');
         cerr << "That's not a valid Maze! try another or '0' to return to main menu" << endl;
         cin >> MazeSelect;
+        if(cin.eof()) return;
     }
-    if(MazeSelect == 0) return;
+
+    if (MazeSelect == 0) return;
 
     // Very start of the game
     cout << endl << "Good choice, let's start!" << endl << "Enter 'S' when you are READY..." << endl;
     cin >> start;
-
-    while (start != 'S' && start != 's') cin >> start;
+    if(cin.eof()) return;
+    while ((start != 'S' && start != 's') || cin.eof()) {
+        cin >> start;
+        if(cin.eof()) return;
+    }
 
     // Start timer
     chrono::steady_clock time;
     auto start_time = time.now();
 
     // display board, ready to start
-    vector<string> vec = ReadMaze(MazeSelect, path);
+    vector<string> vec = ReadMaze(path);
 
     // booleans for keep playing if both still alive
     bool player_live = true;
     bool robots_live = true;
 
-    //get player's position
+    //get player's position & robot's position
+    int y = 0, x = 0;
     int y_player = 0, x_player = 0;
-    for (y_player; y_player <= vec.size(); y_player++)
-    {
-        x_player = 0;
-        for (x_player; x_player <= vec[y_player].size(); x_player++)
-        {
-            if (vec[y_player][x_player] == 'H') break;
-        }
-        if (vec[y_player][x_player] == 'H') break;
-    }
-
-    //get all alive robot's positions
-    int y_robot = 0, x_robot = 0;
     vector<int> robot_x, robot_y;
-    for (y_robot; y_robot <= vec.size()-1; y_robot++)
-    {
-        x_robot = 0;
-        for (x_robot; x_robot <= vec[y_robot].size(); x_robot++)
-        {
-            if(vec[y_robot][x_robot] == 'R')
+
+    for (y; y < vec.size(); y++) {
+        x = 0;
+        for (x; x <= vec[y].size(); x++) {
+            if (vec[y][x] == 'H')
             {
-                robot_x.push_back(x_robot);
-                robot_y.push_back(y_robot);
+                y_player = y;
+                x_player = x;
+            }
+            else if (vec[y][x] == 'R') {
+                robot_x.push_back(x);
+                robot_y.push_back(y);
             }
         }
     }
 
     // move from player and automatic play from robots
-    while (robots_live && player_live)
-    {
+    while (robots_live && player_live) {
 
         // ask the user to move
-        player_live = player(vec, y_player, x_player);
+        char play;
+        string check = "QWEASDZXC";
+
+        //Ask the user which move he wants to do
+        cout << "What's your play" << endl;
+        cin >> play;
+
+        if(cin.eof()) return;
+        while (check.find(toupper(play)) == string::npos) {
+            cin.clear();
+            cin.ignore(10000, '\n');
+            cin >> play;
+        }
+        if(cin.eof()) return;
+
+        player_live = player(vec, y_player, x_player, play);
         cin.ignore(10000, '\n');
 
         //robot's turn
-        if (player_live)
-        {
+        if (player_live) {
             vector<int> deadRobots; // for dead robots
 
-            for(int i=0; i<= robot_x.size()-1; i++)
-            {
+            for (int i = 0; i <= robot_x.size() - 1; i++) {
                 //see if robot did die because anther's robot move
-                if (vec[robot_y[i]][robot_x[i]] == 'r')
-                {
+                if (vec[robot_y[i]][robot_x[i]] == 'r') {
                     deadRobots.push_back(i);
                     continue;
                 }
 
                     //move robot
-                else if(!robots(vec, y_player, x_player, robot_y[i], robot_x[i]))
-                {
+                else if (!robots(vec, y_player, x_player, robot_y[i], robot_x[i])) {
                     deadRobots.push_back(i);
                 }
 
                 // if robot catches player
-                if(y_player == robot_y[i] && x_player == robot_x[i]) player_live = false;
+                if (y_player == robot_y[i] && x_player == robot_x[i]) player_live = false;
             }
 
             //remove positions of dead robots
             int count = 0;
-            for(int j : deadRobots){
-                robot_x.erase(robot_x.begin()+j-count);
-                robot_y.erase(robot_y.begin()+j-count);
+            for (int j : deadRobots) {
+                robot_x.erase(robot_x.begin() + j - count);
+                robot_y.erase(robot_y.begin() + j - count);
                 count++;
             }
 
-            if(robot_x.empty()) robots_live = false;
+            if (robot_x.empty()) robots_live = false;
         }
         print(vec);
     }
@@ -510,17 +508,15 @@ void play() {
     if (robots_live) {
         cout << "You lost!! Better luck next time." << endl << endl;
     }
-        // if robots dead, register time
+    // if robots dead, register time
     else {
         char name[15];
 
         auto time_lapsed = static_cast<chrono::duration<double>>(end_time - start_time);
         cout << "What a fantastic show!! Tell me your name so i can remember it!!" << endl;
         cin.getline(name, sizeof(name));
+        winner(name, int(time_lapsed.count()), MazeSelect);
         cin.clear();
         cin.ignore(10000, '\n');
-        winner(name, int(time_lapsed.count()), MazeSelect);
-        //cin.clear();
-        //cin.ignore(10000, '\n');
     }
 }
