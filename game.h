@@ -133,6 +133,38 @@ void DisplayMaze(int n){
 
 
 /**
+ * Move player
+ * @param vec maze level
+ * @param y player's position
+ * @param x player's position
+ * @param vertical y player's move
+ * @param horizontal x player's move
+ * @return if invalid play, ask for another
+ */
+bool validmove(vector<string> &vec, int &y, int &x, int vertical = 0, int horizontal = 0)
+{
+    if (vec[y + vertical][x + horizontal] == 'r') {
+        cout << "Not the play you wanted to do, try another! ";
+        return false;
+    }
+    return true;
+}
+
+bool movePlayer(vector<string> &vec, int &y, int &x, int vertical = 0, int horizontal = 0)
+{
+    swap(vec[y + vertical][x + horizontal], vec[y][x]);
+    if (vec[y][x] == '*' || vec[y][x] == 'R') {
+        vec[y][x] = ' ';
+        vec[y + vertical][x + horizontal] = 'h';
+        return false;
+    }
+    y += vertical;
+    x += horizontal;
+    return true;
+}
+
+
+/**
  * Player's move
  * @param vec maze
  * @param y player's position
@@ -143,137 +175,56 @@ bool player(vector<string> &vec, int &y, int &x){
     char play;
     string check = "QWEASDZXC";
 
-Start_play:
-    //Ask the user which move he wants to do
-    cout << "What's your play" << endl; cin >> play;
-
-    while (check.find(toupper(play)) == string::npos) {
-        cin.clear();
-        cin.ignore(10000, '\n');
+    while(true) {
+        Start_play:
+        //Ask the user which move he wants to do
+        cout << "What's your play" << endl;
         cin >> play;
-    }
 
-    // Move, if collision he dies. Game over
-    switch (toupper(play))
-    {
-        case 'S': // stay place
-            return true;
-        case 'W': // move up
-            swap(vec[y - 1][x], vec[y][x]);
-            if(vec[y][x] == 'r') {
-                swap(vec[y - 1][x], vec[y][x]);
-                cout << "Not the play you wanted to do, try another! " << endl;
-                goto Start_play;
-            }
-            if (vec[y][x] == '*' || vec[y][x] == 'R') {
-                vec[y][x] = ' ';
-                y--;
-                return false;
-            }
-            y--;
-            break;
-        case 'E': // move diagonal right up
-            swap(vec[y - 1][x + 1], vec[y][x]);
-            if(vec[y][x] == 'r') {
-                swap(vec[y - 1][x + 1], vec[y][x]);
-                cout << "Not the play you wanted to do, try another! ";
-                goto Start_play;
-            }
-            if (vec[y][x] == '*' || vec[y][x] == 'R') {
-                vec[y][x] = ' ';
-                y--; x++;
-                return false;
-            }
-            y--; x++;
-            break;
-        case 'D': // move right
-            swap(vec[y][x + 1], vec[y][x]);
-            if(vec[y][x] == 'r') {
-                swap(vec[y][x + 1], vec[y][x]);
+        while (check.find(toupper(play)) == string::npos) {
+            cin.clear();
+            cin.ignore(10000, '\n');
+            cin >> play;
+        }
 
-                cout << "Not the play you wanted to do, try another! ";
-                goto Start_play;
-            }
-            if (vec[y][x] == '*' || vec[y][x] == 'R') {
-                vec[y][x] = ' ';
-                x++;
-                return false;
-            }
-            x++;
-            break;
-        case 'C': // move diagonal right down
-            swap(vec[y + 1][x + 1], vec[y][x]);
-            if(vec[y][x] == 'r') {
-                swap(vec[y + 1][x + 1], vec[y][x]);
-                cout << "Not the play you wanted to do, try another! ";
-                goto Start_play;
-            }
-            if (vec[y][x] == '*' || vec[y][x] == 'R') {
-                vec[y][x] = ' ';
-                y++; x++;
-                return false;
-            }
-            y++; x++;
-            break;
-        case 'X': // move down
-            swap(vec[y + 1][x], vec[y][x]);
-            if(vec[y][x] == 'r') {
-                swap(vec[y + 1][x], vec[y][x]);
-                cout << "Not the play you wanted to do, try another! ";
-                goto Start_play;
-            }
-            if (vec[y][x] == '*' || vec[y][x] == 'R') {
-                vec[y][x] = ' ';
-                y++;
-                return false;
-            }
-            y++;
-            break;
-        case 'Z': // move diagonal left down
-            swap(vec[y + 1][x - 1], vec[y][x]);
-            if(vec[y][x] == 'r') {
-                swap(vec[y + 1][x - 1], vec[y][x]);
-                cout << "Not the play you wanted to do, try another!  ";
-                goto Start_play;
-            }
-            if (vec[y][x] == '*' || vec[y][x] == 'R') {
-                vec[y][x] = ' ';
-                y++; x--;
-                return false;
-            }
-            y++; x--;
-            break;
-        case 'A': // move left
-            swap(vec[y][x - 1], vec[y][x]);
-            if(vec[y][x] == 'r') {
-                swap(vec[y][x - 1], vec[y][x]);
-                cout << "Not the play you wanted to do, try another! ";
-                goto Start_play;
-            }
-            if (vec[y][x] == '*' || vec[y][x] == 'R') {
-                vec[y][x] = ' ';
-                x--;
-                return false;
-            }
-            x--;
-            break;
-        case 'Q': // move diagonal left up
-            swap(vec[y - 1][x - 1], vec[y][x]);
-            if(vec[y][x] == 'r') {
-                swap(vec[y - 1][x - 1], vec[y][x]);
-                cout << "Not the play you wanted to do, try another! ";
-                goto Start_play;
-            }
-            if (vec[y][x] == '*' || vec[y][x] == 'R') {
-                vec[y][x] = ' ';
-                y--; x--;
-                return false;
-            }
-            y--; x--;
-            break;
+        // Move, if collision he dies. Game over
+        switch (toupper(play)) {
+            case 'S': // stay place
+                return true;
+
+            case 'W': // move up
+                if (!validmove(vec, y, x, -1)) break;
+                return movePlayer(vec, y, x, -1);
+
+            case 'E': // move diagonal right up
+                if (!validmove(vec, y, x, -1, +1)) break;
+                return movePlayer(vec, y, x, -1, +1);
+
+            case 'D': // move right
+                if (!validmove(vec, y, x, 0, +1)) break;
+                return movePlayer(vec, y, x, 0, +1);
+
+            case 'C': // move diagonal right down
+                if (!validmove(vec, y, x, +1, +1)) break;
+                return movePlayer(vec, y, x, +1, +1);
+
+            case 'X': // move down
+                if (!validmove(vec, y, x, +1)) break;
+                return movePlayer(vec, y, x, +1);
+
+            case 'Z': // move diagonal left down
+                if (!validmove(vec, y, x, +1, -1)) break;
+                return movePlayer(vec, y, x, +1, -1);
+
+            case 'A': // move left
+                if (!validmove(vec, y, x, 0,-1)) break;
+                return movePlayer(vec, y, x, 0, -1);
+
+            case 'Q': // move diagonal left up
+                if (!validmove(vec, y, x, -1, -1)) break;
+                return movePlayer(vec, y, x, -1, -1);
+        }
     }
-    cin.ignore(10000, '\n');
-    return true;
 }
 
 
@@ -501,7 +452,7 @@ void play() {
     if(MazeSelect == 0) return;
 
     // Very start of the game
-    cout << endl << "Good choice, let's start!" << endl << "Enter S when you are READY..." << endl;
+    cout << endl << "Good choice, let's start!" << endl << "Enter 'S' when you are READY..." << endl;
     cin >> start;
 
     while (start != 'S' && start != 's') cin >> start;
@@ -516,7 +467,6 @@ void play() {
     // booleans for keep playing if both still alive
     bool player_live = true;
     bool robots_live = true;
-    //idrobots(vec);
 
     //get player's position
     int y_player = 0, x_player = 0;
@@ -552,6 +502,7 @@ void play() {
 
         // ask the user to move
         player_live = player(vec, y_player, x_player);
+        cin.ignore(10000, '\n');
 
         //robot's turn
         if (player_live)
@@ -567,7 +518,7 @@ void play() {
                     continue;
                 }
                 //move robot
-                if(!robots(vec, y_player, x_player, robot_y[i], robot_x[i]))
+                else if(!robots(vec, y_player, x_player, robot_y[i], robot_x[i]))
                 {
                     temp.push_back(i);
                 }
@@ -586,7 +537,6 @@ void play() {
 
             if(robot_x.empty()) robots_live = false;
         }
-        else vec[y_player][x_player] = 'h';
         print(vec);
     }
 
@@ -603,9 +553,11 @@ void play() {
         auto time_lapsed = static_cast<chrono::duration<double>>(end_time - start_time);
         cout << "What a fantastic show!! Tell me your name so i can remember it!!" << endl;
         cin.getline(name, sizeof(name));
-        winner(name, int(time_lapsed.count()), MazeSelect);
         cin.clear();
         cin.ignore(10000, '\n');
+        winner(name, int(time_lapsed.count()), MazeSelect);
+        //cin.clear();
+        //cin.ignore(10000, '\n');
     }
 }
 
