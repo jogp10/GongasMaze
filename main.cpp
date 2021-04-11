@@ -4,13 +4,12 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <cmath>
 #include <thread>
 #include <chrono>
 #include <iomanip>
+#include <cmath>
 #include <vector>
 #include <algorithm>
-#include "game.h"
 
 using namespace std;
 
