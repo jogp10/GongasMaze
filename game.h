@@ -507,20 +507,20 @@ void play() {
         //robot's turn
         if (player_live)
         {
-            vector<int> temp; // for dead robots
+            vector<int> deadRobots; // for dead robots
 
             for(int i=0; i<= robot_x.size()-1; i++)
             {
                 //see if robot did die because anther's robot move
                 if (vec[robot_y[i]][robot_x[i]] == 'r')
                 {
-                    temp.push_back(i);
+                    deadRobots.push_back(i);
                     continue;
                 }
                 //move robot
                 else if(!robots(vec, y_player, x_player, robot_y[i], robot_x[i]))
                 {
-                    temp.push_back(i);
+                    deadRobots.push_back(i);
                 }
 
                 // if robot catches player
@@ -529,7 +529,7 @@ void play() {
 
             //remove positions of dead robots
             int count = 0;
-            for(int j : temp){
+            for(int j : deadRobots){
                 robot_x.erase(robot_x.begin()+j-count);
                 robot_y.erase(robot_y.begin()+j-count);
                 count++;
