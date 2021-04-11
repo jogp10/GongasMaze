@@ -1,5 +1,6 @@
 //T02_G11
 
+#include "game.h"
 #include <iostream>
 #include <fstream>
 #include <string>
