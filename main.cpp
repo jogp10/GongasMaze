@@ -17,32 +17,30 @@ int menu();
 
 int main(){
     int menu_choice;  // menu option
-    bool play_again;
 
-Menu:  // label
-    // Iniciate Menu
-    menu_choice = menu();
+    while(true) {
+        // Iniciate Menu
+        menu_choice = menu();
 
-    switch(menu_choice)
-    {
-        case 1:     // Rules of the game
-            ReadRules();
-            cout << endl;
-            goto Menu;
+        switch (menu_choice) {
+            case 1:     // Rules of the game
+                ReadRules();
+                cout << endl;
+                break;
 
-        case 2:    // Start the game
-            play();
-            cout << endl;
-            goto Menu;
+            case 2:    // Start the game
+                play();
+                cout << endl;
+                break;
 
-        case 3:    // Leaderboard
-            //leaderboard();
-            cout << endl;
-            goto Menu;
+            case 3:    // Leaderboard
+                //leaderboard();
+                cout << endl;
+                break;
 
-        default:  // Exit the game
-            this_thread::sleep_for(chrono::seconds(2));
+            default:  // Exit the game
+                this_thread::sleep_for(chrono::seconds(2));
+                return 0;
+        }
     }
-
-    return 0;
 }
