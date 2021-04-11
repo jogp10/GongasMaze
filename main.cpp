@@ -18,7 +18,7 @@ int main(){
     int menu_choice;  // menu option
 
     while(true) {
-        // Iniciate Menu
+        // Initiate Menu
         menu_choice = menu();
 
         switch (menu_choice) {
