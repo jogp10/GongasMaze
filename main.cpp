@@ -13,7 +13,6 @@
 
 using namespace std;
 
-int menu();
 
 int main(){
     int menu_choice;  // menu option
