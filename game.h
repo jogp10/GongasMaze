@@ -31,7 +31,7 @@ Transform level maze to a vector
 Function to print the vector
 @param vector that's going to be printed
 */
-vector<string> ReadMaze(int n, string path);
+vector<string> ReadMaze(string path);
 void print(vector<string> vec);
 
 /**
