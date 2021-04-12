@@ -21,8 +21,8 @@ using namespace std;
  */
 bool check_path(int level, string &path){
     //replacing 'XX' with the number of maze
-    path[10]= (char)(level/10 + '0');
-    path[11]= (char)(level%10 + '0');
+    path[5]= (char)(level/10 + '0');
+    path[6]= (char)(level%10 + '0');
 
     //open file and check if exists
     ifstream f(path);
@@ -183,7 +183,7 @@ bool movePlayer(vector<string> &vec, int &y, int &x, int vertical, int horizonta
  * @param x player's position
  * @return player status
  */
-bool player(vector<string> &vec, int &y, int &x, bool &exitGame){
+bool player(vector<string> &vec, int &y, int &x, bool& exitGame){
     while(true) {
 
         char play;
@@ -192,7 +192,7 @@ bool player(vector<string> &vec, int &y, int &x, bool &exitGame){
         cout << "What's your play" << endl;
         cin >> play;
 
-        if(cin.eof()) {
+        if(cin.eof()){
             exitGame = true;
             return true;
         }
@@ -200,7 +200,7 @@ bool player(vector<string> &vec, int &y, int &x, bool &exitGame){
             cin.clear();
             cin.ignore(10000, '\n');
             cin >> play;
-            if(cin.eof()) {
+            if(cin.eof()){
                 exitGame = true;
                 return true;
             }
@@ -346,11 +346,11 @@ Boolean function to order time records
 bool order(const string& a, const string& b) {return (stoi (a.substr(16, 8), nullptr) < stoi (b.substr(16, 8), nullptr));}
 
 void winner(char name[15],int time,int maze) {
-    string path = "Maze/MAZE_XX_WINNERS.TXT";   // path of file to write winners
+    string path = "MAZE_XX_WINNERS.TXT";   // path of file to write winners
 
     //Which maze, change path
-    path[10] = (char) (maze / 10 + '0');
-    path[11] = (char) (maze % 10 + '0');
+    path[5] = (char) (maze / 10 + '0');
+    path[6] = (char) (maze % 10 + '0');
 
     // open file to write win
     fstream win(path);
@@ -405,7 +405,7 @@ void play() {
     int MazeSelect;
     char start;
     bool exitGame = false;
-    string path = "Maze/MAZE_xx.TXT";
+    string path = "MAZE_xx.TXT";
 
     //display levels
     for(int l=1; l<=99; l++)
