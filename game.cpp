@@ -183,8 +183,29 @@ bool movePlayer(vector<string> &vec, int &y, int &x, int vertical, int horizonta
  * @param x player's position
  * @return player status
  */
-bool player(vector<string> &vec, int &y, int &x, char play){
+bool player(vector<string> &vec, int &y, int &x, bool &exitGame){
     while(true) {
+
+        char play;
+        string check = "QWEASDZXC"; //possible plays
+
+        cout << "What's your play" << endl;
+        cin >> play;
+
+        if(cin.eof()) {
+            exitGame = true;
+            return true;
+        }
+        while (string::npos == check.find(toupper(play))) {
+            cin.clear();
+            cin.ignore(10000, '\n');
+            cin >> play;
+            if(cin.eof()) {
+                exitGame = true;
+                return true;
+            }
+        }
+
 
         // Move, if collision -> he dies. Game over
         switch (toupper(play)) {
@@ -383,12 +404,13 @@ Let's play
 void play() {
     int MazeSelect;
     char start;
+    bool exitGame = false;
     string path = "Maze/MAZE_xx.TXT";
 
     //display levels
     for(int l=1; l<=99; l++)
     {
-        if(check_path(l, path)) DisplayMaze(l,path);
+        if(check_path(l, path)) DisplayMaze(l, path);
     }
 
     cout << "What Maze do you like the most?" << endl;
@@ -449,23 +471,9 @@ void play() {
     // move from player and automatic play from robots
     while (robots_live && player_live) {
 
-        // ask the user to move
-        char play;
-        string check = "QWEASDZXC";
-
-        cout << "What's your play" << endl;
-        cin >> play;
-
-        if(cin.eof()) return;
-        while (string::npos == check.find(toupper(play))) {
-            cin.clear();
-            cin.ignore(10000, '\n');
-            cin >> play;
-        }
-        if(cin.eof()) return;
-
         //move player
-        player_live = player(vec, y_player, x_player, play);
+        player_live = player(vec, y_player, x_player, exitGame);
+        if(exitGame) return;
         cin.ignore(10000, '\n');
 
         //robot's turn
