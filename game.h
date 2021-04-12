@@ -46,7 +46,7 @@ void print(vector<string> vec);
 Function to display all the mazes when selecting level
 @param n number of level
  */
-void DisplayMaze(int n);
+void DisplayMaze(int n, string path);
 
 /**
  * Valid Move

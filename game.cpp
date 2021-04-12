@@ -15,7 +15,7 @@ using namespace std;
 
 
 /**
- *
+ * Check if level exists
  * @param level of the maze
  * @return the path of level
  */
@@ -23,6 +23,8 @@ bool check_path(int level, string &path){
     //replacing 'XX' with the number of maze
     path[10]= (char)(level/10 + '0');
     path[11]= (char)(level%10 + '0');
+
+    //open file and check if exists
     ifstream f(path);
     if(f.good()) return true;
     return false;
@@ -78,6 +80,7 @@ void ReadRules(){
     cout << "Press '0' to go to the main menu" << endl;
     cin >> goBack;
 
+    //Test input for an invalid one
     if(cin.eof()) return;
     while (goBack != 0 || cin.fail()) {
         cin.clear();
@@ -118,11 +121,7 @@ vector<string> ReadMaze(string path){
 Function to display all the mazes when selecting level
 @param n number of level
  */
-void DisplayMaze(int n){
-    string path = "Maze/MAZE_xx.TXT";
-    //replacing 'xx' with the number of maze
-    path[10]= (char)(n/10 + '0');
-    path[11]= (char)(n%10 + '0');
+void DisplayMaze(int n, string path){
     string line; //variable where we store individual lines
 
     ifstream file(path) ;
@@ -147,7 +146,7 @@ bool validmove(vector<string> &vec, int &y, int &x, int vertical, int horizontal
 {
     if (vec[y + vertical][x + horizontal] == 'r') {   // if player move is against a stuck robot
         cout << "Not the play you wanted to do, try another! ";
-        return false;
+        return false; // Not a valid move
     }
     return true;
 }
@@ -165,11 +164,12 @@ bool validmove(vector<string> &vec, int &y, int &x, int vertical, int horizontal
 bool movePlayer(vector<string> &vec, int &y, int &x, int vertical, int horizontal)
 {
     swap(vec[y + vertical][x + horizontal], vec[y][x]);  // move player
-    if (vec[y][x] == '*' || vec[y][x] == 'R') {  // move in case player death
+    if (vec[y][x] == '*' || vec[y][x] == 'R') {  // if player moves causes death
         vec[y][x] = ' ';
-        vec[y + vertical][x + horizontal] = 'h';  // update player
+        vec[y + vertical][x + horizontal] = 'h';  // update player's status
         return false;
     }
+    // update player's position
     y += vertical;
     x += horizontal;
     return true;
@@ -239,13 +239,13 @@ bool player(vector<string> &vec, int &y, int &x, char play){
 bool moveRobot(vector<string> &vec, int &yr, int &xr, int vertical, int horizontal)
 {
     swap(vec[yr + vertical][xr + horizontal], vec[yr][xr]);  // move robot
-    if (vec[yr][xr] == '*' || vec[yr][xr] == 'r' || vec[yr][xr] == 'R')
+    if (vec[yr][xr] == '*' || vec[yr][xr] == 'r' || vec[yr][xr] == 'R')  // if move causes death to the robot
     {
-        vec[yr][xr] = ' ';
-        vec[yr + vertical][xr + horizontal] = 'r';
+        vec[yr][xr] = ' ';  // eliminate cause of death
+        vec[yr + vertical][xr + horizontal] = 'r';  // new position of R is now a stuck robot
         return false;
     }
-    else if(vec[yr][xr] == 'H') vec[yr][xr] = ' ';
+    else if(vec[yr][xr] == 'H') vec[yr][xr] = ' ';  // if robot catches player
     yr += vertical; xr += horizontal;
     return true;
 }
@@ -261,35 +261,34 @@ Everything about robot moves
 */
 bool robots(vector<string> &vec, int &yp, int &xp, int &yr, int &xr)
 {
-    int count = 0, indice;
+    int indice;
     double q,w,e,a,d,z,x,c, minor = 999999;
-    vector<double> hold;
+    vector<double> minor_d;
 
     //case 0
-    q = sqrt((pow(xp-(xr-1), 2) + pow(yp - (yr-1), 2))); hold.push_back(q);
+    q = sqrt((pow(xp-(xr-1), 2) + pow(yp - (yr-1), 2))); minor_d.push_back(q);
     //case 1
-    w = sqrt((pow(xp-xr, 2) + pow(yp - (yr-1), 2))); hold.push_back(w);
+    w = sqrt((pow(xp-xr, 2) + pow(yp - (yr-1), 2))); minor_d.push_back(w);
     //case 2
-    e = sqrt((pow(xp-(xr+1), 2) + pow(yp - (yr-1), 2))); hold.push_back(e);
+    e = sqrt((pow(xp-(xr+1), 2) + pow(yp - (yr-1), 2))); minor_d.push_back(e);
     //case 3
-    a = sqrt((pow(xp-(xr-1), 2) + pow(yp - yr, 2))); hold.push_back(a);
+    a = sqrt((pow(xp-(xr-1), 2) + pow(yp - yr, 2))); minor_d.push_back(a);
     //case 4
-    d = sqrt((pow(xp-(xr+1), 2) + pow(yp - yr, 2))); hold.push_back(d);
+    d = sqrt((pow(xp-(xr+1), 2) + pow(yp - yr, 2))); minor_d.push_back(d);
     //case 5
-    z = sqrt((pow(xp-(xr-1), 2) + pow(yp - (yr+1), 2))); hold.push_back(z);
+    z = sqrt((pow(xp-(xr-1), 2) + pow(yp - (yr+1), 2))); minor_d.push_back(z);
     //case 6
-    x = sqrt((pow(xp-xr, 2) + pow(yp - (yr+1), 2))); hold.push_back(x);
+    x = sqrt((pow(xp-xr, 2) + pow(yp - (yr+1), 2))); minor_d.push_back(x);
     //case 7
-    c = sqrt((pow(xp-(xr+1), 2) + pow(yp - (yr+1), 2))); hold.push_back(c);
+    c = sqrt((pow(xp-(xr+1), 2) + pow(yp - (yr+1), 2))); minor_d.push_back(c);
 
-    while(count <= 7)
+    for(int i=0; i<=7; i++)
     {
-        if (hold[count] <= minor)
+        if (minor_d[i] <= minor) // see which distance is minor
         {
-            minor = hold[count];
-            indice = count;
+            minor = minor_d[i];
+            indice = i;
         }
-        count++;
     }
 
     switch(indice)
@@ -389,7 +388,7 @@ void play() {
     //display levels
     for(int l=1; l<=99; l++)
     {
-        if(check_path(l, path)) DisplayMaze(l);
+        if(check_path(l, path)) DisplayMaze(l,path);
     }
 
     cout << "What Maze do you like the most?" << endl;
@@ -404,8 +403,8 @@ void play() {
         cin >> MazeSelect;
         if(cin.eof()) return;
     }
-
     if (MazeSelect == 0) return;
+
 
     // Very start of the game
     cout << endl << "Good choice, let's start!" << endl << "Enter 'S' when you are READY..." << endl;
@@ -454,7 +453,6 @@ void play() {
         char play;
         string check = "QWEASDZXC";
 
-        //Ask the user which move he wants to do
         cout << "What's your play" << endl;
         cin >> play;
 
@@ -466,6 +464,7 @@ void play() {
         }
         if(cin.eof()) return;
 
+        //move player
         player_live = player(vec, y_player, x_player, play);
         cin.ignore(10000, '\n');
 
@@ -480,7 +479,7 @@ void play() {
                     continue;
                 }
 
-                    //move robot
+                //move robot
                 else if (!robots(vec, y_player, x_player, robot_y[i], robot_x[i])) {
                     deadRobots.push_back(i);
                 }
@@ -497,9 +496,9 @@ void play() {
                 count++;
             }
 
-            if (robot_x.empty()) robots_live = false;
+            if (robot_x.empty()) robots_live = false; // if all robots died, game over
         }
-        print(vec);
+        print(vec); // print level with update
     }
 
     auto end_time = time.now(); // finish timer
