@@ -39,14 +39,14 @@ Transform level maze to a vector
 Function to print the vector
 @param vector that's going to be printed
 */
-vector<string> ReadMaze(string path);
-void print(vector<string> vec);
+vector<string> ReadMaze(const string& path);
+void print(const vector<string>& vec);
 
 /**
 Function to display all the mazes when selecting level
 @param n number of level
  */
-void DisplayMaze(int n, string path);
+void DisplayMaze(int n, const string& path);
 
 /**
  * Valid Move
@@ -57,7 +57,7 @@ void DisplayMaze(int n, string path);
  * @param horizontal x player's move
  * @return if invalid play, ask for another
  */
-bool validmove(vector<string> &vec, int &y, int &x, int vertical = 0, int horizontal = 0);
+bool validMove(vector<string> &vec, int &y, int &x, int vertical = 0, int horizontal = 0);
 
 /**
  * Move player
@@ -109,7 +109,7 @@ Write winner's name and time in record
 Boolean function to order time records
 */
 void winner(char name[15],int time,int maze);
-bool order(string a, string b);
+bool order(const string& a, const string& b);
 
 /**
 Start of the game

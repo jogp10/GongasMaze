@@ -97,13 +97,13 @@ Transform level maze to a vector
 Function to print the vector
 @param vector that's going to be printed
 */
-void print(vector <string> vec){
+void print(const vector <string>& vec){
     //Displaying maze to user using elements stored in vec
     for (auto & i : vec) cout << i << endl;
 }
 
 
-vector<string> ReadMaze(string path){
+vector<string> ReadMaze(const string& path){
     string line; //variable where we store individual lines
     vector <string> vec; //place where we will be storing all the lines
 
@@ -121,7 +121,7 @@ vector<string> ReadMaze(string path){
 Function to display all the mazes when selecting level
 @param n number of level
  */
-void DisplayMaze(int n, string path){
+void DisplayMaze(int n, const string& path){
     string line; //variable where we store individual lines
 
     ifstream file(path) ;
@@ -142,7 +142,7 @@ void DisplayMaze(int n, string path){
  * @param horizontal x player's move
  * @return if invalid play, ask for another
  */
-bool validmove(vector<string> &vec, int &y, int &x, int vertical, int horizontal)
+bool validMove(vector<string> &vec, int &y, int &x, int vertical, int horizontal)
 {
     if (vec[y + vertical][x + horizontal] == 'r') {   // if player move is against a stuck robot
         cout << "Not the play you wanted to do, try another! ";
@@ -189,35 +189,35 @@ bool player(vector<string> &vec, int &y, int &x, char play){
         // Move, if collision -> he dies. Game over
         switch (toupper(play)) {
             case 'W': // move up
-                if (!validmove(vec, y, x, -1)) break;  // test valid move
+                if (!validMove(vec, y, x, -1)) break;  // test valid move
                 return movePlayer(vec, y, x, -1);  // update player status ( alive or dead)
 
             case 'E': // move diagonal right up
-                if (!validmove(vec, y, x, -1, +1)) break;
+                if (!validMove(vec, y, x, -1, +1)) break;
                 return movePlayer(vec, y, x, -1, +1);
 
             case 'D': // move right
-                if (!validmove(vec, y, x, 0, +1)) break;
+                if (!validMove(vec, y, x, 0, +1)) break;
                 return movePlayer(vec, y, x, 0, +1);
 
             case 'C': // move diagonal right down
-                if (!validmove(vec, y, x, +1, +1)) break;
+                if (!validMove(vec, y, x, +1, +1)) break;
                 return movePlayer(vec, y, x, +1, +1);
 
             case 'X': // move down
-                if (!validmove(vec, y, x, +1)) break;
+                if (!validMove(vec, y, x, +1)) break;
                 return movePlayer(vec, y, x, +1);
 
             case 'Z': // move diagonal left down
-                if (!validmove(vec, y, x, +1, -1)) break;
+                if (!validMove(vec, y, x, +1, -1)) break;
                 return movePlayer(vec, y, x, +1, -1);
 
             case 'A': // move left
-                if (!validmove(vec, y, x, 0, -1)) break;
+                if (!validMove(vec, y, x, 0, -1)) break;
                 return movePlayer(vec, y, x, 0, -1);
 
             case 'Q': // move diagonal left up
-                if (!validmove(vec, y, x, -1, -1)) break;
+                if (!validMove(vec, y, x, -1, -1)) break;
                 return movePlayer(vec, y, x, -1, -1);
 
             default:   // stay place
@@ -322,7 +322,7 @@ Write winner's name and time in record
 *
 Boolean function to order time records
 */
-bool order(string a, string b) {return (stoi (a.substr(16, 8), nullptr) < stoi (b.substr(16, 8), nullptr));}
+bool order(const string& a, const string& b) {return (stoi (a.substr(16, 8), nullptr) < stoi (b.substr(16, 8), nullptr));}
 
 void winner(char name[15],int time,int maze) {
     string path = "Maze/MAZE_XX_WINNERS.TXT";   // path of file to write winners
@@ -457,7 +457,7 @@ void play() {
         cin >> play;
 
         if(cin.eof()) return;
-        while (check.find(toupper(play)) == string::npos) {
+        while (string::npos == check.find(toupper(play))) {
             cin.clear();
             cin.ignore(10000, '\n');
             cin >> play;
@@ -507,7 +507,7 @@ void play() {
     if (robots_live) {
         cout << "You lost!! Better luck next time." << endl << endl;
     }
-    // if robots dead, register time
+    // if robots dead, register timeO
     else {
         char name[15];
 
