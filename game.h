@@ -2,7 +2,6 @@
 #ifndef T02_G11_GAME_H
 #define T02_G11_GAME_H
 
-#include "game.h"
 #include <iostream>
 #include <fstream>
 #include <string>
