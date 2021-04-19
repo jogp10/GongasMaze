@@ -42,6 +42,7 @@ int menu(){
     cout << "3) Leaderboard" << endl;
     cout << "0) Exit" << endl;
     cout << "Option: " ; cin >> menu_choice;
+    cin.ignore(10000, '\n');
 
     // If the menu_choice is not valid, ask for a valid one
     if(cin.eof()) return 0;
