@@ -16,13 +16,6 @@ using namespace std;
 
 
 /**
- *
- * @param level of the maze
- * @return the path of level
- */
-bool check_path(int level, string &path);
-
-/**
 Main menu
  */
 int menu();
@@ -31,6 +24,13 @@ int menu();
 Rules of the game
  */
 void ReadRules();
+
+/**
+ *
+ * @param level of the maze
+ * @return the path of level
+ */
+bool check_path(int level, string &path);
 
 /**
 Transform level maze to a vector
@@ -45,18 +45,22 @@ void print(const vector<string>& vec);
 Function to display all the mazes when selecting level
 @param n number of level
  */
-void DisplayMaze(int n, const string& path);
+void DisplayFile(const string& path, int n = 0);
 
 /**
- * Valid Move
- * @param vec maze level
+Start of the game
+Let's play
+ */
+void play();
+
+/**
+ * Player's move
+ * @param vec maze
  * @param y player's position
  * @param x player's position
- * @param vertical y player's move
- * @param horizontal x player's move
- * @return if invalid play, ask for another
+ * @return player status
  */
-bool validMove(vector<string> &vec, int &y, int &x, int vertical = 0, int horizontal = 0);
+bool player(vector<string> &vec, int &y, int &x, bool& exitGame);
 
 /**
  * Move player
@@ -70,13 +74,25 @@ bool validMove(vector<string> &vec, int &y, int &x, int vertical = 0, int horizo
 bool movePlayer(vector<string> &vec, int &y, int &x, int vertical = 0, int horizontal = 0);
 
 /**
- * Player's move
- * @param vec maze
+ * Valid Move
+ * @param vec maze level
  * @param y player's position
  * @param x player's position
- * @return player status
+ * @param vertical y player's move
+ * @param horizontal x player's move
+ * @return if invalid play, ask for another
  */
-bool player(vector<string> &vec, int &y, int &x, char play);
+bool validMove(vector<string> &vec, int &y, int &x, int vertical = 0, int horizontal = 0);
+
+/**
+Calculate which move is better for robot
+@param vec refers to map after player moves
+@param yp - y position of player in vec
+@param xp - x position of player in vec
+@param yr - y position of robot in vec
+@param xr - x position of robot in vec
+*/
+bool robots(vector<string> &vec, int &yp, int &xp, int &yr, int &xr);
 
 /**
  * Move Robot
@@ -90,16 +106,6 @@ bool player(vector<string> &vec, int &y, int &x, char play);
 bool moveRobot(vector<string> &vec, int &yr, int &xr, int vertical = 0, int horizontal = 0);
 
 /**
-Calculate which move is better for robot
-@param vec refers to map after player moves
-@param yp - y position of player in vec
-@param xp - x position of player in vec
-@param yr - y position of robot in vec
-@param xr - x position of robot in vec
-*/
-bool robots(vector<string> &vec, int &yp, int &xp, int &yr, int &xr);
-
-/**
 Write winner's name and time in record
 @param name of the player
 @param time of the play
@@ -111,9 +117,8 @@ void winner(char name[15],int time,int maze);
 bool order(const string& a, const string& b);
 
 /**
-Start of the game
-Let's play
+ * Display leaderboard
  */
-void play();
+void leaderboard();
 
 #endif //T02_G11_GAME_H

@@ -33,7 +33,7 @@ int main(){
                 break;
 
             case 3:    // Leaderboard
-                //leaderboard();
+                leaderboard();
                 cout << endl;
                 break;
 
