@@ -157,7 +157,7 @@ void play() {
     bool robots_live = true;
 
     //get player's position & robot's position
-    int y = 0, x = 0;
+    int y = 0, x;
     int y_player = 0, x_player = 0;
     vector<int> robot_x, robot_y;
 
@@ -177,8 +177,7 @@ void play() {
     }
 
     // Start timer
-    chrono::steady_clock time;
-    auto start_time = time.now();
+    auto start_time = chrono::steady_clock::now();
 
     // move from player and automatic play from robots
     while (robots_live && player_live) {
@@ -221,7 +220,7 @@ void play() {
         print(vec); // print level with update
     }
 
-    auto end_time = time.now(); // finish timer
+    auto end_time = chrono::steady_clock::now(); // finish timer
 
     // if player dead
     if (robots_live) {
@@ -230,13 +229,18 @@ void play() {
     // if robots dead, register time
     else {
         char name[15];
+        char clearBuffer[80];
 
         auto time_lapsed = static_cast<chrono::duration<double>>(end_time - start_time);
-        cout << "What a fantastic show!! Tell me your name so i can remember it!!" << endl;
+        cout << "What a fantastic show!!\nYou completed the level in "; cout << int(time_lapsed.count()); cout << " seconds!!!\n";
+        cout << "Tell me your name so i can remember it!!\n";
         cin.getline(name, sizeof(name));
         winner(name, int(time_lapsed.count()), MazeSelect);
-        cin.clear();
-        cin.ignore(10000, '\n');
+
+        if(cin.fail()) {
+            cin.ignore(10000, '\n');
+            cin.clear();
+        }
     }
 }
 
@@ -249,13 +253,13 @@ bool player(vector<string> &vec, int &y, int &x, bool& exitGame){
 
         // ask for a play
         cout << "What's your play" << endl;
-        cin >> play; cin.ignore(10000, '\n');
+        cin >> play;
 
         if(cin.eof()){
             exitGame = true; return true;
         }
 
-        while (string::npos == check.find(toupper(play))) {
+        while (check.find(toupper(play)) == string::npos) {
             cin.clear(); cin.ignore(10000, '\n');
             cin >> play;
             if(cin.eof()){
@@ -381,8 +385,9 @@ bool robots(vector<string> &vec, int &yp, int &xp, int &yr, int &xr)
             return moveRobot(vec, yr, xr, +1);
         case 7: // C
             return moveRobot(vec, yr, xr, +1, +1);
+        default:
+            return true;
     }
-    return true;
 }
 
 
