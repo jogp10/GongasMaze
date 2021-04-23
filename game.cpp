@@ -426,6 +426,7 @@ void winner(char name[15],int time,int maze) {
         make_file << left << setw(15) << name;  // size of name component
         make_file << internal << setw(8) << time << '\n';
         make_file.close(); 
+        return; 
     }
 
     // read all lines in a vector
