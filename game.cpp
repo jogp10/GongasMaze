@@ -21,24 +21,18 @@ int menu(){
     cout << "2) Play" << endl;
     cout << "3) Leaderboard" << endl;
     cout << "0) Exit" << endl;
-    cout << "Option: "; cin >> menu_choice; cin.ignore(10000, '\n');
 
-    // If the menu_choice is not valid, ask for a valid on
+    // Ask for menu_choice
     while (true)
     {
+        this_thread::sleep_for(chrono::milliseconds(250));
         cout << "Option: "; cin >> menu_choice;
         if(cin.eof()) return 0;
-        if(cin.good())
+        else if(menu_choice == 1 || menu_choice == 2 || menu_choice == 3) return menu_choice;
         cin.clear();
         cin.ignore(10000, '\n');
         cerr << "Input a valid operation! (0, 1 or 2 to proceed)" << endl;
-        this_thread::sleep_for(chrono::milliseconds(250));
-        cout << "Option: ";
-        cin >> menu_choice;
-        //cin.ignore(10000, '\n');
-        if (cin.eof()) return 0;
     }
-    return menu_choice;
 }
 
 
