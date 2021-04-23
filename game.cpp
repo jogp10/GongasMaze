@@ -23,16 +23,20 @@ int menu(){
     cout << "0) Exit" << endl;
     cout << "Option: "; cin >> menu_choice; cin.ignore(10000, '\n');
 
-    // If the menu_choice is not valid, ask for a valid one
-    if(cin.eof()) return 0;
-    while (cin.fail() || (menu_choice != 0 && menu_choice != 1 && menu_choice != 2 && menu_choice != 3)) {
+    // If the menu_choice is not valid, ask for a valid on
+    while (true)
+    {
+        cout << "Option: "; cin >> menu_choice;
+        if(cin.eof()) return 0;
+        if(cin.good())
         cin.clear();
         cin.ignore(10000, '\n');
         cerr << "Input a valid operation! (0, 1 or 2 to proceed)" << endl;
-        this_thread::sleep_for(chrono::milliseconds (250));
+        this_thread::sleep_for(chrono::milliseconds(250));
         cout << "Option: ";
         cin >> menu_choice;
-        if(cin.eof()) return 0;
+        //cin.ignore(10000, '\n');
+        if (cin.eof()) return 0;
     }
     return menu_choice;
 }
