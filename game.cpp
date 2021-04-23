@@ -124,19 +124,18 @@ void play() {
 
     // ask for a level to play
     cout << "What Maze do you wanna play?" << endl;
-    cin >> MazeSelect;  cin.ignore(10000, '\n');
 
     // if he choose an invalid one, ask for another input while invalid!
-    if(cin.eof()) return;
-    while (cin.fail() || (!check_path(MazeSelect, path) && MazeSelect != 0)) {
+    while (true)
+    {
+        cin >> MazeSelect;
+        if(cin.fail());
+        else if(cin.eof() || MazeSelect == 0) return;
+        else if(check_path(MazeSelect, path)) break;
         cin.clear();
         cin.ignore(10000, '\n');
         cerr << "That's not a valid Maze! try another or '0' to return to main menu" << endl;
-        cin >> MazeSelect;
-        if(cin.eof()) return;
     }
-    if (MazeSelect == 0) return;
-
 
     // Very start of the game
     cout << endl << "Good choice, let's start!" << endl << "Enter 'S' when you are READY..." << endl;
