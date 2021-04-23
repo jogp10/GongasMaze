@@ -2,7 +2,6 @@
 
 #include "game.h"
 #include <iostream>
-#include <fstream>
 #include <string>
 #include <thread>
 #include <chrono>
@@ -27,7 +26,8 @@ int menu(){
     {
         this_thread::sleep_for(chrono::milliseconds(250));
         cout << "Option: "; cin >> menu_choice;
-        if(cin.eof()) return 0;
+        if(cin.fail());
+        else if(cin.eof() || menu_choice == 0) return 0;
         else if(menu_choice == 1 || menu_choice == 2 || menu_choice == 3) return menu_choice;
         cin.clear();
         cin.ignore(10000, '\n');
@@ -231,12 +231,13 @@ void play() {
         cout << "What a fantastic show!!\nYou completed the level in "; cout << int(time_lapsed.count()); cout << " seconds!!!\n";
         cout << "Tell me your name so i can remember it!!\n";
         cin.getline(name, sizeof(name));
-        winner(name, int(time_lapsed.count()), MazeSelect);
-
-        if(cin.fail()) {
-            cin.ignore(10000, '\n');
+        if(cin.fail()){
             cin.clear();
+            cin.ignore(10000, '\n');
         }
+        else if(cin.eof()) return;
+
+        winner(name, int(time_lapsed.count()), MazeSelect);
     }
 }
 
@@ -249,21 +250,19 @@ bool player(vector<string> &vec, int &y, int &x, bool& exitGame){
 
         // ask for a play
         cout << "What's your play" << endl;
-        cin >> play;
 
-        if(cin.eof()){
-            exitGame = true; return true;
-        }
-
-        while (check.find(toupper(play)) == string::npos) {
-            cin.clear(); cin.ignore(10000, '\n');
+        while(true){
             cin >> play;
-            if(cin.eof()){
+            if(cin.fail());
+            else if(cin.eof()){
                 exitGame = true;
                 return true;
             }
-        }
+            else if(check.find(toupper(play)) != string::npos) break;
+            cin.clear();
+            cin.ignore(10000, '\n');
 
+        }
 
         // Move, if collision -> he dies. Game over
         switch (toupper(play)) {
@@ -471,18 +470,16 @@ void leaderboard(){
     string path = "MAZE_xx_WINNERS.TXT";
 
     cout << "Which level do you want to beat the records?" << endl;
-    cin >> level;
 
-    if(cin.eof()) return;
-    // if he choose an invalid one, ask for another input while invalid!
-    while (cin.fail() || (!check_path(level, path) && level != 0)) {
+    while(true){
+        cin >> level;
+        if(cin.fail());
+        else if(cin.eof() || level == 0) return;
+        else if(check_path(level, path)) break;
         cin.clear();
         cin.ignore(10000, '\n');
         cerr << "That's not a valid Maze! try another or '0' to return to main menu" << endl;
-        cin >> level;
-        if(cin.eof()) return;
     }
-    if (level == 0) return;
 
     //read_level
     DisplayFile(path);
