@@ -422,6 +422,14 @@ void winner(char name[15],int time,int maze) {
         win << internal << setw(8) << time << '\n';
         win.close();
     }
+    else 
+    {
+        ofstream make_file(path); 
+        make_file << "T02_G11 \nPlayer          - Time \n-----------------------\n"; 
+        make_file << left << setw(15) << name;  // size of name component
+        make_file << internal << setw(8) << time << '\n';
+        make_file.close(); 
+    }
 
     // read all lines in a vector
     ifstream readf(path);
