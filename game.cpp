@@ -26,8 +26,9 @@ int menu(){
     {
         this_thread::sleep_for(chrono::milliseconds(250));
         cout << "Option: "; cin >> menu_choice;
+        if(cin.eof()) return 0;
         if(cin.fail());
-        else if(cin.eof() || menu_choice == 0) return 0;
+        else if(menu_choice == 0) return 0;
         else if(menu_choice == 1 || menu_choice == 2 || menu_choice == 3) return menu_choice;
         cin.clear();
         cin.ignore(10000, '\n');
@@ -52,13 +53,14 @@ void ReadRules(){
     cout << "Press '0' to go to the main menu" << endl;
     cin >> goBack;
 
-    //Test input for an invalid one
-    if(cin.eof()) return;
-    while (goBack != 0 || cin.fail()) {
-        cin.clear();
-        cin.ignore(10000, '\n');
+    //Test input while invalid
+    while(true){
         cin >> goBack;
         if(cin.eof()) return;
+        if(cin.fail());
+        else if(goBack == 0) break;
+        cin.clear();
+        cin.ignore(10000, '\n');
     }
 }
 
@@ -125,7 +127,6 @@ void play() {
     // ask for a level to play
     cout << "What Maze do you wanna play?" << endl;
 
-    // if he choose an invalid one, ask for another input while invalid!
     while (true)
     {
         cin >> MazeSelect;
@@ -139,11 +140,14 @@ void play() {
 
     // Very start of the game
     cout << endl << "Good choice, let's start!" << endl << "Enter 'S' when you are READY..." << endl;
-    cin >> start; cin.ignore(10000, '\n');
-    if(cin.eof()) return;
-    while ((start != 'S' && start != 's') || cin.eof()) {
-        cin >> start; cin.ignore(10000, '\n');
+    while(true){
+        cin >> start;
         if(cin.eof()) return;
+        if(cin.fail()){
+            cin.clear();
+            cin.ignore(10000, '\n');
+        }
+        else if(start == 'S' || start == 's') break;
     }
 
     // display board, ready to start
@@ -158,9 +162,9 @@ void play() {
     int y_player = 0, x_player = 0;
     vector<int> robot_x, robot_y;
 
-    for (y; y < vec.size(); y++) {
+    for (; y < vec.size(); y++) {
         x = 0;
-        for (x; x <= vec[y].size(); x++) {
+        for (; x <= vec[y].size(); x++) {
             if (vec[y][x] == 'H')
             {
                 y_player = y;
@@ -253,11 +257,11 @@ bool player(vector<string> &vec, int &y, int &x, bool& exitGame){
 
         while(true){
             cin >> play;
-            if(cin.fail());
-            else if(cin.eof()){
+            if(cin.eof()){
                 exitGame = true;
                 return true;
             }
+            if(cin.fail());
             else if(check.find(toupper(play)) != string::npos) break;
             cin.clear();
             cin.ignore(10000, '\n');
@@ -473,9 +477,10 @@ void leaderboard(){
 
     while(true){
         cin >> level;
+        if(cin.eof()) return;
         if(cin.fail());
-        else if(cin.eof() || level == 0) return;
-        else if(check_path(level, path)) break;
+        else if (level == 0) return;
+        else if (check_path(level, path)) break;
         cin.clear();
         cin.ignore(10000, '\n');
         cerr << "That's not a valid Maze! try another or '0' to return to main menu" << endl;
@@ -485,10 +490,12 @@ void leaderboard(){
     DisplayFile(path);
     cout << "\n\n0 to go back to main menu\n";
 
-    // if he choose an invalid one, ask for another input while invalid!
-    while ((cin.fail() || (ret != 0)) && !cin.eof()) {
+    while(true){
+        cin >> ret;
+        if(cin.eof()) break;
+        if(cin.fail());
+        else if(ret ==0) break;
         cin.clear();
         cin.ignore(10000, '\n');
-        cin >> ret;
     }
 }
