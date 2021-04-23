@@ -229,7 +229,6 @@ void play() {
     // if robots dead, register time
     else {
         char name[15];
-        char clearBuffer[80];
 
         auto time_lapsed = static_cast<chrono::duration<double>>(end_time - start_time);
         cout << "What a fantastic show!!\nYou completed the level in "; cout << int(time_lapsed.count()); cout << " seconds!!!\n";
