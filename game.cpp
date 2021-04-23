@@ -21,20 +21,18 @@ int menu(){
     cout << "2) Play" << endl;
     cout << "3) Leaderboard" << endl;
     cout << "0) Exit" << endl;
-    cout << "Option: "; cin >> menu_choice; cin.ignore(10000, '\n');
 
-    // If the menu_choice is not valid, ask for a valid one
-    if(cin.eof()) return 0;
-    while (cin.fail() || (menu_choice != 0 && menu_choice != 1 && menu_choice != 2 && menu_choice != 3)) {
+    // Ask for menu_choice
+    while (true)
+    {
+        this_thread::sleep_for(chrono::milliseconds(250));
+        cout << "Option: "; cin >> menu_choice;
+        if(cin.eof()) return 0;
+        else if(menu_choice == 1 || menu_choice == 2 || menu_choice == 3) return menu_choice;
         cin.clear();
         cin.ignore(10000, '\n');
         cerr << "Input a valid operation! (0, 1 or 2 to proceed)" << endl;
-        this_thread::sleep_for(chrono::milliseconds (250));
-        cout << "Option: ";
-        cin >> menu_choice;
-        if(cin.eof()) return 0;
     }
-    return menu_choice;
 }
 
 
@@ -126,19 +124,18 @@ void play() {
 
     // ask for a level to play
     cout << "What Maze do you wanna play?" << endl;
-    cin >> MazeSelect;  cin.ignore(10000, '\n');
 
     // if he choose an invalid one, ask for another input while invalid!
-    if(cin.eof()) return;
-    while (cin.fail() || (!check_path(MazeSelect, path) && MazeSelect != 0)) {
+    while (true)
+    {
+        cin >> MazeSelect;
+        if(cin.fail());
+        else if(cin.eof() || MazeSelect == 0) return;
+        else if(check_path(MazeSelect, path)) break;
         cin.clear();
         cin.ignore(10000, '\n');
         cerr << "That's not a valid Maze! try another or '0' to return to main menu" << endl;
-        cin >> MazeSelect;
-        if(cin.eof()) return;
     }
-    if (MazeSelect == 0) return;
-
 
     // Very start of the game
     cout << endl << "Good choice, let's start!" << endl << "Enter 'S' when you are READY..." << endl;

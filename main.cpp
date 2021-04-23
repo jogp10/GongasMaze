@@ -2,14 +2,8 @@
 
 #include "game.h"
 #include <iostream>
-#include <fstream>
-#include <string>
 #include <thread>
 #include <chrono>
-#include <iomanip>
-#include <cmath>
-#include <vector>
-#include <algorithm>
 
 using namespace std;
 
