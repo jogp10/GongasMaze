@@ -43,14 +43,14 @@ int menu(){
 
 void ReadRules(){
     string line;
-    ifstream myfile ("rules.TXT");  // file where are the rules
+    ifstream myFile ("rules.TXT");  // file where are the rules
     int goBack;
 
     // Open file and print all the lines
-    if(myfile.is_open())
+    if(myFile.is_open())
     {
-        while (getline(myfile, line)) cout << line << '\n';
-        myfile.close();
+        while (getline(myFile, line)) cout << line << '\n';
+        myFile.close();
     }
 
     //Go back to main menu by pressing '0'
