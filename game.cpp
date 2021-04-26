@@ -26,10 +26,10 @@ int menu(){
     {
         this_thread::sleep_for(chrono::milliseconds(250));
         cout << "Option: "; cin >> menu_choice;
+        if (cin.eof()) return 0;
         if(!cin.fail()) {
             cin.ignore(10000, '\n');
-            if (cin.eof()) return 0;
-            else if (menu_choice == 0) return 0;
+            if (menu_choice == 0) return 0;
             else if (menu_choice == 1 || menu_choice == 2 || menu_choice == 3) return menu_choice;
         }
         else{
@@ -59,10 +59,10 @@ void ReadRules(){
     //Test input while invalid
     while(true){
         cin >> goBack;
+        if (cin.eof()) return;
         if(!cin.fail()) {
             cin.ignore(10000, '\n');
-            if (cin.eof()) return;
-            else if (goBack == 0) break;
+            if (goBack == 0) break;
         }
         else {
             cin.clear();
@@ -134,14 +134,19 @@ void play() {
     // ask for a level to play
     cout << "What Maze do you wanna play?" << endl;
 
-    while (true)
+    while(true)
     {
         cin >> MazeSelect;
-        cin.ignore(10000, '\n');
-        if(cin.fail());
-        else if(cin.eof() || MazeSelect == 0) return;
-        else if(check_path(MazeSelect, path)) break;
-        cin.clear();
+        if (cin.eof()) return;
+        if(!cin.fail()){
+            cin.ignore(10000, '\n');
+            if(MazeSelect == 0) return;
+            else if(check_path(MazeSelect, path)) break;
+        }
+        else{
+            cin.clear();
+            cin.ignore(10000, '\n');
+        }
         cerr << "That's not a valid Maze! try another or '0' to return to main menu" << endl;
     }
 
@@ -149,10 +154,10 @@ void play() {
     cout << endl << "Good choice, let's start!" << endl << "Enter 'S' when you are READY..." << endl;
     while(true){
         cin >> start;
+        if (cin.eof()) return;
         if(!cin.fail()) {
             cin.ignore(10000, '\n');
-            if (cin.eof()) return;
-            else if (start == 'S' || start == 's') break;
+            if (start == 'S' || start == 's') break;
         }
         else{
             cin.clear();
@@ -218,7 +223,7 @@ void play() {
                     if (robot_y[j] == robot_y[i] && robot_x[j] == robot_x[i]) {
                         bool equal = false;
                         for(int w=0; w<deadRobots.size(); w++){
-                            if(j = w) equal = true;
+                            if(j == deadRobots[w]) equal = true;
                         }
                         if(!equal) deadRobots.push_back(j);
                     }
@@ -277,18 +282,18 @@ bool player(vector<string> &vec, int &y, int &x, bool& exitGame){
 
         while(true){
             cin >> play;
+            if (cin.eof()) {
+                exitGame = true;
+                return true;
+            }
             if(!cin.fail()) {
                 cin.ignore(10000, '\n');
-                if (cin.eof()) {
-                    exitGame = true;
-                    return true;
-                } else if (check.find(toupper(play)) != string::npos) break;
+                if (check.find(toupper(play)) != string::npos) break;
             }
             else {
                 cin.clear();
                 cin.ignore(10000, '\n');
             }
-
         }
 
         // Move, if collision -> he dies. Game over
@@ -502,10 +507,10 @@ void leaderboard(){
 
     while(true){
         cin >> level;
+        if (cin.eof()) return;
         if(!cin.fail()) {
             cin.ignore(10000, '\n');
-            if (cin.eof()) return;
-            else if (level == 0) return;
+            if (level == 0) return;
             else if (check_path(level, path)) break;
         }
         else {
@@ -521,10 +526,10 @@ void leaderboard(){
 
     while(true){
         cin >> ret;
+        if (cin.eof()) break;
         if(!cin.fail()) {
             cin.ignore(10000, '\n');
-            if (cin.eof()) break;
-            else if (ret == 0) break;
+            if (ret == 0) break;
         }
         else {
             cin.clear();
