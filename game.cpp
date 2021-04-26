@@ -191,7 +191,7 @@ void play() {
             vector<int> deadRobots; // for dead robots
 
             for (int i = 0; i <= robot_x.size() - 1; i++) {
-                //see if robot did die because anther's robot move
+                //see if robot die because anther's robot move
                 if (vec[robot_y[i]][robot_x[i]] == 'r') {
                     deadRobots.push_back(i);
                     continue;
@@ -200,6 +200,11 @@ void play() {
                     //move robot
                 else if (!robots(vec, y_player, x_player, robot_y[i], robot_x[i])) {
                     deadRobots.push_back(i);
+                }
+
+                //if robot catches another robot
+                for(int j=0; j< i; j++){
+                    if(robot_y[j] == robot_y[i] && robot_x[j] == robot_x[i]) deadRobots.push_back(j);
                 }
 
                 // if robot catches player
@@ -395,6 +400,7 @@ bool moveRobot(vector<string> &vec, int &yr, int &xr, int vertical, int horizont
     {
         vec[yr][xr] = ' ';  // eliminate cause of death
         vec[yr + vertical][xr + horizontal] = 'r';  // new position of R is now a stuck robot
+        yr += vertical; xr += horizontal;
         return false;
     }
     else if(vec[yr][xr] == 'H') vec[yr][xr] = ' ';  // if robot catches player
