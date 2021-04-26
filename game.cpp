@@ -26,12 +26,16 @@ int menu(){
     {
         this_thread::sleep_for(chrono::milliseconds(250));
         cout << "Option: "; cin >> menu_choice;
-        cin.ignore(10000, '\n');
-        if(cin.eof()) return 0;
-        if(cin.fail());
-        else if(menu_choice == 0) return 0;
-        else if(menu_choice == 1 || menu_choice == 2 || menu_choice == 3) return menu_choice;
-        cin.clear();
+        if(!cin.fail()) {
+            cin.ignore(10000, '\n');
+            if (cin.eof()) return 0;
+            else if (menu_choice == 0) return 0;
+            else if (menu_choice == 1 || menu_choice == 2 || menu_choice == 3) return menu_choice;
+        }
+        else{
+            cin.clear();
+            cin.ignore(10000, '\n');
+        }
         cerr << "Input a valid operation! (0, 1 or 2 to proceed)" << endl;
     }
 }
@@ -55,11 +59,15 @@ void ReadRules(){
     //Test input while invalid
     while(true){
         cin >> goBack;
-        cin.ignore(10000, '\n');
-        if(cin.eof()) return;
-        if(cin.fail());
-        else if(goBack == 0) break;
-        cin.clear();
+        if(!cin.fail()) {
+            cin.ignore(10000, '\n');
+            if (cin.eof()) return;
+            else if (goBack == 0) break;
+        }
+        else {
+            cin.clear();
+            cin.ignore(10000, '\n');
+        }
     }
 }
 
@@ -141,12 +149,15 @@ void play() {
     cout << endl << "Good choice, let's start!" << endl << "Enter 'S' when you are READY..." << endl;
     while(true){
         cin >> start;
-        cin.ignore(10000, '\n');
-        if(cin.eof()) return;
-        if(cin.fail()){
-            cin.clear();
+        if(!cin.fail()) {
+            cin.ignore(10000, '\n');
+            if (cin.eof()) return;
+            else if (start == 'S' || start == 's') break;
         }
-        else if(start == 'S' || start == 's') break;
+        else{
+            cin.clear();
+            cin.ignore(10000, '\n');
+        }
     }
 
     // display board, ready to start
@@ -163,7 +174,7 @@ void play() {
 
     for (; y < vec.size(); y++) {
         x = 0;
-        for (; x <= vec[y].size(); x++) {
+        for (; x < vec[y].size(); x++) {
             if (vec[y][x] == 'H')
             {
                 y_player = y;
@@ -190,7 +201,7 @@ void play() {
         if (player_live) {
             vector<int> deadRobots; // for dead robots
 
-            for (int i = 0; i <= robot_x.size() - 1; i++) {
+            for (int i = 0; i < robot_x.size(); i++) {
                 //see if robot die because anther's robot move
                 if (vec[robot_y[i]][robot_x[i]] == 'r') {
                     deadRobots.push_back(i);
@@ -202,9 +213,15 @@ void play() {
                     deadRobots.push_back(i);
                 }
 
-                //if robot catches another robot
-                for(int j=0; j< i; j++){
-                    if(robot_y[j] == robot_y[i] && robot_x[j] == robot_x[i]) deadRobots.push_back(j);
+                //if robot catches another robot that was alive and has already move
+                for (int j = 0; j < i; j++) {
+                    if (robot_y[j] == robot_y[i] && robot_x[j] == robot_x[i]) {
+                        bool equal = false;
+                        for(int w=0; w<deadRobots.size(); w++){
+                            if(j = w) equal = true;
+                        }
+                        if(!equal) deadRobots.push_back(j);
+                    }
                 }
 
                 // if robot catches player
@@ -260,14 +277,17 @@ bool player(vector<string> &vec, int &y, int &x, bool& exitGame){
 
         while(true){
             cin >> play;
-            cin.ignore(10000, '\n');
-            if(cin.eof()){
-                exitGame = true;
-                return true;
+            if(!cin.fail()) {
+                cin.ignore(10000, '\n');
+                if (cin.eof()) {
+                    exitGame = true;
+                    return true;
+                } else if (check.find(toupper(play)) != string::npos) break;
             }
-            if(cin.fail());
-            else if(check.find(toupper(play)) != string::npos) break;
-            cin.clear();
+            else {
+                cin.clear();
+                cin.ignore(10000, '\n');
+            }
 
         }
 
@@ -424,17 +444,18 @@ void winner(char name[15],int time,int maze) {
         win.seekp(0, ios::end);  // starting point at the end of file
         win << left << setw(15) << name;  // size of name component
         win << internal << setw(8) << time << '\n';
-        win.close();
     }
     else 
     {
-        ofstream make_file(path); 
+        ofstream make_file(path);
+
         make_file << "T02_G11\n\nPlayer          - Time\n-----------------------\n";
         make_file << left << setw(15) << name;  // size of name component
-        make_file << internal << setw(8) << time << '\n';
+        make_file << internal << setw(8) << time << endl;
         make_file.close(); 
-        return; 
+        return;
     }
+    win.close();
 
     // read all lines in a vector
     ifstream readf(path);
@@ -481,12 +502,16 @@ void leaderboard(){
 
     while(true){
         cin >> level;
-        cin.ignore(10000, '\n');
-        if(cin.eof()) return;
-        if(cin.fail());
-        else if (level == 0) return;
-        else if (check_path(level, path)) break;
-        cin.clear();
+        if(!cin.fail()) {
+            cin.ignore(10000, '\n');
+            if (cin.eof()) return;
+            else if (level == 0) return;
+            else if (check_path(level, path)) break;
+        }
+        else {
+            cin.clear();
+            cin.ignore(10000, '\n');
+        }
         cerr << "That's not a valid Maze! try another or '0' to return to main menu" << endl;
     }
 
@@ -496,10 +521,14 @@ void leaderboard(){
 
     while(true){
         cin >> ret;
-        cin.ignore(10000, '\n');
-        if(cin.eof()) break;
-        if(cin.fail());
-        else if(ret ==0) break;
-        cin.clear();
+        if(!cin.fail()) {
+            cin.ignore(10000, '\n');
+            if (cin.eof()) break;
+            else if (ret == 0) break;
+        }
+        else {
+            cin.clear();
+            cin.ignore(10000, '\n');
+        }
     }
 }
