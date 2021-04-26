@@ -26,12 +26,12 @@ int menu(){
     {
         this_thread::sleep_for(chrono::milliseconds(250));
         cout << "Option: "; cin >> menu_choice;
+        cin.ignore(10000, '\n');
         if(cin.eof()) return 0;
         if(cin.fail());
         else if(menu_choice == 0) return 0;
         else if(menu_choice == 1 || menu_choice == 2 || menu_choice == 3) return menu_choice;
         cin.clear();
-        cin.ignore(10000, '\n');
         cerr << "Input a valid operation! (0, 1 or 2 to proceed)" << endl;
     }
 }
@@ -51,16 +51,15 @@ void ReadRules(){
 
     //Go back to main menu by pressing '0'
     cout << "Press '0' to go to the main menu" << endl;
-    cin >> goBack;
 
     //Test input while invalid
     while(true){
         cin >> goBack;
+        cin.ignore(10000, '\n');
         if(cin.eof()) return;
         if(cin.fail());
         else if(goBack == 0) break;
         cin.clear();
-        cin.ignore(10000, '\n');
     }
 }
 
@@ -130,11 +129,11 @@ void play() {
     while (true)
     {
         cin >> MazeSelect;
+        cin.ignore(10000, '\n');
         if(cin.fail());
         else if(cin.eof() || MazeSelect == 0) return;
         else if(check_path(MazeSelect, path)) break;
         cin.clear();
-        cin.ignore(10000, '\n');
         cerr << "That's not a valid Maze! try another or '0' to return to main menu" << endl;
     }
 
@@ -142,10 +141,10 @@ void play() {
     cout << endl << "Good choice, let's start!" << endl << "Enter 'S' when you are READY..." << endl;
     while(true){
         cin >> start;
+        cin.ignore(10000, '\n');
         if(cin.eof()) return;
         if(cin.fail()){
             cin.clear();
-            cin.ignore(10000, '\n');
         }
         else if(start == 'S' || start == 's') break;
     }
@@ -186,7 +185,6 @@ void play() {
         //move player
         player_live = player(vec, y_player, x_player, exitGame);
         if(exitGame) return;
-        cin.ignore(10000, '\n');
 
         //robot's turn
         if (player_live) {
@@ -257,6 +255,7 @@ bool player(vector<string> &vec, int &y, int &x, bool& exitGame){
 
         while(true){
             cin >> play;
+            cin.ignore(10000, '\n');
             if(cin.eof()){
                 exitGame = true;
                 return true;
@@ -264,7 +263,6 @@ bool player(vector<string> &vec, int &y, int &x, bool& exitGame){
             if(cin.fail());
             else if(check.find(toupper(play)) != string::npos) break;
             cin.clear();
-            cin.ignore(10000, '\n');
 
         }
 
@@ -425,7 +423,7 @@ void winner(char name[15],int time,int maze) {
     else 
     {
         ofstream make_file(path); 
-        make_file << "T02_G11 \nPlayer          - Time \n-----------------------\n"; 
+        make_file << "T02_G11\n\nPlayer          - Time\n-----------------------\n";
         make_file << left << setw(15) << name;  // size of name component
         make_file << internal << setw(8) << time << '\n';
         make_file.close(); 
@@ -477,12 +475,12 @@ void leaderboard(){
 
     while(true){
         cin >> level;
+        cin.ignore(10000, '\n');
         if(cin.eof()) return;
         if(cin.fail());
         else if (level == 0) return;
         else if (check_path(level, path)) break;
         cin.clear();
-        cin.ignore(10000, '\n');
         cerr << "That's not a valid Maze! try another or '0' to return to main menu" << endl;
     }
 
@@ -492,10 +490,10 @@ void leaderboard(){
 
     while(true){
         cin >> ret;
+        cin.ignore(10000, '\n');
         if(cin.eof()) break;
         if(cin.fail());
         else if(ret ==0) break;
         cin.clear();
-        cin.ignore(10000, '\n');
     }
 }
