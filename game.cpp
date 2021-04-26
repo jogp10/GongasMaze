@@ -222,8 +222,8 @@ void play() {
                 for (int j = 0; j < i; j++) {
                     if (robot_y[j] == robot_y[i] && robot_x[j] == robot_x[i]) {
                         bool equal = false;
-                        for(int w=0; w<deadRobots.size(); w++){
-                            if(j == deadRobots[w]) equal = true;
+                        for(int deadRobot : deadRobots){
+                            if(j == deadRobot) equal = true;
                         }
                         if(!equal) deadRobots.push_back(j);
                     }
