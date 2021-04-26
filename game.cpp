@@ -288,7 +288,7 @@ bool player(vector<string> &vec, int &y, int &x, bool& exitGame){
             }
             if(!cin.fail()) {
                 cin.ignore(10000, '\n');
-                if (check.find(toupper(play)) != string::npos) break;
+                if (check.find((char) toupper(play)) != string::npos) break;
             }
             else {
                 cin.clear();
@@ -449,6 +449,7 @@ void winner(char name[15],int time,int maze) {
         win.seekp(0, ios::end);  // starting point at the end of file
         win << left << setw(15) << name;  // size of name component
         win << internal << setw(8) << time << '\n';
+        win.close();
     }
     else 
     {
@@ -460,7 +461,6 @@ void winner(char name[15],int time,int maze) {
         make_file.close(); 
         return;
     }
-    win.close();
 
     // read all lines in a vector
     ifstream readf(path);
