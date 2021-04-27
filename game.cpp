@@ -213,20 +213,9 @@ void play() {
                     continue;
                 }
 
-                    //move robot
-                else if (!robots(vec, y_player, x_player, robot_y[i], robot_x[i])) {
+                //move robot
+                else if (!robots(vec, deadRobots, i, y_player, x_player, robot_y[i], robot_x[i])) {
                     deadRobots.push_back(i);
-                }
-
-                //if robot catches another robot that was alive and has already move
-                for (int j = 0; j < i; j++) {
-                    if (robot_y[j] == robot_y[i] && robot_x[j] == robot_x[i]) {
-                        bool equal = false;
-                        for(int deadRobot : deadRobots){
-                            if(j == deadRobot) equal = true;
-                        }
-                        if(!equal) deadRobots.push_back(j);
-                    }
                 }
 
                 // if robot catches player
@@ -362,7 +351,7 @@ bool validMove(vector<string> &vec, int &y, int &x, int vertical, int horizontal
 }
 
 
-bool robots(vector<string> &vec, int &yp, int &xp, int &yr, int &xr)
+bool robots(vector<string> &vec, vector<int> &deadRobots, int robot_id, int &yp, int &xp, int &yr, int &xr)
 {
     int indice;
     double q,w,e,a,d,z,x,c, minor = 999999;
@@ -385,44 +374,45 @@ bool robots(vector<string> &vec, int &yp, int &xp, int &yr, int &xr)
     //case 7
     c = sqrt((pow(xp-(xr+1), 2) + pow(yp - (yr+1), 2))); minor_d.push_back(c);
 
-    for(int i=0; i<=7; i++)
+    for(int j=0; j<=7; j++)
     {
-        if (minor_d[i] <= minor) // see which distance is minor
+        if (minor_d[j] <= minor) // see which distance is minor
         {
-            minor = minor_d[i];
-            indice = i;
+            minor = minor_d[j];
+            indice = j;
         }
     }
 
     switch(indice)
     {
         case 0:  // Q
-            return moveRobot(vec, yr, xr, -1, -1);
+            return moveRobot(vec, deadRobots, robot_id, yr, xr, -1, -1);
         case 1: // W
-            return moveRobot(vec, yr, xr, -1);
+            return moveRobot(vec, deadRobots, robot_id, yr, xr, -1);
         case 2: // E
-            return moveRobot(vec, yr, xr, -1, +1);
+            return moveRobot(vec,deadRobots, robot_id, yr, xr, -1, +1);
         case 3:  // A
-            return moveRobot(vec, yr, xr, 0, -1);
+            return moveRobot(vec,deadRobots, robot_id, yr, xr, 0, -1);
         case 4: // D
-            return moveRobot(vec, yr, xr, 0, +1);
+            return moveRobot(vec,deadRobots, robot_id, yr, xr, 0, +1);
         case 5: // Z
-            return moveRobot(vec, yr, xr, +1, -1);
+            return moveRobot(vec,deadRobots, robot_id, yr, xr, +1, -1);
         case 6:  // X
-            return moveRobot(vec, yr, xr, +1);
+            return moveRobot(vec,deadRobots, robot_id, yr, xr, +1);
         case 7: // C
-            return moveRobot(vec, yr, xr, +1, +1);
+            return moveRobot(vec,deadRobots, robot_id, yr, xr, +1, +1);
         default:
             return true;
     }
 }
 
 
-bool moveRobot(vector<string> &vec, int &yr, int &xr, int vertical, int horizontal)
+bool moveRobot(vector<string> &vec, vector<int> &deadRobots, int robot_id, int &yr, int &xr, int vertical, int horizontal)
 {
     swap(vec[yr + vertical][xr + horizontal], vec[yr][xr]);  // move robot
     if (vec[yr][xr] == '*' || vec[yr][xr] == 'r' || vec[yr][xr] == 'R')  // if move causes death to the robot
     {
+        if(vec[yr][xr] == 'R') deadRobots.push_back(robot_id); // in case it catches another alive robot
         vec[yr][xr] = ' ';  // eliminate cause of death
         vec[yr + vertical][xr + horizontal] = 'r';  // new position of R is now a stuck robot
         yr += vertical; xr += horizontal;
