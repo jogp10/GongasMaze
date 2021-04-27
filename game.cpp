@@ -412,7 +412,6 @@ bool moveRobot(vector<string> &vec, vector<int> &deadRobots, int robot_id, int &
     swap(vec[yr + vertical][xr + horizontal], vec[yr][xr]);  // move robot
     if (vec[yr][xr] == '*' || vec[yr][xr] == 'r' || vec[yr][xr] == 'R')  // if move causes death to the robot
     {
-        if(vec[yr][xr] == 'R') deadRobots.push_back(robot_id); // in case it catches another alive robot
         vec[yr][xr] = ' ';  // eliminate cause of death
         vec[yr + vertical][xr + horizontal] = 'r';  // new position of R is now a stuck robot
         yr += vertical; xr += horizontal;
