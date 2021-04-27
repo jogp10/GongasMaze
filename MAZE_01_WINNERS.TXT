@@ -3,5 +3,3 @@ T02_G11
 Player          - Time
 -----------------------
 record                4
-it worked             5
-yupi                  7
