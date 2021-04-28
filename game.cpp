@@ -204,7 +204,7 @@ void play() {
 
         //robot's turn
         if (player_live) {
-            int R_oldy, R_oldx;
+            int R_oldY, R_oldX; // to register old position of dead Robot's ( which now is (0, 0))
 
             for (int i = 0; i < robot_x.size(); i++) {
 
@@ -215,11 +215,11 @@ void play() {
                 }
 
                 //move robot
-                else if (!robots(vec, y_player, x_player, robot_y[i], robot_x[i], R_oldy, R_oldx))
+                else if (!robots(vec, y_player, x_player, robot_y[i], robot_x[i], R_oldY, R_oldX))
                 {
                     for(int w=0; w<i; w++)
                     {
-                        if(robot_x[w] == R_oldx && robot_y[w] == R_oldy) // if robot catches another alive robot
+                        if(robot_x[w] == R_oldX && robot_y[w] == R_oldY) // if robot catches another alive robot
                         {
                             robot_x[w]=0; robot_y[w]=0;
                         }
