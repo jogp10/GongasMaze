@@ -92,7 +92,7 @@ Calculate which move is better for robot
 @param yr - y position of robot in vec
 @param xr - x position of robot in vec
 */
-bool robots(vector<string> &vec, vector<int> &deadRobots, int i, int &yp, int &xp, int &yr, int &xr);
+bool robots(vector<string> &vec, int &yp, int &xp, int &yr, int &xr, int &yrO, int &xrO);
 
 /**
  * Move Robot
@@ -103,7 +103,7 @@ bool robots(vector<string> &vec, vector<int> &deadRobots, int i, int &yp, int &x
  * @param horizontal robot's move
  * @return robot status ( robot alive -> true in case not false)
  */
-bool moveRobot(vector<string> &vec, vector<int> &deadRobots, int i, int &yr, int &xr, int vertical = 0, int horizontal = 0);
+bool moveRobot(vector<string> &vec, int &yr, int &xr, int &yrO, int &xrO, int vertical = 0, int horizontal = 0);
 
 /**
 Write winner's name and time in record

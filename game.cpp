@@ -204,32 +204,24 @@ void play() {
 
         //robot's turn
         if (player_live) {
-            vector<int> deadRobots; // for dead robots
+            int R_oldy, R_oldx;
 
             for (int i = 0; i < robot_x.size(); i++) {
+
                 //see if robot die because anther's robot move
                 if (vec[robot_y[i]][robot_x[i]] == 'r') {
-                    deadRobots.push_back(i);
+                    robot_y[i]=0; robot_x[i]=0;
                     continue;
                 }
 
                 //move robot
-                else if (!robots(vec, deadRobots, i, y_player, x_player, robot_y[i], robot_x[i])) {
-                    deadRobots.push_back(i);
-
-                    // bugging (double free or corruption (out))
-                    // só dá este erro quando entro dentro do for(int w= 0 ... linha 228)
-                    // no debug não apresenta nenhum problema apenas quando acabo de escrever o meu nome quando venço, ou seja, quando volta à função principal
-                    // se vencer de outra forma, que não inclua um robot mover-se para uma casa de um outro que esteja vivo, tudo corre sem problema
-                    for(int j=0; j<i; j++){
-                        if( robot_y[j] == robot_y[i] && robot_x[j] == robot_x[i])
+                else if (!robots(vec, y_player, x_player, robot_y[i], robot_x[i], R_oldy, R_oldx))
+                {
+                    for(int w=0; w<i; w++)
+                    {
+                        if(robot_x[w] == R_oldx && robot_y[w] == R_oldy) // if robot catches another alive robot
                         {
-                            bool RcatchR = true;
-                            for(int w=0; w<deadRobots.size(); w++)
-                            {
-                                if(j == deadRobots[w]) RcatchR = false;
-                            }
-                            if(RcatchR) deadRobots.push_back(j);
+                            robot_x[w]=0; robot_y[w]=0;
                         }
                     }
                 }
@@ -239,11 +231,16 @@ void play() {
             }
 
             //remove positions of dead robots
+            int max = robot_x.size();
             int count = 0;
-            for (int j : deadRobots) {
-                robot_x.erase(robot_x.begin() + j - count);
-                robot_y.erase(robot_y.begin() + j - count);
-                count++;
+            for (int j=0; j<max; j++)
+            {
+                if(robot_x[j-count] == 0 && robot_y[j-count] == 0)
+                {
+                    robot_x.erase(robot_x.begin() + j - count);
+                    robot_y.erase(robot_y.begin() + j - count);
+                    count++;
+                }
             }
 
             if (robot_x.empty()) robots_live = false; // if all robots died, game over
@@ -367,7 +364,7 @@ bool validMove(vector<string> &vec, int &y, int &x, int vertical, int horizontal
 }
 
 
-bool robots(vector<string> &vec, vector<int> &deadRobots, int robot_id, int &yp, int &xp, int &yr, int &xr)
+bool robots(vector<string> &vec, int &yp, int &xp, int &yr, int &xr, int &yrO, int &xrO)
 {
     int indice;
     double q,w,e,a,d,z,x,c, minor = 999999;
@@ -402,35 +399,37 @@ bool robots(vector<string> &vec, vector<int> &deadRobots, int robot_id, int &yp,
     switch(indice)
     {
         case 0:  // Q
-            return moveRobot(vec, deadRobots, robot_id, yr, xr, -1, -1);
+            return moveRobot(vec, yr, xr, yrO, xrO, -1, -1);
         case 1: // W
-            return moveRobot(vec, deadRobots, robot_id, yr, xr, -1);
+            return moveRobot(vec, yr, xr,yrO, xrO, -1);
         case 2: // E
-            return moveRobot(vec,deadRobots, robot_id, yr, xr, -1, +1);
+            return moveRobot(vec, yr, xr,yrO, xrO, -1, +1);
         case 3:  // A
-            return moveRobot(vec,deadRobots, robot_id, yr, xr, 0, -1);
+            return moveRobot(vec, yr, xr,yrO, xrO, 0, -1);
         case 4: // D
-            return moveRobot(vec,deadRobots, robot_id, yr, xr, 0, +1);
+            return moveRobot(vec, yr, xr,yrO, xrO, 0, +1);
         case 5: // Z
-            return moveRobot(vec,deadRobots, robot_id, yr, xr, +1, -1);
+            return moveRobot(vec, yr, xr,yrO, xrO, +1, -1);
         case 6:  // X
-            return moveRobot(vec,deadRobots, robot_id, yr, xr, +1);
+            return moveRobot(vec, yr, xr,yrO, xrO, +1);
         case 7: // C
-            return moveRobot(vec,deadRobots, robot_id, yr, xr, +1, +1);
+            return moveRobot(vec, yr, xr,yrO, xrO, +1, +1);
         default:
             return true;
     }
 }
 
 
-bool moveRobot(vector<string> &vec, vector<int> &deadRobots, int robot_id, int &yr, int &xr, int vertical, int horizontal)
+bool moveRobot(vector<string> &vec, int &yr, int &xr, int &yrO, int &xrO, int vertical, int horizontal)
 {
     swap(vec[yr + vertical][xr + horizontal], vec[yr][xr]);  // move robot
     if (vec[yr][xr] == '*' || vec[yr][xr] == 'r' || vec[yr][xr] == 'R')  // if move causes death to the robot
     {
+        yrO = yr + vertical;
+        xrO = xr + horizontal;
         vec[yr][xr] = ' ';  // eliminate cause of death
         vec[yr + vertical][xr + horizontal] = 'r';  // new position of R is now a stuck robot
-        yr += vertical; xr += horizontal;
+        yr=0; xr=0;
         return false;
     }
     else if(vec[yr][xr] == 'H') vec[yr][xr] = ' ';  // if robot catches player
