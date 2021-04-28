@@ -216,6 +216,22 @@ void play() {
                 //move robot
                 else if (!robots(vec, deadRobots, i, y_player, x_player, robot_y[i], robot_x[i])) {
                     deadRobots.push_back(i);
+
+                    // bugging (double free or corruption (out))
+                    // só dá este erro quando entro dentro do for(int w= 0 ... linha 228)
+                    // no debug não apresenta nenhum problema apenas quando acabo de escrever o meu nome quando venço, ou seja, quando volta à função principal
+                    // se vencer de outra forma, que não inclua um robot mover-se para uma casa de um outro que esteja vivo, tudo corre sem problema
+                    for(int j=0; j<i; j++){
+                        if( robot_y[j] == robot_y[i] && robot_x[j] == robot_x[i])
+                        {
+                            bool RcatchR = true;
+                            for(int w=0; w<deadRobots.size(); w++)
+                            {
+                                if(j == deadRobots[w]) RcatchR = false;
+                            }
+                            if(RcatchR) deadRobots.push_back(j);
+                        }
+                    }
                 }
 
                 // if robot catches player
