@@ -2,9 +2,4 @@
 
 Player          - Time
 -----------------------
-okok                  2
-okok                  3
-okok                  3
-nioce                 4
-deu certo             5
 mazespin             41
