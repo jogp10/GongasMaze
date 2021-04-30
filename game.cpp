@@ -123,7 +123,7 @@ void play() {
     int MazeSelect;
     char start;
     bool exitGame = false;
-    string path = "MAZE_xx.TXT";
+    string path = "MAZE_xx.txt";
 
     //display levels
     for(int l=1; l<=99; l++)
@@ -505,7 +505,7 @@ bool order(const string& a, const string& b) {return (stoi (a.substr(16, 8), nul
 void leaderboard(){
     int level;
     int ret;
-    string path = "MAZE_xx_WINNERS.TXT";
+    string path = "MAZE_xx_WINNERS.txt";
 
     cout << "Which level do you want to beat the records?" << endl;
 
