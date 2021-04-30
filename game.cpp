@@ -43,7 +43,7 @@ int menu(){
 
 void ReadRules(){
     string line;
-    ifstream myFile ("rules.TXT");  // file where are the rules
+    ifstream myFile ("rules.txt");  // file where are the rules
     int goBack;
 
     // Open file and print all the lines
@@ -439,7 +439,7 @@ bool moveRobot(vector<string> &vec, int &yr, int &xr, int &yrO, int &xrO, int ve
 
 
 void winner(char name[15],int time,int maze) {
-    string path = "MAZE_XX_WINNERS.TXT";   // path of file to write winners
+    string path = "MAZE_XX_WINNERS.txt";   // path of file to write winners
 
     //Which maze, change path
     path[5] = (char) (maze / 10 + '0');
