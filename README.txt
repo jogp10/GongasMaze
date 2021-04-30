@@ -13,8 +13,13 @@ tweaks and little things we could add to make the program better, but we were af
 some of this things so we just kept it simple. Some of the tweaks we briefly thought about were, for example, generating a map 
 automatically with the robots being placed randomly across the map.   
 
-Whilst in the debugging phase, we noticed we could change some things a little. One example of this things were substituting an 
-implementation   
+Whilst in the debugging phase, we noticed we could change some things a little. One example of this things was switching the use of labels
+and "goto" commands to a while(true) structure, as the latter was considered as being "good practise". 
+
+When we started developing, we didn't know about the existence of structs. They would have helped us a lot in the beginning of the project
+with IDing robots as it is a more clean and organised way of storing information related to them. Instead, we used some dynamic vectors to 
+store their positions in y and x axis and so we knew wether they were alive or not.  
+
 
 MAIN DIFFICULTIES:
 
@@ -32,6 +37,7 @@ found were related to the gameplay. For example, as the player moved we couldn't
 after the play a robot would hit another robot and things weren't working properly as they should and that was shutting down the 
 execution of the program unexpectedly and so on. We can say that, unsurprisingly, we spent a vast majority of the time debugging
 and trying to find a smarter and more efficient way of redoing things so that some bugs didn't occur.
+
 
 
 
