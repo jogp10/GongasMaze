@@ -10,7 +10,6 @@ using namespace std;
 
 Player::Player()
 {
-
 }
 
 Player::Player(unsigned int y_position, unsigned int x_position, bool live)
@@ -46,6 +45,7 @@ void Player::setLive(bool live)
 {
     this->live = live;
 }
+
 
 unsigned int Player::getYposition() const
 {
