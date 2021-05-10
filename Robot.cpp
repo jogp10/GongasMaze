@@ -7,34 +7,6 @@
 
 using namespace std;
 
-class Robot
-{
-public:
-    Robot(unsigned int id);
-    Robot(unsigned int id, unsigned int y_position, unsigned int x_position, bool live=true);
-    
-    void setY_position(unsigned int y_position);
-    void setX_position(unsigned int x_position);
-    void setY_move(int y=0);
-    void setX_move(int x=0);
-    void setLive(bool live);
-
-    unsigned int getId() const;
-    unsigned int getYposition() const;
-    unsigned int getXposition() const;
-    int getYmove() const;
-    int getXmove() const;
-    bool getLive() const;
-
-    void show() const;
-private:
-    unsigned int id;
-    unsigned int y_position;
-    unsigned int x_position;
-    int y=0;
-    int x=0;
-    bool live;
-};
 
 Robot::Robot(unsigned int id)
 {
@@ -110,29 +82,4 @@ void Robot::show() const
 {
     cout << "Y: " << y_position << "/" << "X: " << x_position << '/' << "Status: " << live << endl;
     cout << "Last move(y/x): " << y << "/" << x << endl << id << endl;
-}
-
-
-int main(){
-    vector<Robot> Robots;
-
-    Robot id(1, 3, 4, true);
-    id.show();
-    id.setX_move(-1);
-    id.setY_move();
-
-    assert(id.getLive() == true);
-
-    id.setLive(false);
-
-    assert(id.getId() == 1);
-    assert(id.getXmove() == -1);
-    assert(id.getYmove() == 0);
-    assert(id.getLive() == false);
-    assert(id.getYposition() == 3);
-    assert(id.getXposition() == 3);
-
-    id.show();
-
-    return 0;
 }
