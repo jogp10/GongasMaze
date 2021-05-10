@@ -48,6 +48,7 @@ void Robot::setLive(bool live)
     this->live = live;
 }
 
+
 unsigned int Robot::getId() const
 {
     return id;
