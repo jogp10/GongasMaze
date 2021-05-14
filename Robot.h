@@ -28,8 +28,8 @@ public:
     void show() const;
 private:
     unsigned int id;
-    unsigned int y_position=0;
-    unsigned int x_position=0;
+    unsigned int y_position;
+    unsigned int x_position;
     int y=0;
     int x=0;
     bool live=true;
