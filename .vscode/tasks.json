@@ -8,9 +8,12 @@
 			"args": [
 				"-g",
 				"${file}",
-				"${fileDirname}/game.cpp",
+				"${fileDirname}/jogo.cpp",
 				"${fileDirname}/Player.cpp",
 				"${fileDirname}/Robot.cpp",
+				"${fileDirname}/Post.cpp",
+				"${fileDirname}/Maze.cpp",
+				"${fileDirname}/Game.cpp",
 				"-o",
 				"${fileDirname}/${fileBasenameNoExtension}"
 			],
