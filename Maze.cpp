@@ -11,8 +11,6 @@ using namespace std;
 
 Maze::Maze(const string& path)
 {
-    vector<Post> posts;
-
     ifstream file(path); //open file for read
 
     //insert maze in a vector
