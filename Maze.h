@@ -3,19 +3,19 @@
 #define T02_G11_MAZE_H
 
 #include <iostream>
+#include <string>
 
 using namespace std;
 
 class Maze
 {
 public: 
-    Maze();
+    Maze(const string& path);
 
 
 
 private: 
-    int dimX; 
-    int dimY; 
+    string line;
 };
 
 
@@ -25,4 +25,4 @@ private:
 Maze is made of Post. In Maze you have to call Post class.
 
 This class is made to create and load the map (not sure of this). 
-*/ 
+*/
