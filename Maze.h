@@ -10,7 +10,6 @@ class Maze
 {
 public: 
     Maze();
-    Maze()
 
 
 
