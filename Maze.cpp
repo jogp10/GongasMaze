@@ -1,6 +1,7 @@
 //T02_G11
 
 #include "Maze.h"
+#include "Post.h"
 #include <iostream> 
 #include <string>
 #include <vector>
@@ -10,15 +11,27 @@ using namespace std;
 
 Maze::Maze(const string& path)
 {
-    
-    vector <string> vec; //place where we will be storing all the lines
+    vector<Post> posts;
 
     ifstream file(path); //open file for read
 
     //insert maze in a vector
     getline(file, this->line);
-    while (getline(file, this->line)) vec.push_back(this->line);
-
-    for (auto & i : vec) cout << i << endl;
+    int y=0;
+    while (getline(file, this->line))
+    {
+        for(int i=0; i<line.size(); i++)
+        {
+            if(line[i] == '*' || line[i] == '+')
+            {
+                Post post;
+                post.setX(i);
+                post.setY(i);
+                if(line[i] == '*') post.setEletric(true);
+                posts.push_back(post);
+            }
+        }
+        y++;
+    }
 }
 
