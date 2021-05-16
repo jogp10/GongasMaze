@@ -9,13 +9,12 @@ using namespace std;
 
 class Maze
 {
-public: 
+public:
     Maze(const string& path);
 
-
-
-private: 
+private:
     string line;
+    vector<Post> posts;
 };
 
 

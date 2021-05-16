@@ -9,7 +9,7 @@ Post::Post()
 {
 }
 
-Post::Post(unsigned int posY, unsigned int posX, bool eletric){
+Post::Post(unsigned int posY, unsigned int posX, bool eletric=false){
     this->posX = posX; 
     this->posY = posY; 
     this->eletric = eletric; 

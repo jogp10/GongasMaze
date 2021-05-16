@@ -22,9 +22,7 @@ Maze::Maze(const string& path)
         {
             if(line[i] == '*' || line[i] == '+')
             {
-                Post post;
-                post.setX(i);
-                post.setY(i);
+                Post post(y, i);
                 if(line[i] == '*') post.setEletric(true);
                 posts.push_back(post);
             }

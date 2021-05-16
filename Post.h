@@ -10,7 +10,7 @@ class Post
 {   
 public: 
     Post(); 
-    Post(unsigned int posY, unsigned int posX, bool eletric); 
+    Post(unsigned int posY, unsigned int posX, bool eletric=false); 
 
     void setX(unsigned int posX); 
     void setY(unsigned int posY); 
