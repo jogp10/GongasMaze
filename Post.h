@@ -23,8 +23,8 @@ public:
     void show(); 
 
 private: 
-    unsigned int posX; 
-    unsigned int posY;  
+    unsigned int posX = 0; 
+    unsigned int posY = 0;  
     bool eletric = false; 
 };
 

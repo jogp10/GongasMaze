@@ -10,6 +10,7 @@ class Maze
 {
 public: 
     Maze();
+    Maze()
 
 
 
@@ -20,3 +21,9 @@ private:
 
 
 #endif //T02_G11_MAZE_H
+
+/*
+Maze is made of Post. In Maze you have to call Post class.
+
+This class is made to create and load the map (not sure of this). 
+*/ 
