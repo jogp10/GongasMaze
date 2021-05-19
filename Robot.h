@@ -2,6 +2,7 @@
 #ifndef T02_G11_ROBOT_H
 #define T02_G11_ROBOT_H
 
+#include "structs.h"
 #include <iostream>
 
 using namespace std;
@@ -9,29 +10,23 @@ using namespace std;
 class Robot
 {
 public:
-    Robot(unsigned int id);
-    Robot(unsigned int id, unsigned int y_position, unsigned int x_position, bool live=true);
+    enum State{ ALIVE, STUCK, DEAD};
+    Robot(const Position& position);
     
-    void setY_position(unsigned int y_position);
-    void setX_position(unsigned int x_position);
-    void setY_move(int y=0);
-    void setX_move(int x=0);
-    void setLive(bool live);
+    void setMove(const Movement& movement);
+    void setDead();
 
     unsigned int getId() const;
-    unsigned int getYposition() const;
-    unsigned int getXposition() const;
-    int getYmove() const;
-    int getXmove() const;
+    unsigned int getRow() const;
+    unsigned int getCol() const;
+    char getSymbol() const;
     bool getLive() const;
 
     void show() const;
 private:
+    static unsigned int robotCounter;
     unsigned int id;
-    unsigned int y_position;
-    unsigned int x_position;
-    int y=0;
-    int x=0;
+    unsigned int row, col;
     bool live=true;
 };
 

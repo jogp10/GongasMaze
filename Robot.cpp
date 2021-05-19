@@ -6,70 +6,43 @@
 using namespace std;
 
 
-Robot::Robot(unsigned int id)
+Robot::Robot(const Position& position)
 {
-    this->id = id;
+    id = robotCounter;
+    this->row = position.row;
+    this->col = position.col;
 }
 
-Robot::Robot(unsigned int id, unsigned int y_position, unsigned int x_position, bool live)
+void Robot::setMove(const Movement& movement)
 {
-    this->id = id;
-    this->y_position = y_position;
-    this->x_position = x_position;
-    this->live = live;
+    row += movement.dRow;
+    col += movement.dCol;
 }
 
-void Robot::setY_position(unsigned int y_position)
+void Robot::setDead()
 {
-    this->y_position = y_position;
+    live = false;
 }
-
-void Robot::setX_position(unsigned int x_position)
-{
-    this->x_position = x_position;
-}
-
-void Robot::setY_move(int y)
-{
-    this->y = y;
-    y_position += y;
-}
-
-void Robot::setX_move(int x)
-{
-    this->x = x;
-    x_position += x;
-}
-
-void Robot::setLive(bool live)
-{
-    this->live = live;
-}
-
 
 unsigned int Robot::getId() const
 {
     return id;
 }
 
-unsigned int Robot::getYposition() const
+unsigned int Robot::getRow() const
 {
-    return y_position;
+    return row;
 }
 
-unsigned int Robot::getXposition() const
+unsigned int Robot::getCol() const
 {
-    return x_position;
+    return col;
 }
 
-int Robot::getYmove() const
+char Robot::getSymbol() const
 {
-    return y;
-}
-
-int Robot::getXmove() const
-{
-    return x;
+    if(live == true) return 'R';
+    else return 'r';
 }
 
 bool Robot::getLive() const
@@ -79,6 +52,6 @@ bool Robot::getLive() const
 
 void Robot::show() const 
 {
-    cout << "Y: " << y_position << "/" << "X: " << x_position << '/' << "Status: " << live << endl;
-    cout << "Last move(y/x): " << y << "/" << x << endl << id << endl;
+    cout << "Y: " << row << "/" << "X: " << col << '/' << "Status: " << live << endl;
+    cout << id << endl;
 }

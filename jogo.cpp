@@ -1,5 +1,6 @@
 //T02_G11
 
+#include "Maze.h"
 #include "jogo.h"
 #include <iostream>
 #include <string>
@@ -11,6 +12,12 @@
 #include <algorithm>
 
 using namespace std;
+
+
+struct Position
+{
+    int row, col;
+};
 
 
 int menu(){

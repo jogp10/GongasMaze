@@ -2,6 +2,7 @@
 #ifndef T02_G11_PLAYER_H
 #define T02_G11_PLAYER_H
 
+#include "structs.h"
 #include <iostream>
 
 using namespace std;
@@ -9,28 +10,21 @@ using namespace std;
 class Player
 {
 public:
-    Player();
-    Player(unsigned int y_position, unsigned int x_position, bool live=true);
+    Player(const Position& position, char symbol);
     
-    void setY_position(unsigned int y_position);
-    void setX_position(unsigned int x_position);
-    void setY_move(int y);
-    void setX_move(int x);
-    void setLive(bool live);
+    void setMove(const Movement& movement);
+    void setDead();
 
-    unsigned int getYposition() const;
-    unsigned int getXposition() const;
-    int getYmove() const;
-    int getXmove() const;
+    unsigned int getRow() const;
+    unsigned int getCol() const;
+    char getSymbol() const;
     bool getLive() const;
 
     void show() const;
 private:
-    unsigned int y_position;
-    unsigned int x_position;
-    int y=0;
-    int x=0;
-    bool live=true;
+    unsigned int row, col;
+    bool live;
+    char symbol;
 };
 
 #endif //T02_G11_PLAYER_H

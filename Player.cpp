@@ -7,63 +7,42 @@
 using namespace std;
 
 
-Player::Player()
+Player::Player(const Position& position, char symbol)
 {
-}
-
-Player::Player(unsigned int y_position, unsigned int x_position, bool live)
-{
-    this->y_position = y_position;
-    this->x_position = x_position;
-    this->live = live;
-}
-
-void Player::setY_position(unsigned int y_position)
-{
-    this->y_position = y_position;
-}
-
-void Player::setX_position(unsigned int x_position)
-{
-    this->x_position = x_position;
-}
-
-void Player::setY_move(int y)
-{
-    this->y = y;
-    y_position += y;
-}
-
-void Player::setX_move(int x)
-{
-    this->x = x;
-    x_position += x;
-}
-
-void Player::setLive(bool live)
-{
-    this->live = live;
+    this->row = position.row;
+    this->col = position.col;
+    this->symbol = symbol;
+    if(symbol == 'H') live = true;
+    else live = false;
 }
 
 
-unsigned int Player::getYposition() const
+void Player::setMove(const Movement& movement)
 {
-    return y_position;
+    row += movement.dRow;
+    col += movement.dCol;
 }
 
-unsigned int Player::getXposition() const
+void Player::setDead()
 {
-    return x_position;
+    symbol = 'h';
+    live = false;
 }
 
-int Player::getYmove() const
+
+unsigned int Player::getRow() const
 {
-    return y;
+    return row;
 }
 
-int Player::getXmove() const
+unsigned int Player::getCol() const
 {
-    return x;
+    return col;
+}
+
+char Player::getSymbol() const
+{
+    return symbol;
 }
 
 bool Player::getLive() const
@@ -73,6 +52,5 @@ bool Player::getLive() const
 
 void Player::show() const 
 {
-    cout << "Y: " << y_position << "/" << "X: " << x_position << '/' << "Status: " << live << endl;
-    cout << "Last move(y/x): " << y << "/" << x << endl;
+    cout << "Y: " << row << "/" << "X: " << col << '/' << "Status: " << live << "Symbol: " << symbol << endl;
 }

@@ -5,49 +5,36 @@
 
 using namespace std; 
 
-Post::Post()
-{
+Post::Post(unsigned int row, unsigned int col, char type){
+    this->row = row; 
+    this->col = col;
+    if(type == '*') electric =  true;
 }
 
-Post::Post(unsigned int posY, unsigned int posX, bool eletric=false){
-    this->posX = posX; 
-    this->posY = posY; 
-    this->eletric = eletric; 
+unsigned int Post::getRow() const 
+{
+    return row; 
 }
 
-void Post::setX(unsigned int posX)
+unsigned int Post::getCol() const
 {
-    this->posX = posX; 
+    return col; 
 }
 
-void Post::setY(unsigned int posY)
+char Post::getSymbol() const
 {
-    this->posY = posY; 
-}
-
-void Post::setEletric(bool eletric)
-{
-    this->eletric = eletric; 
-}
-
-unsigned int Post::getX() const
-{
-    return posX; 
-}
-
-unsigned int Post::getY() const 
-{
-    return posY; 
+    return type;
 }
 
 bool Post::getEletric() const
 {
-    return eletric; 
+    return electric; 
 }
 
 void Post::show()
 {
-    cout << "posX: " << posX << endl; 
-    cout << "posY: " << posY << endl; 
-    cout << "electric: " << eletric; 
+    cout << "col: " << col << endl; 
+    cout << "row: " << row << endl; 
+    cout << "type: " << type << endl;
+    cout << "electric: " << electric; 
 }

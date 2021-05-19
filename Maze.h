@@ -2,6 +2,8 @@
 #ifndef T02_G11_MAZE_H
 #define T02_G11_MAZE_H
 
+#include "structs.h"
+#include "Post.h"
 #include <iostream>
 #include <string>
 
@@ -10,11 +12,17 @@ using namespace std;
 class Maze
 {
 public:
-    Maze(const string& path);
+    Maze(unsigned int numRows, unsigned int numCols);
+    
+    bool addPost(const Post& post, const Position& position);
+
+    unsigned int getnumRows() const;
+    unsigned int getnumCols() const;
+
+    void show() const;
 
 private:
-    string line;
-    vector<Post> posts;
+    int numRows, numCols;
 };
 
 

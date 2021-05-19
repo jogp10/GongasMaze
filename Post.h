@@ -9,23 +9,19 @@ using namespace std;
 class Post
 {   
 public: 
-    Post(); 
-    Post(unsigned int posY, unsigned int posX, bool eletric=false); 
+    Post(unsigned int row, unsigned int col, char type); 
 
-    void setX(unsigned int posX); 
-    void setY(unsigned int posY); 
-    void setEletric(bool eletric); 
-    
-    unsigned int getX() const; 
-    unsigned int getY() const; 
+    unsigned int getRow() const; 
+    unsigned int getCol() const;
+    char getSymbol() const;
     bool getEletric() const; 
 
     void show(); 
 
 private: 
-    unsigned int posX; 
-    unsigned int posY;  
-    bool eletric = false; 
+    unsigned int row, col; 
+    char type;
+    bool electric=false; 
 };
 
 
