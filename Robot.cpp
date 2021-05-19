@@ -6,11 +6,11 @@
 using namespace std;
 
 
-Robot::Robot(const Position& position)
+Robot::Robot(unsigned int row, unsigned int col)
 {
     id = robotCounter;
-    this->row = position.row;
-    this->col = position.col;
+    this->row = row;
+    this->col = col;
 }
 
 void Robot::setMove(const Movement& movement)
@@ -53,5 +53,5 @@ bool Robot::getLive() const
 void Robot::show() const 
 {
     cout << "Y: " << row << "/" << "X: " << col << '/' << "Status: " << live << endl;
-    cout << id << endl;
+    cout << "id: " << id << endl;
 }

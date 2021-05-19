@@ -10,7 +10,7 @@ using namespace std;
 class Player
 {
 public:
-    Player(const Position& position, char symbol);
+    Player(unsigned int row, unsigned int col, char symbol);
     
     void setMove(const Movement& movement);
     void setDead();

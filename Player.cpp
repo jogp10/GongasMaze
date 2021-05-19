@@ -7,15 +7,14 @@
 using namespace std;
 
 
-Player::Player(const Position& position, char symbol)
+Player::Player(unsigned int row, unsigned int col, char symbol)
 {
-    this->row = position.row;
-    this->col = position.col;
+    this->row = row;
+    this->col = col;
     this->symbol = symbol;
     if(symbol == 'H') live = true;
     else live = false;
 }
-
 
 void Player::setMove(const Movement& movement)
 {
@@ -28,7 +27,6 @@ void Player::setDead()
     symbol = 'h';
     live = false;
 }
-
 
 unsigned int Player::getRow() const
 {

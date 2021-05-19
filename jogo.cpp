@@ -2,6 +2,7 @@
 
 #include "Maze.h"
 #include "jogo.h"
+#include "structs.h"
 #include <iostream>
 #include <string>
 #include <thread>

@@ -11,7 +11,7 @@ class Robot
 {
 public:
     enum State{ ALIVE, STUCK, DEAD};
-    Robot(const Position& position);
+    Robot(unsigned int row, unsigned int col);
     
     void setMove(const Movement& movement);
     void setDead();

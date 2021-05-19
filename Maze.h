@@ -5,7 +5,7 @@
 #include "structs.h"
 #include "Post.h"
 #include <iostream>
-#include <string>
+#include <vector>
 
 using namespace std;
 
@@ -15,6 +15,7 @@ public:
     Maze(unsigned int numRows, unsigned int numCols);
     
     bool addPost(const Post& post, const Position& position);
+    void addPost(const Post& post);
 
     unsigned int getnumRows() const;
     unsigned int getnumCols() const;
@@ -23,6 +24,7 @@ public:
 
 private:
     int numRows, numCols;
+    vector<Post> posts;
 };
 
 

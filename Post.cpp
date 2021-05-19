@@ -36,5 +36,5 @@ void Post::show()
     cout << "col: " << col << endl; 
     cout << "row: " << row << endl; 
     cout << "type: " << type << endl;
-    cout << "electric: " << electric; 
+    cout << "electric: " << electric << endl; 
 }
