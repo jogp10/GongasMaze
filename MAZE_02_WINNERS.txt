@@ -2,4 +2,5 @@
 
 Player          - Time
 -----------------------
+jojo                 13
 mazespin             41

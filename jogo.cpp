@@ -14,12 +14,6 @@
 using namespace std;
 
 
-struct Position
-{
-    int row, col;
-};
-
-
 int menu(){
     int menu_choice;
     // Main Menu
