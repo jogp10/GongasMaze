@@ -14,7 +14,7 @@ class Maze
 public:
     Maze(unsigned int numRows, unsigned int numCols);
     
-    bool addPost(const Post& post, const Position& position);
+    bool checkPost(const Post& post);
     void addPost(const Post& post);
 
     unsigned int getnumRows() const;

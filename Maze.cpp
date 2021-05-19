@@ -11,18 +11,18 @@ Maze::Maze(unsigned int numRows, unsigned int numCols)
     this->numCols = numCols;
 }
 
-bool Maze::addPost(const Post& post, const Position& position)
+bool Maze::checkPost(const Post& post)
 {
     for(int i=0; i<posts.size(); i++)
     {
-        if(post.getRow() == position.row && post.getCol() == position.col) return false;
+        if(post.getRow() == posts[i].getRow() && post.getCol() == posts[i].getCol()) return false;
     }
     return true;
 }
 
 void Maze::addPost(const Post& post)
 {
-    posts.push_back(post);
+    if(Maze::checkPost(post)) posts.push_back(post);
 }
 
 unsigned int Maze::getnumRows() const
@@ -38,5 +38,5 @@ unsigned int Maze::getnumCols() const
 void Maze::show() const
 {
     cout << "nRows: " << numRows << " nCols: " << numCols << endl;
-
+    cout << "The maze has " << posts.size() << " posts" << endl;
 }
