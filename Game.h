@@ -3,17 +3,30 @@
 #define T02_G11_GAME_H
 
 #include <iostream>
+#include <vector>
+#include "Player.h"
+#include "Maze.h"
+#include "Robot.h"
 
 using namespace std;
 
 class Game
 {
 public:
+    Game(const string & filename); 
 
-
+    bool play(); 
+    bool isValid(); 
 
 private: 
+    void showGameDisplay() const; 
+    bool collide(Robot& robot, Post& post); 
+    bool collide(Robot& robot, Player& player); 
 
+private: 
+    Maze maze; 
+    Player player; 
+    vector<Robot> robots; 
 };
 
 
