@@ -28,6 +28,22 @@ void Player::setDead()
     live = false;
 }
 
+void setRow(unsigned int row)
+{
+    this->row = row; 
+}
+
+void setCol(unsigned int col)
+{
+
+}
+
+void setSymbol(char symbol)
+{
+
+}
+
+
 unsigned int Player::getRow() const
 {
     return row;

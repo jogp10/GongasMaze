@@ -12,7 +12,11 @@ using namespace std;
 class Maze
 {
 public:
+    Maze(); 
     Maze(unsigned int numRows, unsigned int numCols);
+    
+    void setCols(unsigned int numCols); 
+    void setRows(unsigned int numRows); 
     
     bool checkPost(const Post& post);
     void addPost(const Post& post);

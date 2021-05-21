@@ -5,11 +5,26 @@
 
 using namespace std;
 
+Maze::Maze()
+{
+
+}
+
 Maze::Maze(unsigned int numRows, unsigned int numCols)
 {
     this->numRows = numRows;
     this->numCols = numCols;
 }
+
+void Maze::setCols(unsigned int numCols)
+{
+    this->numCols = numCols; 
+}
+
+void Maze::setRows(unsigned int numRows)
+{
+    this->numRows = numRows; 
+} 
 
 bool Maze::checkPost(const Post& post)
 {

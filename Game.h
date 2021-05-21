@@ -13,7 +13,8 @@ using namespace std;
 class Game
 {
 public:
-    Game(const string & filename); 
+    Game(const string & filename); //import maze and store in vector positions of Robots 
+                                   // and Player
 
     bool play(); 
     bool isValid(); 
@@ -24,7 +25,7 @@ private:
     bool collide(Robot& robot, Player& player); 
 
 private: 
-    Maze maze; 
+    Maze maze(); 
     Player player; 
     vector<Robot> robots; 
 };

@@ -5,9 +5,11 @@
 
 using namespace std;
 
+unsigned int Robot::robotCounter = 0; 
 
 Robot::Robot(unsigned int row, unsigned int col)
 {
+    robotCounter++; 
     id = robotCounter;
     this->row = row;
     this->col = col;
