@@ -42,19 +42,18 @@ Game::Game(const string & filename)
 
                 else if (line[i] == 'R') // robot 
                 {
-                    
                     Robot robot(nLines, i); 
                     robots.push_back(robot); 
                 }
 
                 else if (line[i] == 'H') // player
                 {
-                    player.se
+                    Player player(nLines, i, line[i]) ; 
                 }
 
                 else if (line[i] == 'O') // hole 2 win
                 {
-
+                    
                 }
             }
 

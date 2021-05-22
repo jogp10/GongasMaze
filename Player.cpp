@@ -35,12 +35,12 @@ void setRow(unsigned int row)
 
 void setCol(unsigned int col)
 {
-
+    this->col = col; 
 }
 
 void setSymbol(char symbol)
 {
-
+    this->symbol = symbol; 
 }
 
 
