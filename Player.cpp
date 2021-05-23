@@ -12,8 +12,7 @@ Player::Player(unsigned int row, unsigned int col, char symbol)
     this->row = row;
     this->col = col;
     this->symbol = symbol;
-    if(symbol == 'H') live = true;
-    else live = false;
+    if(symbol == 'h') live = false;
 }
 
 void Player::setMove(const Movement& movement)
@@ -28,17 +27,17 @@ void Player::setDead()
     live = false;
 }
 
-void setRow(unsigned int row)
+void Player::setRow(unsigned int row)
 {
     this->row = row; 
 }
 
-void setCol(unsigned int col)
+void Player::setCol(unsigned int col)
 {
     this->col = col; 
 }
 
-void setSymbol(char symbol)
+void Player::setSymbol(char symbol)
 {
     this->symbol = symbol; 
 }
