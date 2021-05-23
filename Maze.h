@@ -3,6 +3,7 @@
 #define T02_G11_MAZE_H
 
 #include "structs.h"
+#include "exit.h"
 #include "Post.h"
 #include <iostream>
 #include <vector>
@@ -20,6 +21,7 @@ public:
     
     bool checkPost(const Post& post);
     void addPost(const Post& post);
+    void addExit(const Exit& exit);
 
     unsigned int getnumRows() const;
     unsigned int getnumCols() const;
@@ -29,6 +31,7 @@ public:
 private:
     int numRows, numCols;
     vector<Post> posts;
+    vector<Exit> exits;
 };
 
 

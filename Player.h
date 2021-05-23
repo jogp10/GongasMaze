@@ -27,7 +27,7 @@ public:
     void show() const;
 private:
     unsigned int row, col;
-    bool live;
+    bool live = true;
     char symbol = 'H';
 };
 

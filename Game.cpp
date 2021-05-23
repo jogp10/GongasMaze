@@ -40,18 +40,21 @@ Game::Game(const string & filename)
 
                 else if (line[i] == 'H') // player
                 {
-                    Player player(nLines, i, line[i]);
-                    this->player = player;
+                    Player tplayer(nLines, i, line[i]);
+                    player = tplayer;
                 }
 
                 else if (line[i] == 'O') // hole 2 win
                 {
-                    
+                    Exit exit;
+                    exit.Ocol = i;
+                    exit.Orow = nLines;
+                    level.addExit(exit);
                 }
             }
-
+            cout << line << endl;
             nLines++; 
-
         }
+
     }
 }

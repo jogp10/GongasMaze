@@ -40,6 +40,11 @@ void Maze::addPost(const Post& post)
     if(Maze::checkPost(post)) posts.push_back(post);
 }
 
+void Maze::addExit(const Exit& exit)
+{
+    exits.push_back(exit);
+}
+
 unsigned int Maze::getnumRows() const
 {
     return numRows;
