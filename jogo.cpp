@@ -1,5 +1,4 @@
 //T02_G11
-https://play.typeracer.com?rt=czy1x3qlx
 
 #include "Maze.h"
 #include "jogo.h"

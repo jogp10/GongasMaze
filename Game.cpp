@@ -10,23 +10,15 @@ using namespace std;
 Game::Game(const string & filename)
 {
     Maze level; 
-    int index = 0; bool temp = true; string col; string lin;  
+    int index = 0; bool temp = true; string col; string line;  
     
     ifstream file(filename); 
     if (file.is_open())
     {
-        getline(file, line); 
-
-        for (int index = 0; index <= line.size(); index++)
-        {
-            if (line[index] == 'x' || line[index] == 'X')
-            {
-                level.setCols(strtoul(line.substr(0, index)));
-                level.setRows(strtoul(line.substr(index+1, line.size()-index))); 
-
-                break; 
-            }
-        }
+        getline(file, line);
+        int col, lines; char x;
+        file >> col >> x >> lines;
+        level.setCols(col); level.setRows(lines);
 
         while (getline(file, line))
         {
@@ -48,7 +40,8 @@ Game::Game(const string & filename)
 
                 else if (line[i] == 'H') // player
                 {
-                    Player player(nLines, i, line[i]) ; 
+                    Player player(nLines, i, line[i]);
+                    this->player = player;
                 }
 
                 else if (line[i] == 'O') // hole 2 win
