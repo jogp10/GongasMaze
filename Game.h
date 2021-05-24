@@ -25,7 +25,7 @@ private:
     bool collide(Robot& robot, Player& player); 
 
 private: 
-    Maze maze(); 
+    Maze maze; 
     Player player; 
     vector<Robot> robots; 
 };
