@@ -123,7 +123,11 @@ bool Game::play()
             }
 
             if(Game::isValid(mov)) player.setMove(mov);
-            else break;
+            else
+            {
+                cout << "Invalid play!" << endl;
+                break;
+            }
             Exit exit = {player.getRow(), player.getCol()};
             if(maze.checkExit(exit))
             {
