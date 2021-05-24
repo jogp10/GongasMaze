@@ -5,6 +5,7 @@
 #include <iostream> 
 #include <fstream>
 #include <string>
+#include <cmath>
 
 using namespace std;
 
@@ -16,12 +17,12 @@ Game::Game(const string & filename)
 
         // set dimension of maze
         string line; 
-        getline(file, line);
         int col, lines; char x;
         file >> col >> x >> lines;
         maze.setCols(col); maze.setRows(lines);
 
         // scan maze
+        getline(file, line);
         while (getline(file, line))
         {
             static int nLines = 0;  
@@ -43,9 +44,9 @@ Game::Game(const string & filename)
                 else if (line[i] == 'H') // player
                 {
                     Player tplayer(nLines, i, line[i]);
-                    player = tplayer;
-                    assert(nLines == player.getRow());
-                    assert(i == player.getCol());
+                    this->player = tplayer;
+                    assert(nLines == this->player.getRow());
+                    assert(i == this->player.getCol());
                 }
 
                 else if (line[i] == 'O') // hole 2 win

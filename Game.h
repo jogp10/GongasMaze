@@ -20,7 +20,7 @@ public:
 
 private: 
     void showGameDisplay() const; 
-    bool isValid(Movement& movement); 
+    bool isValid(Movement& movement);
     bool collide(Robot& robot, Post& post); 
     bool collide(Robot& robot); 
     bool collide(Robot& robot, Robot& robot2);

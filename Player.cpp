@@ -15,6 +15,8 @@ Player::Player(unsigned int row, unsigned int col, char symbol)
     if(symbol == 'h') live = false;
 }
 
+Player::Player(){}
+
 void Player::setMove(const Movement& movement)
 {
     row += movement.dRow;
