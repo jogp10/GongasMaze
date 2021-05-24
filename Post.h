@@ -9,7 +9,9 @@ using namespace std;
 class Post
 {   
 public: 
-    Post(unsigned int row, unsigned int col, char type); 
+    Post(unsigned int row, unsigned int col, char type = '+'); 
+
+    void setSymbol(char type);
 
     unsigned int getRow() const; 
     unsigned int getCol() const;

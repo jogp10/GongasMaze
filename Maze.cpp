@@ -26,18 +26,33 @@ void Maze::setRows(unsigned int numRows)
     this->numRows = numRows; 
 } 
 
-bool Maze::checkPost(const Post& post)
+bool Maze::checkPost(Post& post) const
 {
     for(int i=0; i<posts.size(); i++)
     {
-        if(post.getRow() == posts[i].getRow() && post.getCol() == posts[i].getCol()) return false;
+        if(post.getRow() == posts[i].getRow() && post.getCol() == posts[i].getCol() && post.getSymbol() == posts[i].getSymbol()) 
+        {
+            return true;
+        }
     }
-    return true;
+    return false;
+}
+
+bool Maze::checkExit(Exit& exit) const
+{
+    for(int i=0; i<exits.size(); i++)
+    {
+        if(exit.Orow == exits[i].Orow && exit.Ocol == exits[i].Ocol)
+        {
+            return true;
+        }
+    }
+    return false;
 }
 
 void Maze::addPost(const Post& post)
 {
-    if(Maze::checkPost(post)) posts.push_back(post);
+    posts.push_back(post);
 }
 
 void Maze::addExit(const Exit& exit)

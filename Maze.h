@@ -19,10 +19,12 @@ public:
     void setCols(unsigned int numCols); 
     void setRows(unsigned int numRows); 
     
-    bool checkPost(const Post& post);
     void addPost(const Post& post);
     void addExit(const Exit& exit);
 
+    bool checkPost(Post& post) const;
+    bool checkExit(Exit& exit) const;
+    
     unsigned int getnumRows() const;
     unsigned int getnumCols() const;
 

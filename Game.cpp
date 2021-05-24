@@ -80,27 +80,47 @@ void Game::showGameDisplay() const
     {
         for(int j=0; j<maze.getnumCols(); j++)
         {
+            bool stop = false;
             if(player.getRow() == i && player.getCol() == j)
             {
                 cout << player.getSymbol();
                 break;
             }
+
             for(int w=0; w<robots.size(); w++)
             {
                 if(robots[w].getRow() == i && robots[w].getCol() == j) 
                 {
                     cout << robots[w].getSymbol();
+                    stop = true;
                     break;
                 }
             }
-            for(int w=0;;)
+            if(stop) break;
+
+            Post post(i, j, '+');
+            if(maze.checkPost(post)) 
             {
-                if() cout << post.getSymbol();
+                cout << '+';
+                break;
             }
-            for(int w=0;;)
+            else
             {
-                if() cout << "O";
+                Post post(i, j, '*');
+                if(maze.checkPost(post))
+                {
+                    cout << '*';
+                    break;
+                }
             }
+
+            Exit exit = {i, j};
+            if(maze.checkExit(exit))
+            {
+                cout << "O";
+                break;
+            }
+            cout << " ";
         }
         cout << endl;
     }

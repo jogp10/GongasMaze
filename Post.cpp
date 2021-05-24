@@ -11,6 +11,12 @@ Post::Post(unsigned int row, unsigned int col, char type){
     if(type == '*') electric =  true;
 }
 
+void Post::setSymbol(char type)
+{
+    this->type = type;
+    if(type == '*') electric = true;
+}
+
 unsigned int Post::getRow() const 
 {
     return row; 
