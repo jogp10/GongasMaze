@@ -1,7 +1,8 @@
 //T02_G11
-#ifndef T02_G11_GAME_H
-#define T02_G11_GAME_H
+#ifndef T02_G11_JOGO_H
+#define T02_G11_JOGO_H
 
+#include "Game.h"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -121,4 +122,4 @@ bool order(const string& a, const string& b);
  */
 void leaderboard();
 
-#endif //T02_G11_GAME_H
+#endif //T02_G11_JOGO_H

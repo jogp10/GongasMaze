@@ -1,8 +1,7 @@
 //T02_G11
 
-#include "Maze.h"
+
 #include "jogo.h"
-#include "structs.h"
 #include <iostream>
 #include <string>
 #include <thread>
@@ -86,26 +85,6 @@ bool check_path(int level, string &path){
 }
 
 
-vector<string> ReadMaze(const string& path){
-    string line; //variable where we store individual lines
-    vector <string> vec; //place where we will be storing all the lines
-
-    ifstream file(path); //open file for read
-
-    //insert maze in a vector
-    getline(file, line);
-    while (getline(file, line)) vec.push_back(line);
-    print(vec); //call function print
-    return vec;
-}
-
-
-void print(const vector <string>& vec){
-    //Displaying maze to user using elements stored in vec
-    for (auto & i : vec) cout << i << endl;
-}
-
-
 void DisplayFile(const string& path, int n){
 
     string line; //variable where we store individual lines
@@ -152,6 +131,8 @@ void play() {
         cerr << "That's not a valid Maze! try another or '0' to return to main menu" << endl;
     }
 
+    Game game(path);
+    
     // Very start of the game
     cout << endl << "Good choice, let's start!" << endl << "Enter 'S' when you are READY..." << endl;
     while(true){
