@@ -103,7 +103,6 @@ void DisplayFile(const string& path, int n){
 void play() {
     int MazeSelect;
     char start;
-    bool exitGame = false;
     string path = "MAZE_xx.txt";
 
     //display levels
@@ -131,8 +130,6 @@ void play() {
         cerr << "That's not a valid Maze! try another or '0' to return to main menu" << endl;
     }
 
-    Game game(path);
-    
     // Very start of the game
     cout << endl << "Good choice, let's start!" << endl << "Enter 'S' when you are READY..." << endl;
     while(true){
@@ -148,42 +145,27 @@ void play() {
         }
     }
 
-    // display board, ready to start
-    vector<string> vec = ReadMaze(path);
-
-    // booleans for keep playing if both still alive
-    bool player_live = true;
-    bool robots_live = true;
-
-    //get player's position & robot's position
-    int y = 0, x;
-    int y_player = 0, x_player = 0;
-    vector<int> robot_x, robot_y;
-
-    for (; y < vec.size(); y++) {
-        x = 0;
-        for (; x < vec[y].size(); x++) {
-            if (vec[y][x] == 'H')
-            {
-                y_player = y;
-                x_player = x;
-            }
-            else if (vec[y][x] == 'R') {
-                robot_x.push_back(x);
-                robot_y.push_back(y);
-            }
-        }
-    }
+    //display level
+    Game game(path);
 
     // Start timer
     auto start_time = chrono::steady_clock::now();
+    
+    //ready to start
+    bool match_point;
+    match_point = game.play();
+
+    auto end_time = chrono::steady_clock::now(); // finish timer
+
 
     // move from player and automatic play from robots
     while (robots_live && player_live) {
 
+        /**
         //move player
         player_live = player(vec, y_player, x_player, exitGame);
         if(exitGame) return;
+        */
 
         //robot's turn
         if (player_live) {
@@ -234,7 +216,7 @@ void play() {
     auto end_time = chrono::steady_clock::now(); // finish timer
 
     // if player dead
-    if (robots_live) {
+    if (!match_point) {
         cout << "You lost!! Better luck next time." << endl << endl;
     }
     // if robots dead, register time
@@ -255,7 +237,7 @@ void play() {
     }
 }
 
-
+/**
 bool player(vector<string> &vec, int &y, int &x, bool& exitGame){
     while(true) {
 
@@ -320,8 +302,9 @@ bool player(vector<string> &vec, int &y, int &x, bool& exitGame){
         }
     }
 }
+*/
 
-
+/**
 bool movePlayer(vector<string> &vec, int &y, int &x, int vertical, int horizontal)
 {
     swap(vec[y + vertical][x + horizontal], vec[y][x]);  // move player
@@ -335,8 +318,10 @@ bool movePlayer(vector<string> &vec, int &y, int &x, int vertical, int horizonta
     x += horizontal;
     return true;
 }
+*/
 
 
+/**
 bool validMove(vector<string> &vec, int &y, int &x, int vertical, int horizontal)
 {
     if (vec[y + vertical][x + horizontal] == 'r') {   // if player move is against a stuck robot
@@ -345,6 +330,7 @@ bool validMove(vector<string> &vec, int &y, int &x, int vertical, int horizontal
     }
     return true;
 }
+*/
 
 
 bool robots(vector<string> &vec, int &yp, int &xp, int &yr, int &xr, int &yrO, int &xrO)
@@ -483,7 +469,6 @@ void winner(char name[15],int time,int maze) {
 }
 
 bool order(const string& a, const string& b) {return (stoi (a.substr(16, 8), nullptr) < stoi (b.substr(16, 8), nullptr));}
-
 
 void leaderboard(){
     int level;
