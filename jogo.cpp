@@ -155,9 +155,7 @@ void play() {
     bool match_point;
     match_point = game.play();
 
-    auto end_time = chrono::steady_clock::now(); // finish timer
-
-
+/**
     // move from player and automatic play from robots
     while (robots_live && player_live) {
 
@@ -165,7 +163,7 @@ void play() {
         //move player
         player_live = player(vec, y_player, x_player, exitGame);
         if(exitGame) return;
-        */
+        
 
         //robot's turn
         if (player_live) {
@@ -211,7 +209,9 @@ void play() {
             if (robot_x.empty()) robots_live = false; // if all robots died, game over
         }
         print(vec); // print level with update
+        
     }
+    */
 
     auto end_time = chrono::steady_clock::now(); // finish timer
 
@@ -332,7 +332,7 @@ bool validMove(vector<string> &vec, int &y, int &x, int vertical, int horizontal
 }
 */
 
-
+/**
 bool robots(vector<string> &vec, int &yp, int &xp, int &yr, int &xr, int &yrO, int &xrO)
 {
     int indice;
@@ -387,8 +387,8 @@ bool robots(vector<string> &vec, int &yp, int &xp, int &yr, int &xr, int &yrO, i
             return true;
     }
 }
-
-
+*/
+/**
 bool moveRobot(vector<string> &vec, int &yr, int &xr, int &yrO, int &xrO, int vertical, int horizontal)
 {
     swap(vec[yr + vertical][xr + horizontal], vec[yr][xr]);  // move robot
@@ -405,7 +405,7 @@ bool moveRobot(vector<string> &vec, int &yr, int &xr, int &yrO, int &xrO, int ve
     yr += vertical; xr += horizontal;
     return true;
 }
-
+*/
 
 void winner(char name[15],int time,int maze) {
     string path = "MAZE_XX_WINNERS.txt";   // path of file to write winners

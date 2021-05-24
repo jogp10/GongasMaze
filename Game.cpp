@@ -127,7 +127,7 @@ bool Game::play()
         else
         {
             cout << "Invalid play!" << endl;
-            break;
+            continue;
         }
         Exit exit = {player.getRow(), player.getCol()};
         if(maze.checkExit(exit))
@@ -138,7 +138,7 @@ bool Game::play()
         //robots turn
         for (int i= 0; i <= robots.size(); i++)
         {
-            int rowP, colP, rowR, colR; 
+            int rowP, colP, rowR, colR, indice = 0; 
             
             rowP = player.getRow(); 
             colP = player.getCol();
@@ -149,21 +149,21 @@ bool Game::play()
             vector<double> minor_d;
 
             //case 0
-            q = sqrt((pow(xp-(xr-1), 2) + pow(yp - (yr-1), 2))); minor_d.push_back(q);
+            q = sqrt((pow(colP-(colR-1), 2) + pow(rowP - (rowR-1), 2))); minor_d.push_back(q);
             //case 1
-            w = sqrt((pow(xp-xr, 2) + pow(yp - (yr-1), 2))); minor_d.push_back(w);
+            w = sqrt((pow(colP-colR, 2) + pow(rowP - (rowR-1), 2))); minor_d.push_back(w);
             //case 2
-            e = sqrt((pow(xp-(xr+1), 2) + pow(yp - (yr-1), 2))); minor_d.push_back(e);
+            e = sqrt((pow(colP-(colR+1), 2) + pow(rowP - (rowR-1), 2))); minor_d.push_back(e);
             //case 3
-            a = sqrt((pow(xp-(xr-1), 2) + pow(yp - yr, 2))); minor_d.push_back(a);
+            a = sqrt((pow(colP-(colR-1), 2) + pow(rowP - rowR, 2))); minor_d.push_back(a);
             //case 4
-            d = sqrt((pow(xp-(xr+1), 2) + pow(yp - yr, 2))); minor_d.push_back(d);
+            d = sqrt((pow(colP-(colR+1), 2) + pow(rowP - rowR, 2))); minor_d.push_back(d);
             //case 5
-            z = sqrt((pow(xp-(xr-1), 2) + pow(yp - (yr+1), 2))); minor_d.push_back(z);
+            z = sqrt((pow(colP-(colR-1), 2) + pow(rowP - (rowR+1), 2))); minor_d.push_back(z);
             //case 6
-            x = sqrt((pow(xp-xr, 2) + pow(yp - (yr+1), 2))); minor_d.push_back(x);
+            x = sqrt((pow(colP-colR, 2) + pow(rowP - (rowR+1), 2))); minor_d.push_back(x);
             //case 7
-            c = sqrt((pow(xp-(xr+1), 2) + pow(yp - (yr+1), 2))); minor_d.push_back(c);
+            c = sqrt((pow(colP-(colR+1), 2) + pow(rowP - (rowR+1), 2))); minor_d.push_back(c);
 
             for(int j=0; j<=7; j++)
             {
@@ -174,29 +174,39 @@ bool Game::play()
                 }
             }
 
+            Movement mov; // mov(row, col)
+
             switch(indice)
             {
                 case 0:  // Q
-                    return moveRobot(vec, yr, xr, yrO, xrO, -1, -1);
+                    mov = {-1,-1};
                 case 1: // W
-                    return moveRobot(vec, yr, xr,yrO, xrO, -1);
+                    mov = {0, -1};
                 case 2: // E
-                    return moveRobot(vec, yr, xr,yrO, xrO, -1, +1);
-                case 3:  // A
-                    return moveRobot(vec, yr, xr,yrO, xrO, 0, -1);
+                    mov = {-1, 1}; 
+                case 3:  // A 
+                   mov = {0,-1}; 
                 case 4: // D
-                    return moveRobot(vec, yr, xr,yrO, xrO, 0, +1);
+                    mov = {0,1}; 
                 case 5: // Z
-                    return moveRobot(vec, yr, xr,yrO, xrO, +1, -1);
+                    mov = {1,-1}; 
                 case 6:  // X
-                    return moveRobot(vec, yr, xr,yrO, xrO, +1);
+                    mov = {0,1}; 
                 case 7: // C
-                    return moveRobot(vec, yr, xr,yrO, xrO, +1, +1);
-                default:
-                    return true;
-
+                    mov = {1,1}; 
+                default: 
+                    mov = {0,0}; 
+                
             }
+
+            robots[i].setMove(mov); 
+
+            Game::collide(robots[i]); 
+
         }
+
+        Game::showGameDisplay(); 
+
     }
 }
 
@@ -240,7 +250,7 @@ void Game::showGameDisplay() const
             if(player.getRow() == i && player.getCol() == j)
             {
                 cout << player.getSymbol();
-                break;
+                continue;
             }
 
             for(int w=0; w<robots.size(); w++)
@@ -252,13 +262,13 @@ void Game::showGameDisplay() const
                     break;
                 }
             }
-            if(stop) break;
+            if(stop) continue;
 
             Post post(i, j, '+');
             if(maze.checkPost(post)) 
             {
                 cout << '+';
-                break;
+                continue;
             }
             else
             {
@@ -266,7 +276,7 @@ void Game::showGameDisplay() const
                 if(maze.checkPost(post))
                 {
                     cout << '*';
-                    break;
+                    continue;
                 }
             }
 
@@ -274,7 +284,7 @@ void Game::showGameDisplay() const
             if(maze.checkExit(exit))
             {
                 cout << "O";
-                break;
+                continue;
             }
             cout << " ";
         }
