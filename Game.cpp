@@ -133,7 +133,65 @@ bool Game::play()
             {
                 return true;
             }
-        
+
+            for (int i= 0; i <= robots.size(); i++)
+            {
+                int rowP, colP, rowR, colR; 
+                
+                rowP = player.getRow(); 
+                colP = player.getCol();
+                rowR = robots[i].getRow(); 
+                colR = robots[i].getCol(); 
+
+                 double q,w,e,a,d,z,x,c, minor = 999999;
+    vector<double> minor_d;
+
+    //case 0
+    q = sqrt((pow(xp-(xr-1), 2) + pow(yp - (yr-1), 2))); minor_d.push_back(q);
+    //case 1
+    w = sqrt((pow(xp-xr, 2) + pow(yp - (yr-1), 2))); minor_d.push_back(w);
+    //case 2
+    e = sqrt((pow(xp-(xr+1), 2) + pow(yp - (yr-1), 2))); minor_d.push_back(e);
+    //case 3
+    a = sqrt((pow(xp-(xr-1), 2) + pow(yp - yr, 2))); minor_d.push_back(a);
+    //case 4
+    d = sqrt((pow(xp-(xr+1), 2) + pow(yp - yr, 2))); minor_d.push_back(d);
+    //case 5
+    z = sqrt((pow(xp-(xr-1), 2) + pow(yp - (yr+1), 2))); minor_d.push_back(z);
+    //case 6
+    x = sqrt((pow(xp-xr, 2) + pow(yp - (yr+1), 2))); minor_d.push_back(x);
+    //case 7
+    c = sqrt((pow(xp-(xr+1), 2) + pow(yp - (yr+1), 2))); minor_d.push_back(c);
+
+    for(int j=0; j<=7; j++)
+    {
+        if (minor_d[j] <= minor) // see which distance is minor
+        {
+            minor = minor_d[j];
+            indice = j;
+        }
+    }
+
+    switch(indice)
+    {
+        case 0:  // Q
+            return moveRobot(vec, yr, xr, yrO, xrO, -1, -1);
+        case 1: // W
+            return moveRobot(vec, yr, xr,yrO, xrO, -1);
+        case 2: // E
+            return moveRobot(vec, yr, xr,yrO, xrO, -1, +1);
+        case 3:  // A
+            return moveRobot(vec, yr, xr,yrO, xrO, 0, -1);
+        case 4: // D
+            return moveRobot(vec, yr, xr,yrO, xrO, 0, +1);
+        case 5: // Z
+            return moveRobot(vec, yr, xr,yrO, xrO, +1, -1);
+        case 6:  // X
+            return moveRobot(vec, yr, xr,yrO, xrO, +1);
+        case 7: // C
+            return moveRobot(vec, yr, xr,yrO, xrO, +1, +1);
+        default:
+            return true;
 
         }
     }
