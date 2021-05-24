@@ -66,12 +66,96 @@ Game::Game(const string & filename)
 
 bool Game::play()
 {
+    if(player.getLive())
+    {
+        char play;
+        string check = "QWEASDZXC"; //possible plays
+        Movement mov;
 
+        // ask for a play
+        cout << "What's your play" << endl;
+
+        while(true){
+            cin >> play;
+            if (cin.eof()) {
+                //exitGame = true;
+                return true;
+            }
+            if(!cin.fail()) {
+                cin.ignore(10000, '\n');
+                if (check.find((char) toupper(play)) != string::npos) break;
+            }
+            else {
+                cin.clear();
+                cin.ignore(10000, '\n');
+            }
+        }
+
+        switch(toupper(play))
+        {
+            case 'W':
+                mov = {-1, 0};
+                break;
+            case 'E':
+                mov = {-1, 1};
+                break;
+            case 'D':
+                mov = {0, 1};
+                break;
+            case 'C':
+                mov = {1, 1};
+                break;
+            case 'X':
+                mov = {1, 0};
+                break;
+            case 'Z':
+                mov = {1, -1};
+                break;
+            case 'A':
+                mov = {0, -1};
+                break;
+            case 'Q':
+                mov = {-1, -1};
+                break;
+            default:
+                mov = {0, 0};
+        }
+        if(Game::isValid(mov)) player.setMove(mov);
+        Exit exit = {player.getRow(), player.getCol()};
+        if(maze.checkExit(exit))
+
+
+    }
 }
 
-bool Game::isValid()
+bool Game::isValid(Movement& movement)
 {
+    int i, j;
+    i = player.getRow() + movement.dRow;
+    j = player.getCol() + movement.dCol;
 
+    for(int w=0; w<robots.size(); w++)
+    {
+        if(robots[w].getRow() == i && robots[w].getCol() == j) 
+        {
+            return false;
+        }
+    }
+
+    Post post(i, j, '+');
+    if(maze.checkPost(post)) 
+    {
+        return false;
+    }
+    else
+    {
+        Post post(i, j, '*');
+        if(maze.checkPost(post))
+        {
+            return false;
+        }
+    }
+    return true;
 }
 
 void Game::showGameDisplay() const
@@ -129,10 +213,30 @@ void Game::showGameDisplay() const
 
 bool Game::collide(Robot& robot, Post& post)
 {
-
+    if(post.getRow() == robot.getRow() && post.getCol() == robot.getCol())
+    {
+        robot.setDead();
+        return true;
+    }
+    return false;
 }
 
-bool Game::collide(Robot& robot, Player& player)
+bool Game::collide(Robot& robot)
 {
+    if(robot.getRow() == player.getRow() && robot.getCol() == player.getCol())
+    {
+        player.setDead();
+        return true;
+    }
+    return false;
+}
+
+bool Game::collide(Robot& robot, Robot& robot2)
+{
+    if(robot.getRow() == robot2.getRow() && robot.getCol() == robot2.getCol())
+    {
+        robot.setDead();
+        robot2.setDead();
+    }
 
 }

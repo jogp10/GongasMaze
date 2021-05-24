@@ -17,12 +17,13 @@ public:
                                    // and Player
 
     bool play(); 
-    bool isValid(); 
+    bool isValid(Movement& movement); 
 
 private: 
     void showGameDisplay() const; 
     bool collide(Robot& robot, Post& post); 
-    bool collide(Robot& robot, Player& player); 
+    bool collide(Robot& robot); 
+    bool collide(Robot& robot, Robot& robot2);
 
 private: 
     Maze maze; 
