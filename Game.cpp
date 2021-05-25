@@ -139,7 +139,6 @@ bool Game::play()
         for (int i= 0; i <= robots.size(); i++)
         {
             if(robots[i].getLive()){
-                count++;
                 int rowP, colP, rowR, colR, indice = 0; 
                 
                 rowP = player.getRow(); 
