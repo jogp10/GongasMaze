@@ -4,7 +4,7 @@
 
 struct Exit
 {
-    int Orow, Ocol;
+    unsigned int Orow, Ocol;
 };
 
 #endif //T02_G11_EXIT_H

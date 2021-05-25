@@ -17,8 +17,8 @@ Robot::Robot(unsigned int row, unsigned int col)
 
 void Robot::setMove(const Movement& movement)
 {
-    row += movement.dRow;
-    col += movement.dCol;
+    this->row += movement.dRow;
+    this->col += movement.dCol;
 }
 
 void Robot::setDead()

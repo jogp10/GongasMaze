@@ -21,9 +21,10 @@ public:
 private: 
     void showGameDisplay() const; 
     bool isValid(Movement& movement);
-    bool collide(Robot& robot, Post& post); 
-    bool collide(Robot& robot); 
-    bool collide(Robot& robot, Robot& robot2);
+    void checkcollide(Robot& robot, Movement& movement);
+    void collide(Robot& robot, Post& post, Movement& movement); 
+    void collide(Robot& robot, Player& player); 
+    void collide(Robot& robot, Robot& robot2);
 
 private: 
     Maze maze; 

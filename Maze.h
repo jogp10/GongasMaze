@@ -22,8 +22,8 @@ public:
     void addPost(const Post& post);
     void addExit(const Exit& exit);
 
-    bool checkPost(Post& post) const;
-    bool checkExit(Exit& exit) const;
+    bool checkPost(const Post& post) const;
+    bool checkExit(const Exit& exit) const;
     
     unsigned int getnumRows() const;
     unsigned int getnumCols() const;

@@ -26,7 +26,7 @@ void Maze::setRows(unsigned int numRows)
     this->numRows = numRows; 
 } 
 
-bool Maze::checkPost(Post& post) const
+bool Maze::checkPost(const Post& post) const
 {
     for(int i=0; i<posts.size(); i++)
     {
@@ -38,7 +38,7 @@ bool Maze::checkPost(Post& post) const
     return false;
 }
 
-bool Maze::checkExit(Exit& exit) const
+bool Maze::checkExit(const Exit& exit) const
 {
     for(int i=0; i<exits.size(); i++)
     {
