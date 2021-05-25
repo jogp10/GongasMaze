@@ -4,5 +4,6 @@ Player          - Time
 -----------------------
 record                4
 wow                   5
+                     30
 mao                  31
                     185

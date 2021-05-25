@@ -1,5 +1,6 @@
 //T02_G11
 
+#include <cassert>
 #include "Maze.h"
 #include <iostream>
 
@@ -30,7 +31,13 @@ bool Maze::checkPost(const Post& post) const
 {
     for(int i=0; i<posts.size(); i++)
     {
-        if(post.getRow() == posts[i].getRow() && post.getCol() == posts[i].getCol() && post.getSymbol() == posts[i].getSymbol()) 
+        unsigned int j, w;
+        j = post.getRow();
+        w = posts[i].getRow();
+        //assert(post.getRow() == posts[i].getRow());
+        //assert(post.getCol() == posts[i].getCol());
+        //assert(post.getSymbol() == posts[i].getSymbol());
+        if(post.getRow() == posts[i].getRow()&& post.getCol() == posts[i].getCol() && post.getEletric() == posts[i].getEletric()) 
         {
             return true;
         }

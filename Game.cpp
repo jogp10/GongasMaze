@@ -273,7 +273,7 @@ void Game::showGameDisplay() const
             }
             else
             {
-                Post post(i, j, '*');
+                post.setSymbol('*');
                 if(maze.checkPost(post))
                 {
                     cout << '*';
