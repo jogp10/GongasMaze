@@ -8,7 +8,6 @@ using namespace std;
 
 Maze::Maze()
 {
-
 }
 
 Maze::Maze(unsigned int numRows, unsigned int numCols)

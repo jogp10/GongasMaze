@@ -5,7 +5,7 @@
 
 using namespace std; 
 
-Post::Post(unsigned int row, unsigned int col, char type = '+'){
+Post::Post(unsigned int row, unsigned int col, char type){
     this->row = row; 
     this->col = col;
     if(type == '*') electric =  true;

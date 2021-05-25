@@ -82,7 +82,7 @@ bool Game::play()
             cin >> play;
             if (cin.eof()) {
                 //exitGame = true;
-                return true;
+                return false;
             }
             if(!cin.fail()) {
                 cin.ignore(10000, '\n');
@@ -135,9 +135,11 @@ bool Game::play()
         if(maze.checkExit(exit)) return true;
 
         //robots turn
+        int count=robots.size();
         for (int i= 0; i <= robots.size(); i++)
         {
             if(robots[i].getLive()){
+                count++;
                 int rowP, colP, rowR, colR, indice = 0; 
                 
                 rowP = player.getRow(); 
@@ -204,10 +206,12 @@ bool Game::play()
                         break;
                 }
                 robots[i].setMove(mov); 
-                Game::checkcollide(robots[i], mov); 
+                if(Game::checkcollide(robots[i], mov)) count--; 
             }
+            else count--;
         }
-        Game::showGameDisplay(); 
+        Game::showGameDisplay();
+        if(count == 0) return true;
     }
 }
 
@@ -294,23 +298,24 @@ void Game::showGameDisplay() const
     cout << endl;
 }
 
-void Game::checkcollide(Robot& robot, Movement& movement)
+bool Game::checkcollide(Robot& robot, Movement& movement)
 {
-    if(robot.getRow() == player.getRow() && robot.getCol() == player.getCol()) Game::collide(robot, player);
+    if(robot.getRow() == player.getRow() && robot.getCol() == player.getCol()) return Game::collide(robot, player);
     for(int i=0; i<robots.size(); i++)
     {
         if(robot.getRow() == robots[i].getRow() && robot.getCol() == robots[i].getCol() && robot.getId() != robots[i].getId())
         {
-            Game::collide(robot, robots[i]);
+            return Game::collide(robot, robots[i]);
         }
     }
     Post post(robot.getRow(), robot.getCol());
-    if(maze.checkPost(post)) Game::collide(robot, post, movement);
+    if(maze.checkPost(post)) return Game::collide(robot, post, movement);
     post.setSymbol('*');
-    if(maze.checkPost(post)) Game::collide(robot, post, movement);
+    if(maze.checkPost(post)) return Game::collide(robot, post, movement);
+    return false;
 }
 
-void Game::collide(Robot& robot, Post& post, Movement& movement)
+bool Game::collide(Robot& robot, Post& post, Movement& movement)
 {
     if(post.getSymbol() == '*')
     {
@@ -318,16 +323,19 @@ void Game::collide(Robot& robot, Post& post, Movement& movement)
         robot.setMove(movement);
     }
     robot.setDead();
+    return true;
 }
 
-void Game::collide(Robot& robot, Player& player)
+bool Game::collide(Robot& robot, Player& player)
 {
     player.setDead();
+    return true;
 
 }
 
-void Game::collide(Robot& robot, Robot& robot2)
+bool Game::collide(Robot& robot, Robot& robot2)
 {
     robot.setDead();
     robot2.setDead();
+    return true;
 }
