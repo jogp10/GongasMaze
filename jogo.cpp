@@ -150,7 +150,7 @@ void play() {
     // Start timer
     auto start_time = chrono::steady_clock::now();
     
-    //ready to start
+    // Start game
     bool match_point;
     match_point = game.play();
 

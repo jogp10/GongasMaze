@@ -5,39 +5,69 @@
 
 using namespace std; 
 
+/**
+ * Post -> get info from post's location
+ * @param row
+ * @param col
+ * @param type
+ */
 Post::Post(unsigned int row, unsigned int col, char type){
     this->row = row; 
     this->col = col;
+    this->type = type;
     if(type == '*') electric =  true;
 }
 
+/**
+ * setSymbol -> eletric or not
+ * @param type
+ */
 void Post::setSymbol(char type)
 {
     this->type = type;
     if(type == '*') electric = true;
 }
 
+/**
+ * getRow -> get post's row
+ * @return
+ */
 unsigned int Post::getRow() const 
 {
     return row; 
 }
 
+/**
+ * getCol -> get post's col
+ * @return
+ */
 unsigned int Post::getCol() const
 {
     return col; 
 }
 
+/**
+ * getSymbol -> get post's symbol
+ * @return
+ */
 char Post::getSymbol() const
 {
     return type;
 }
 
+/**
+ * getLive -> get posts's state
+ * @return
+ */
 bool Post::getEletric() const
 {
     return electric; 
 }
 
-void Post::show()
+/**
+ * show -> show info's
+ */
+void Post::show() const
 {
     cout << "col: " << col << endl; 
     cout << "row: " << row << endl; 

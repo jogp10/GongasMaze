@@ -8,17 +8,21 @@ using namespace std;
 
 class Post
 {   
-public: 
+public:
+    // constructors
     Post(unsigned int row, unsigned int col, char type = '+'); 
 
+    // methods
     void setSymbol(char type);
 
+    // get functions
     unsigned int getRow() const; 
     unsigned int getCol() const;
     char getSymbol() const;
     bool getEletric() const; 
 
-    void show();
+    // cout
+    void show() const;
 
 private: 
     unsigned int row, col; 
