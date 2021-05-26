@@ -10,8 +10,8 @@ using namespace std;
 class Player
 {
 public:
+    Player() = default;
     Player(unsigned int row, unsigned int col, char symbol);
-    Player();
     
     void setMove(const Movement& movement);
     void setDead();
