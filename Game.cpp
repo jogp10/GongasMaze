@@ -16,17 +16,16 @@ Game::Game(const string & filename)
     {
 
         // set dimension of maze
-        string line; 
+        string line;
         int col, lines; char x;
         file >> lines >> x >> col;
         maze.setCols(col); maze.setRows(lines);
 
         // scan maze
         getline(file, line);
+        int nLines = 0;
         while (getline(file, line))
         {
-            static int nLines = 0;  
-
             for (int i = 0; i<= line.size(); i++)
             {
                 if (line[i] == '+' || line[i] == '*') // post or eletric post

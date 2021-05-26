@@ -6,7 +6,10 @@
 
 using namespace std;
 
-
+/**
+ * 
+ * 
+ */
 Player::Player(unsigned int row, unsigned int col, char symbol)
 {
     this->row = row;
