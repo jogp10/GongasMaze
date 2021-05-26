@@ -2,6 +2,5 @@ T02_G11
 
 Player          - Time
 -----------------------
-a                     2
 okok                  4
 yupi                  7

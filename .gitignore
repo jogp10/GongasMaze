@@ -15,3 +15,5 @@ Post.exe
 .vscode/launch.json
 *.json
 *.json
+*.json
+.vscode/launch.json
