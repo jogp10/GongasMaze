@@ -12,7 +12,7 @@ using namespace std;
 Game::Game(const string & filename)
 {   
     ifstream file(filename); 
-    if (file.is_open())
+    if (file.is_open()) // operations to follow if file is open 
     {
 
         // set dimension of maze
@@ -59,7 +59,7 @@ Game::Game(const string & filename)
                     maze.addExit(exit);
                 }
             }
-            cout << line << endl;
+            cout << line << endl;  // output line
             nLines++; 
         }
     }
@@ -71,7 +71,7 @@ bool Game::play()
     {
         if(!player.getLive()) return false;
         char play;
-        string check = "QWEASDZXC"; //possible plays
+        string check = "QWEASDZXC"; // string containing all possible plays
         Movement mov;
 
         // ask for a play
@@ -133,86 +133,93 @@ bool Game::play()
 
         Exit exit = {player.getRow(), player.getCol()};
         if(maze.checkExit(exit)) return true;
-
-        //robots turn
+        
         int count=robots.size();
-        for (int i= 0; i < robots.size(); i++)
-        {
-            if(robots[i].getLive()){
-                int rowP, colP, rowR, colR, indice = 0; 
-                
-                rowP = player.getRow(); 
-                colP = player.getCol();
-                rowR = robots[i].getRow(); 
-                colR = robots[i].getCol();
+        Game::robots_turn(count); //robots turn
 
-                double q,w,e,a,d,z,x,c, minor = 999999;
-                vector<double> minor_d;
-
-                //case 0
-                q = sqrt((pow(colP-(colR-1), 2) + pow(rowP - (rowR-1), 2))); minor_d.push_back(q);
-                //case 1
-                w = sqrt((pow(colP-colR, 2) + pow(rowP - (rowR-1), 2))); minor_d.push_back(w);
-                //case 2
-                e = sqrt((pow(colP-(colR+1), 2) + pow(rowP - (rowR-1), 2))); minor_d.push_back(e);
-                //case 3
-                a = sqrt((pow(colP-(colR-1), 2) + pow(rowP - rowR, 2))); minor_d.push_back(a);
-                //case 4
-                d = sqrt((pow(colP-(colR+1), 2) + pow(rowP - rowR, 2))); minor_d.push_back(d);
-                //case 5
-                z = sqrt((pow(colP-(colR-1), 2) + pow(rowP - (rowR+1), 2))); minor_d.push_back(z);
-                //case 6
-                x = sqrt((pow(colP-colR, 2) + pow(rowP - (rowR+1), 2))); minor_d.push_back(x);
-                //case 7
-                c = sqrt((pow(colP-(colR+1), 2) + pow(rowP - (rowR+1), 2))); minor_d.push_back(c);
-
-                for(int j=0; j<=7; j++)
-                {
-                    if (minor_d[j] <= minor) // see which distance is minor
-                    {
-                        minor = minor_d[j];
-                        indice = j;
-                    }
-                }
-
-                Movement mov; // mov(row, col)
-
-                switch(indice)
-                {
-                    case 0:  // Q
-                        mov = {-1,-1};
-                        break;
-                    case 1: // W
-                        mov = {-1, 0};
-                        break;
-                    case 2: // E
-                        mov = {-1, 1};
-                        break; 
-                    case 3:  // A 
-                        mov = {0,-1};
-                        break; 
-                    case 4: // D
-                        mov = {0,1};
-                        break; 
-                    case 5: // Z
-                        mov = {1,-1}; 
-                        break;
-                    case 6:  // X
-                        mov = {1,0}; 
-                        break;
-                    case 7: // C
-                        mov = {1,1}; 
-                        break;
-                }
-                robots[i].setMove(mov); 
-                if(Game::checkcollide(robots[i], mov)) count--; 
-            }
-            else count--;
-        }
         Game::showGameDisplay();
         if(count == 0) return true;
     }
 }
+
+void Game::robots_turn(int count)
+{
+    for (int i= 0; i < robots.size(); i++)
+    {
+        if(robots[i].getLive()){
+            int rowP, colP, rowR, colR, indice = 0; 
+            
+            rowP = player.getRow(); 
+            colP = player.getCol();
+            rowR = robots[i].getRow(); 
+            colR = robots[i].getCol();
+
+            double q,w,e,a,d,z,x,c, minor = 999999;
+            vector<double> minor_d;
+
+            //case 0
+            q = sqrt((pow(colP-(colR-1), 2) + pow(rowP - (rowR-1), 2))); minor_d.push_back(q);
+            //case 1
+            w = sqrt((pow(colP-colR, 2) + pow(rowP - (rowR-1), 2))); minor_d.push_back(w);
+            //case 2
+            e = sqrt((pow(colP-(colR+1), 2) + pow(rowP - (rowR-1), 2))); minor_d.push_back(e);
+            //case 3
+            a = sqrt((pow(colP-(colR-1), 2) + pow(rowP - rowR, 2))); minor_d.push_back(a);
+            //case 4
+            d = sqrt((pow(colP-(colR+1), 2) + pow(rowP - rowR, 2))); minor_d.push_back(d);
+            //case 5
+            z = sqrt((pow(colP-(colR-1), 2) + pow(rowP - (rowR+1), 2))); minor_d.push_back(z);
+            //case 6
+            x = sqrt((pow(colP-colR, 2) + pow(rowP - (rowR+1), 2))); minor_d.push_back(x);
+            //case 7
+            c = sqrt((pow(colP-(colR+1), 2) + pow(rowP - (rowR+1), 2))); minor_d.push_back(c);
+
+            for(int j=0; j<=7; j++)
+            {
+                if (minor_d[j] <= minor) // see which distance is minor
+                {
+                    minor = minor_d[j];
+                    indice = j;
+                }
+            }
+
+            Movement mov; // mov(row, col)
+
+            switch(indice)
+            {
+                case 0:  // Q
+                    mov = {-1,-1};
+                    break;
+                case 1: // W
+                    mov = {-1, 0};
+                    break;
+                case 2: // E
+                    mov = {-1, 1};
+                    break; 
+                case 3:  // A 
+                    mov = {0,-1};
+                    break; 
+                case 4: // D
+                    mov = {0,1};
+                    break; 
+                case 5: // Z
+                    mov = {1,-1}; 
+                    break;
+                case 6:  // X
+                    mov = {1,0}; 
+                    break;
+                case 7: // C
+                    mov = {1,1}; 
+                    break;
+            }
+            robots[i].setMove(mov); 
+            if(Game::checkcollide(robots[i], mov)) count--; 
+        }
+        else count--;
+    }
+    return count; 
+}
+
 
 bool Game::isValid(Movement& movement)
 {

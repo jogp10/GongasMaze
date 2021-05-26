@@ -16,7 +16,8 @@ public:
     Game(const string & filename); //import maze and store in vector positions of Robots 
                                    // and Player
     bool play(); // where the gameplay itself takes place 
-    ~Game() {}
+    void robots_turn(int count); // where all the moves happen 
+    ~Game() {} //deconstructor
 
 private: 
     void showGameDisplay() const; // display Maze
