@@ -136,7 +136,7 @@ bool Game::play()
 
         //robots turn
         int count=robots.size();
-        for (int i= 0; i <= robots.size(); i++)
+        for (int i= 0; i < robots.size(); i++)
         {
             if(robots[i].getLive()){
                 int rowP, colP, rowR, colR, indice = 0; 
