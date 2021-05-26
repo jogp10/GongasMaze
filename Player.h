@@ -11,15 +11,15 @@ class Player
 {
 public:
     //constructors
+    Player() = default;
     Player(unsigned int row, unsigned int col, char symbol);
-    Player();
-    
+
     // methods
     void setMove(const Movement& movement);
     void setDead();
-    void setRow(unsigned int row); 
-    void setCol(unsigned int col); 
-    void setSymbol(char symbol); 
+    void setRow(unsigned int row);
+    void setCol(unsigned int col);
+    void setSymbol(char symbol);
 
     // get functions
     unsigned int getRow() const;
@@ -29,7 +29,9 @@ public:
 
     // cout
     void show() const;
-    ~Player() {}
+
+    //destructor
+    ~Player() = default;
 private:
     unsigned int row, col;
     bool live = true;

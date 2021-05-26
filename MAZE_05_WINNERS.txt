@@ -2,6 +2,7 @@ T02_G11
 
 Player          - Time
 -----------------------
+noice                 2
 okok                  4
 yupi                  7
 how                  15
