@@ -183,7 +183,7 @@ bool Game::play()
                         mov = {-1,-1};
                         break;
                     case 1: // W
-                        mov = {0, -1};
+                        mov = {-1, 0};
                         break;
                     case 2: // E
                         mov = {-1, 1};
@@ -198,7 +198,7 @@ bool Game::play()
                         mov = {1,-1}; 
                         break;
                     case 6:  // X
-                        mov = {0,1}; 
+                        mov = {1,0}; 
                         break;
                     case 7: // C
                         mov = {1,1}; 
