@@ -29,6 +29,7 @@ public:
     unsigned int getnumCols() const;
 
     void show() const;
+    ~Maze();
 
 private:
     int numRows, numCols;

@@ -3,6 +3,8 @@ T02_G11
 Player          - Time
 -----------------------
                       3
+jojo                  3
 record                4
 yesss                16
+wow                  16
 mao                  31

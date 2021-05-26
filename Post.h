@@ -18,7 +18,7 @@ public:
     char getSymbol() const;
     bool getEletric() const; 
 
-    void show(); 
+    void show();
 
 private: 
     unsigned int row, col; 
