@@ -11,20 +11,24 @@ class Robot
 {
 public:
     enum State{ ALIVE, STUCK, DEAD};
+    //constructor
     Robot(unsigned int row, unsigned int col);
-    
+
+    // methods
     void setMove(const Movement& movement);
     void setDead();
 
+    // get functions
     unsigned int getId() const;
     unsigned int getRow() const;
     unsigned int getCol() const;
     char getSymbol() const;
     bool getLive() const;
 
+    // cout
     void show() const;
 private:
-    static unsigned int robotCounter;
+    static unsigned int robotCounter; // count number of robots
     unsigned int id;
     unsigned int row, col;
     bool live=true;

@@ -7,10 +7,11 @@
 using namespace std;
 
 
-* Player -> get info from player's location
+/** Player -> get info from player's location
 * @param row
 * @param col
 * @param symbol
+ */
 Player::Player(unsigned int row, unsigned int col, char symbol)
 {
     this->row = row;

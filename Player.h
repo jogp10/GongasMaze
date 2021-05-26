@@ -10,21 +10,27 @@ using namespace std;
 class Player
 {
 public:
+    //constructors
     Player() = default;
     Player(unsigned int row, unsigned int col, char symbol);
-    
+
+    //methods
     void setMove(const Movement& movement);
     void setDead();
     void setRow(unsigned int row); 
     void setCol(unsigned int col); 
     void setSymbol(char symbol); 
 
+    //get functions
     unsigned int getRow() const;
     unsigned int getCol() const;
     char getSymbol() const;
     bool getLive() const;
 
+    // cout
     void show() const;
+
+    //destructor
     ~Player() {}
 private:
     unsigned int row, col;
