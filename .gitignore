@@ -13,3 +13,5 @@ main
 Post.exe
 .vscode/tasks.json
 .vscode/launch.json
+*.json
+*.json
