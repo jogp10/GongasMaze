@@ -328,7 +328,7 @@ bool Game::collide(Robot& robot, Post& post, Movement& movement)
 bool Game::collide(Robot& robot, Player& player)
 {
     player.setDead();
-    return true;
+    return false;
 
 }
 
