@@ -13,23 +13,24 @@ using namespace std;
 class Maze
 {
 public:
+    //constructors
     Maze(); 
     Maze(unsigned int numRows, unsigned int numCols);
     
-    void setCols(unsigned int numCols); 
-    void setRows(unsigned int numRows); 
+    void setCols(unsigned int numCols); // set number of collums of Maze
+    void setRows(unsigned int numRows); // set number of rows of Maze
     
-    void addPost(const Post& post);
-    void addExit(const Exit& exit);
+    void addPost(const Post& post); // add post to vector of posts
+    void addExit(const Exit& exit); // add exit to vector of exits
 
-    bool checkPost(const Post& post) const;
-    bool checkExit(const Exit& exit) const;
+    bool checkPost(const Post& post) const; // check the existence of a post in vector posts
+    bool checkExit(const Exit& exit) const; // check the existence of a exit in vector exits
     
-    unsigned int getnumRows() const;
-    unsigned int getnumCols() const;
+    unsigned int getnumRows() const; // get the number of Rows of Maze
+    unsigned int getnumCols() const; // get the number of Collums of Maze
 
-    void show() const;
-    ~Maze() {}
+    void show() const; // Mostly for testing the dimensions of Maze
+    ~Maze() {} // deconstructor
 
 private:
     int numRows, numCols;

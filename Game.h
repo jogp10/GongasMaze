@@ -15,16 +15,16 @@ class Game
 public:
     Game(const string & filename); //import maze and store in vector positions of Robots 
                                    // and Player
-    bool play(); 
+    bool play(); // where the gameplay itself takes place 
     ~Game() {}
 
 private: 
-    void showGameDisplay() const; 
-    bool isValid(Movement& movement);
-    bool checkcollide(Robot& robot, Movement& movement);
-    bool collide(Robot& robot, Post& post, Movement& movement); 
-    bool collide(Robot& robot, Player& player); 
-    bool collide(Robot& robot, Robot& robot2);
+    void showGameDisplay() const; // display Maze
+    bool isValid(Movement& movement); // check if movement is valid 
+    bool checkcollide(Robot& robot, Movement& movement); //check if there is a collision
+    bool collide(Robot& robot, Post& post, Movement& movement); // collision between robot and post (movement if eletric == true)  
+    bool collide(Robot& robot, Player& player); // collision between robot and player 
+    bool collide(Robot& robot, Robot& robot2); // collision between 2 robots 
 
 private: 
     Maze maze; 

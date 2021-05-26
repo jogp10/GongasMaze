@@ -1,6 +1,5 @@
 //T02_G11
 
-
 #include "jogo.h"
 #include <iostream>
 #include <string>
