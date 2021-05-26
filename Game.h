@@ -16,7 +16,7 @@ public:
     Game(const string & filename); //import maze and store in vector positions of Robots 
                                    // and Player
     bool play(); 
-    ~Game();
+    ~Game() {}
 
 private: 
     void showGameDisplay() const; 

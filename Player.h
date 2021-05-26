@@ -25,7 +25,7 @@ public:
     bool getLive() const;
 
     void show() const;
-    ~Player();
+    ~Player() {}
 private:
     unsigned int row, col;
     bool live = true;
