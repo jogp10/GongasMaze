@@ -13,7 +13,8 @@ int main(){
 
     while(true) {
         // Initiate Menu
-        menu_choice = menu();
+        if(cin.eof()) menu_choice = 0;
+        else menu_choice = menu();
 
         switch (menu_choice) {
             case 1:     // Rules of the game

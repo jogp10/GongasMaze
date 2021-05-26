@@ -2,5 +2,4 @@ T02_G11
 
 Player          - Time
 -----------------------
-okok                  4
-yupi                  7
+done it               7
