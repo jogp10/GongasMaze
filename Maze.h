@@ -14,10 +14,10 @@ class Maze
 {
 public:
     //constructors
-    Maze(); 
+    Maze() = default;
     Maze(unsigned int numRows, unsigned int numCols);
     
-    void setCols(unsigned int numCols); // set number of collums of Maze
+    void setCols(unsigned int numCols); // set number of columns of Maze
     void setRows(unsigned int numRows); // set number of rows of Maze
     
     void addPost(const Post& post); // add post to vector of posts
@@ -27,10 +27,10 @@ public:
     bool checkExit(const Exit& exit) const; // check the existence of a exit in vector exits
     
     unsigned int getnumRows() const; // get the number of Rows of Maze
-    unsigned int getnumCols() const; // get the number of Collums of Maze
+    unsigned int getnumCols() const; // get the number of Columns of Maze
 
     void show() const; // Mostly for testing the dimensions of Maze
-    ~Maze() {} // deconstructor
+    ~Maze() = default; // deConstructor
 
 private:
     int numRows, numCols;

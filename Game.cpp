@@ -27,7 +27,7 @@ Game::Game(const string & filename)
         {
             for (int i = 0; i<= line.size(); i++)
             {
-                if (line[i] == '+' || line[i] == '*') // post or eletric post
+                if (line[i] == '+' || line[i] == '*') // post or electric post
                 {
                     Post post(nLines, i, line[i]); 
                     maze.addPost(post); 
@@ -41,15 +41,16 @@ Game::Game(const string & filename)
 
                 else if (line[i] == 'H') // player
                 {
-                    Player tplayer(nLines, i, line[i]);
-                    this->player = tplayer;
+                    player.setRow(nLines);
+                    player.setCol(i);
+                    player.setSymbol(line[i]);
                 }
 
                 else if (line[i] == 'O') // hole 2 win
                 {
                     Exit exit;
-                    exit.Ocol = i;
-                    exit.Orow = nLines;
+                    exit.O_col = i;
+                    exit.O_row = nLines;
                     maze.addExit(exit);
                 }
             }
@@ -66,7 +67,7 @@ bool Game::play()
         if(!player.getLive()) return false;
         char play;
         string check = "QWEASDZXC"; // string containing all possible plays
-        Movement mov;
+        Movement mov = {0, 0};
 
         // ask for a play
         cout << "What's your play" << endl;
@@ -138,15 +139,15 @@ bool Game::play()
 
 int Game::robots_turn(int count)
 {
-    for (int i= 0; i < robots.size(); i++)
+    for (auto & robot : robots)
     {
-        if(robots[i].getLive()){
+        if(robot.getLive()){
             int rowP, colP, rowR, colR, indice = 0; 
             
             rowP = player.getRow(); 
             colP = player.getCol();
-            rowR = robots[i].getRow(); 
-            colR = robots[i].getCol();
+            rowR = robot.getRow();
+            colR = robot.getCol();
 
             double q,w,e,a,d,z,x,c, minor = 999999;
             vector<double> minor_d;
@@ -177,7 +178,7 @@ int Game::robots_turn(int count)
                 }
             }
 
-            Movement mov; // mov(row, col)
+            Movement mov={0, 0}; // mov(row, col)
 
             switch(indice)
             {
@@ -206,8 +207,8 @@ int Game::robots_turn(int count)
                     mov = {1,1}; 
                     break;
             }
-            robots[i].setMove(mov); 
-            if(Game::checkcollide(robots[i], mov)) count--; 
+            robot.setMove(mov);
+            if(Game::checkCollide(robot, mov, count)) count--;
         }
         else count--;
     }
@@ -221,9 +222,9 @@ bool Game::isValid(Movement& movement)
     i = player.getRow() + movement.dRow;
     j = player.getCol() + movement.dCol;
 
-    for(int w=0; w<robots.size(); w++)
+    for(auto & robot : robots)
     {
-        if(robots[w].getRow() == i && robots[w].getCol() == j) 
+        if(robot.getRow() == i && robot.getCol() == j)
         {
             return false;
         }
@@ -236,7 +237,7 @@ bool Game::isValid(Movement& movement)
     }
     else
     {
-        Post post(i, j, '*');
+        post.setSymbol('*');
         if(maze.checkPost(post))
         {
             return false;
@@ -258,11 +259,11 @@ void Game::showGameDisplay() const
                 continue;
             }
 
-            for(int w=0; w<robots.size(); w++)
+            for(auto robot : robots)
             {
-                if(robots[w].getRow() == i && robots[w].getCol() == j) 
+                if(robot.getRow() == i && robot.getCol() == j)
                 {
-                    cout << robots[w].getSymbol();
+                    cout << robot.getSymbol();
                     stop = true;
                     break;
                 }
@@ -298,14 +299,14 @@ void Game::showGameDisplay() const
     cout << endl;
 }
 
-bool Game::checkcollide(Robot& robot, Movement& movement)
+bool Game::checkCollide(Robot& robot, Movement& movement, int& count)
 {
     if(robot.getRow() == player.getRow() && robot.getCol() == player.getCol()) return Game::collide(robot, player);
-    for(int i=0; i<robots.size(); i++)
+    for(auto & i : robots)
     {
-        if(robot.getRow() == robots[i].getRow() && robot.getCol() == robots[i].getCol() && robot.getId() != robots[i].getId())
+        if(robot.getRow() == i.getRow() && robot.getCol() == i.getCol() && robot.getId() != i.getId())
         {
-            return Game::collide(robot, robots[i]);
+            return Game::collide(robot, i, count);
         }
     }
     Post post(robot.getRow(), robot.getCol());
@@ -333,8 +334,9 @@ bool Game::collide(Robot& robot, Player& player)
 
 }
 
-bool Game::collide(Robot& robot, Robot& robot2)
+bool Game::collide(Robot& robot, Robot& robot2, int &count)
 {
+    count--;
     robot.setDead();
     robot2.setDead();
     return true;

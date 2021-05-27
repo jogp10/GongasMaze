@@ -70,7 +70,7 @@ unsigned int Robot::getCol() const
  */
 char Robot::getSymbol() const
 {
-    if(live == true) return 'R';
+    if(live) return 'R';
     else return 'r';
 }
 

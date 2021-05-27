@@ -19,7 +19,7 @@ Post::Post(unsigned int row, unsigned int col, char type){
 }
 
 /**
- * setSymbol -> eletric or not
+ * setSymbol -> electric or not
  * @param type
  */
 void Post::setSymbol(char type)
@@ -56,7 +56,7 @@ char Post::getSymbol() const
 }
 
 /**
- * getLive -> get posts's state
+ * getLive -> get post's state
  * @return
  */
 bool Post::getEletric() const

@@ -1,14 +1,9 @@
 //T02_G11
 
-#include <cassert>
 #include "Maze.h"
 #include <iostream>
 
 using namespace std;
-
-Maze::Maze()
-{
-}
 
 Maze::Maze(unsigned int numRows, unsigned int numCols)
 {
@@ -48,7 +43,7 @@ bool Maze::checkExit(const Exit& exit) const
 {
     for(int i=0; i<exits.size(); i++)
     {
-        if(exit.Orow == exits[i].Orow && exit.Ocol == exits[i].Ocol)
+        if(exit.O_row == exits[i].O_row && exit.O_col == exits[i].O_col)
         {
             return true;
         }

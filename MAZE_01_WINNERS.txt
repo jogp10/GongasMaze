@@ -3,6 +3,5 @@ T02_G11
 Player          - Time
 -----------------------
 record                4
-yesss                16
 wow                  16
 mao                  31
