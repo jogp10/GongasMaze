@@ -2,7 +2,6 @@ T02_G11
 
 Player          - Time
 -----------------------
-wow                   1
 a                     2
 okok                  4
 yupi                  7
