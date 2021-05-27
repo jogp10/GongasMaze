@@ -1,6 +1,5 @@
 //T02_G11
 
-#include <cassert>
 #include "Game.h"
 #include <iostream> 
 #include <fstream>
@@ -23,10 +22,9 @@ Game::Game(const string & filename)
 
         // scan maze
         getline(file, line);
+        int nLines = 0;
         while (getline(file, line))
         {
-            static int nLines = 0;  
-
             for (int i = 0; i<= line.size(); i++)
             {
                 if (line[i] == '+' || line[i] == '*') // post or eletric post
@@ -45,8 +43,6 @@ Game::Game(const string & filename)
                 {
                     Player tplayer(nLines, i, line[i]);
                     this->player = tplayer;
-                    assert(nLines == this->player.getRow());
-                    assert(i == this->player.getCol());
                 }
 
                 else if (line[i] == 'O') // hole 2 win
@@ -54,8 +50,6 @@ Game::Game(const string & filename)
                     Exit exit;
                     exit.Ocol = i;
                     exit.Orow = nLines;
-                    assert(exit.Ocol == i);
-                    assert(exit.Orow == nLines);
                     maze.addExit(exit);
                 }
             }
@@ -135,14 +129,14 @@ bool Game::play()
         if(maze.checkExit(exit)) return true;
         
         int count=robots.size();
-        Game::robots_turn(count); //robots turn
+        count = Game::robots_turn(count); //robots turn
 
         Game::showGameDisplay();
         if(count == 0) return true;
     }
 }
 
-void Game::robots_turn(int count)
+int Game::robots_turn(int count)
 {
     for (int i= 0; i < robots.size(); i++)
     {
