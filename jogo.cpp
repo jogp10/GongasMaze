@@ -487,7 +487,7 @@ void leaderboard(){
             cin.clear();
             cin.ignore(10000, '\n');
         }
-        cerr << "That's not a valid Maze! try another or '0' to return to main menu" << endl;
+        cerr << "empty list! try another or '0' to return to main menu" << endl;
     }
 
     //read_level

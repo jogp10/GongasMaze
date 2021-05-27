@@ -2,6 +2,6 @@ T02_G11
 
 Player          - Time
 -----------------------
-record                4
-wow                  16
-mao                  31
+oofff                 6
+done it               7
+working just f       11

@@ -16,16 +16,17 @@ public:
     explicit Game(const string & filename); //import maze and store in vector positions of Robots
                                    // and Player
     bool play(); // where the gameplay itself takes place 
-    int robots_turn(int count); // where all the moves happen 
+    void robots_turn(); // where all the moves happen 
     ~Game() = default; //deConstructor
 
 private: 
     void showGameDisplay() const; // display Maze
     bool isValid(Movement& movement); // check if movement is valid 
-    bool checkCollide(Robot& robot, Movement& movement, int& count); //check if there is a collision
-    static bool collide(Robot& robot, Post& post, Movement& movement); // collision between robot and post (movement if electric == true)
+    bool checkCollide(Robot& robot, Movement& movement); //check if there is a collision
+    template<typename T>
+    static bool collide(T& object, Post& post, Movement& movement); // collision between robot and post (movement if electric == true)
     static bool collide(Robot& robot, Player& player); // collision between robot and player
-    static bool collide(Robot& robot, Robot& robot2, int& count); // collision between 2 robots
+    static bool collide(Robot& robot, Robot& robot2); // collision between 2 robots
 
 private: 
     Maze maze; 

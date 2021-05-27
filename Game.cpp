@@ -127,17 +127,23 @@ bool Game::play()
         }
 
         Exit exit = {player.getRow(), player.getCol()};
-        if(maze.checkExit(exit)) return true;
+        if(maze.checkExit(exit)) {
+            Game::showGameDisplay();
+            return true;
+        }
+        Post post(player.getRow(), player.getCol(), '*');
+        if(maze.checkPost(post))
+        {
+            Game::collide<Player>(player, post, mov);
+        }
         
-        int count=robots.size();
-        count = Game::robots_turn(count); //robots turn
-
+        Game::robots_turn(); //robots turn
+        
         Game::showGameDisplay();
-        if(count == 0) return true;
     }
 }
 
-int Game::robots_turn(int count)
+void Game::robots_turn()
 {
     for (auto & robot : robots)
     {
@@ -208,11 +214,9 @@ int Game::robots_turn(int count)
                     break;
             }
             robot.setMove(mov);
-            if(Game::checkCollide(robot, mov, count)) count--;
+            Game::checkCollide(robot, mov);
         }
-        else count--;
     }
-    return count; 
 }
 
 
@@ -231,18 +235,7 @@ bool Game::isValid(Movement& movement)
     }
 
     Post post(i, j, '+');
-    if(maze.checkPost(post)) 
-    {
-        return false;
-    }
-    else
-    {
-        post.setSymbol('*');
-        if(maze.checkPost(post))
-        {
-            return false;
-        }
-    }
+    if(maze.checkPost(post)) return false;
     return true;
 }
 
@@ -299,31 +292,32 @@ void Game::showGameDisplay() const
     cout << endl;
 }
 
-bool Game::checkCollide(Robot& robot, Movement& movement, int& count)
+bool Game::checkCollide(Robot& robot, Movement& movement)
 {
     if(robot.getRow() == player.getRow() && robot.getCol() == player.getCol()) return Game::collide(robot, player);
     for(auto & i : robots)
     {
         if(robot.getRow() == i.getRow() && robot.getCol() == i.getCol() && robot.getId() != i.getId())
         {
-            return Game::collide(robot, i, count);
+            return Game::collide(robot, i);
         }
     }
     Post post(robot.getRow(), robot.getCol());
-    if(maze.checkPost(post)) return Game::collide(robot, post, movement);
+    if(maze.checkPost(post)) return Game::collide<Robot>(robot, post, movement);
     post.setSymbol('*');
-    if(maze.checkPost(post)) return Game::collide(robot, post, movement);
+    if(maze.checkPost(post)) return Game::collide<Robot>(robot, post, movement);
     return false;
 }
 
-bool Game::collide(Robot& robot, Post& post, Movement& movement)
+template<typename T>
+bool Game::collide(T& object, Post& post, Movement& movement)
 {
     if(post.getSymbol() == '*')
     {
         movement.dCol = 0-movement.dCol; movement.dRow = 0-movement.dRow;
-        robot.setMove(movement);
+        object.setMove(movement);
     }
-    robot.setDead();
+    object.setDead();
     return true;
 }
 
@@ -334,9 +328,8 @@ bool Game::collide(Robot& robot, Player& player)
 
 }
 
-bool Game::collide(Robot& robot, Robot& robot2, int &count)
+bool Game::collide(Robot& robot, Robot& robot2)
 {
-    count--;
     robot.setDead();
     robot2.setDead();
     return true;
