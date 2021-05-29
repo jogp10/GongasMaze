@@ -3,14 +3,10 @@
 #define T02_G11_ROBOT_H
 
 #include "structs.h"
-#include <iostream>
-
-using namespace std;
 
 class Robot
 {
 public:
-    enum State{ ALIVE, STUCK, DEAD};
     //constructor
     Robot(unsigned int row, unsigned int col);
 
@@ -25,8 +21,6 @@ public:
     char getSymbol() const;
     bool getLive() const;
 
-    // cout
-    void show() const;
 private:
     static unsigned int robotCounter; // count number of robots
     unsigned int id;

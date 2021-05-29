@@ -2,9 +2,6 @@
 #ifndef T02_G11_POST_H
 #define T02_G11_POST_H
 
-#include <iostream>
-
-using namespace std;
 
 class Post
 {   
@@ -19,10 +16,7 @@ public:
     unsigned int getRow() const; 
     unsigned int getCol() const;
     char getSymbol() const;
-    bool getEletric() const; 
-
-    // cout
-    void show() const;
+    bool getElectric() const;
 
 private: 
     unsigned int row, col; 

@@ -1,24 +1,6 @@
 //T02_G11
 
 #include "Player.h"
-#include <iostream>
-
-
-using namespace std;
-
-
-/** Player -> get info from player's location
-* @param row
-* @param col
-* @param symbol
- */
-Player::Player(unsigned int row, unsigned int col, char symbol)
-{
-    this->row = row;
-    this->col = col;
-    this->symbol = symbol;
-    if(symbol == 'h') live = false;
-}
 
 /**
  * setMove -> move player
@@ -45,7 +27,7 @@ void Player::setDead()
  */
 void Player::setRow(unsigned int row)
 {
-    this->row = row; 
+    this->row = row;
 }
 
 /**
@@ -100,12 +82,4 @@ char Player::getSymbol() const
 bool Player::getLive() const
 {
     return live;
-}
-
-/**
- * show -> show info's
- */
-void Player::show() const 
-{
-    cout << "Y: " << row << "/" << "X: " << col << '/' << "Status: " << live << "Symbol: " << symbol << endl;
 }

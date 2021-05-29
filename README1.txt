@@ -18,7 +18,7 @@ and "goto" commands to a while(true) structure, as the latter was considered as 
 
 When we started developing, we didn't know about the existence of structs. They would have helped us a lot in the beginning of the project
 with IDing robots as it is a more clean and organised way of storing information related to them. Instead, we used some dynamic vectors to 
-store their positions in y and x axis and so we knew wether they were alive or not.  
+store their positions in y and x axis and so we knew ether they were alive or not.
 
 
 MAIN DIFFICULTIES:

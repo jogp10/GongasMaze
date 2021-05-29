@@ -3,16 +3,12 @@
 #define T02_G11_PLAYER_H
 
 #include "structs.h"
-#include <iostream>
-
-using namespace std;
 
 class Player
 {
 public:
     //constructors
     Player() = default;
-    Player(unsigned int row, unsigned int col, char symbol);
 
     //methods
     void setMove(const Movement& movement);
@@ -27,13 +23,10 @@ public:
     char getSymbol() const;
     bool getLive() const;
 
-    // cout
-    void show() const;
-
     //destructor
-    ~Player() {}
+    ~Player() = default;
 private:
-    unsigned int row, col;
+    unsigned int row=0, col=0;
     bool live = true;
     char symbol = 'H';
 };

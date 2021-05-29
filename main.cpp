@@ -5,8 +5,6 @@
 #include <thread>
 #include <chrono>
 
-using namespace std;
-
 
 int main(){
     int menu_choice;  // menu option
@@ -19,17 +17,17 @@ int main(){
         switch (menu_choice) {
             case 1:     // Rules of the game
                 ReadRules();
-                cout << endl;
+                std::cout << endl;
                 break;
 
             case 2:    // Start the game
                 play();
-                cout << endl;
+                std::cout << endl;
                 break;
 
             case 3:    // Leaderboard
                 leaderboard();
-                cout << endl;
+                std::cout << endl;
                 break;
 
             default:  // Exit the game

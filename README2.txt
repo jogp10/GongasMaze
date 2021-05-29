@@ -11,7 +11,7 @@ We had the idea of creating an automatic maze generator in the first round of th
 sort of a remaster of the version of the game that we had developed previously, both of us immediately thought of making that happen. Unfortunately, 
 as explained bellow, we faced some difficulties and that couldn't be made because we were afraid the whole thing couldn't be made on time.
 
-In comparition to the first project, we named the variables more clearly to make the code more readable. We also made the functions smaller so it 
+In comparison to the first project, we named the variables more clearly to make the code more readable. We also made the functions smaller so it
 would be easier to debug, to increase readability and make the code more consistent throughout the project. 
 
 
@@ -28,7 +28,7 @@ not efficiently done or could have been done a little bit better, such as hangin
 
 More to the end of the project, we started testing everything to find bugs. We found a couple while debugging. Some were pretty easily resolved 
 and others took more time. One of them bugs was the map not being printed in the second time we played in a map. We firstly thought it was an 
-issue related to the printing itself, but after debugging we found out everything ws correctly done in that department and the mistake was on the 
+issue related to the printing itself, but after debugging we found out everything was correctly done in that department and the mistake was on the
 way we called a counter: we shouldn't have called it as a "static int" and it was that little thing that was stopping the maze from being displayed
 in the second play.  
 

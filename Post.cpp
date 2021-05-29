@@ -1,9 +1,7 @@
 //T02_G11
 
 #include "Post.h"
-#include <iostream>
 
-using namespace std; 
 
 /**
  * Post -> get info from post's location
@@ -59,18 +57,7 @@ char Post::getSymbol() const
  * getLive -> get post's state
  * @return
  */
-bool Post::getEletric() const
+bool Post::getElectric() const
 {
     return electric; 
-}
-
-/**
- * show -> show info's
- */
-void Post::show() const
-{
-    cout << "col: " << col << endl; 
-    cout << "row: " << row << endl; 
-    cout << "type: " << type << endl;
-    cout << "electric: " << electric << endl; 
 }

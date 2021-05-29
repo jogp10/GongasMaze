@@ -55,7 +55,7 @@ void ReadRules(){
     //Go back to main menu by pressing '0'
     cout << "Press '0' to go to the main menu" << endl;
 
-    //Test input while invalid
+    //Test input
     while(true){
         cin >> goBack;
         if (cin.eof()) return;
@@ -91,7 +91,7 @@ void DisplayFile(const string& path, int n){
 
     // display the maze on interface
     getline(file, line);
-    if(path.size() == 11) {
+    if(path.size() == 11) { // in case of level, otherwise is a leaderboard
         cout << setw(9) << "(" << n << ")" << endl;
     }
     while(getline(file, line)) cout << line << endl;
@@ -112,6 +112,7 @@ void play() {
     // ask for a level to play
     cout << "What Maze do you wanna play?" << endl;
 
+    //test input
     while(true)
     {
         cin >> MazeSelect;
@@ -153,71 +154,14 @@ void play() {
     bool match_point;
     match_point = game.play();
 
-/**
-    // move from player and automatic play from robots
-    while (robots_live && player_live) {
-
-        /**
-        //move player
-        player_live = player(vec, y_player, x_player, exitGame);
-        if(exitGame) return;
-        
-
-        //robot's turn
-        if (player_live) {
-            int R_oldY, R_oldX; // to register old position of dead Robot's ( which now is (0, 0))
-
-            for (int i = 0; i < robot_x.size(); i++) {
-
-                //see if robot die because anther's robot move
-                if (vec[robot_y[i]][robot_x[i]] == 'r') {
-                    robot_y[i]=0; robot_x[i]=0;
-                    continue;
-                }
-
-                //move robot
-                else if (!robots(vec, y_player, x_player, robot_y[i], robot_x[i], R_oldY, R_oldX))
-                {
-                    for(int w=0; w<i; w++)
-                    {
-                        if(robot_x[w] == R_oldX && robot_y[w] == R_oldY) // if robot catches another alive robot
-                        {
-                            robot_x[w]=0; robot_y[w]=0;
-                        }
-                    }
-                }
-
-                // if robot catches player
-                if (y_player == robot_y[i] && x_player == robot_x[i]) player_live = false;
-            }
-
-            //remove positions of dead robots
-            int max = robot_x.size();
-            int count = 0;
-            for (int j=0; j<max; j++)
-            {
-                if(robot_x[j-count] == 0 && robot_y[j-count] == 0)
-                {
-                    robot_x.erase(robot_x.begin() + j - count);
-                    robot_y.erase(robot_y.begin() + j - count);
-                    count++;
-                }
-            }
-
-            if (robot_x.empty()) robots_live = false; // if all robots died, game over
-        }
-        print(vec); // print level with update
-        
-    }
-    */
-
-    auto end_time = chrono::steady_clock::now(); // finish timer
+    // Finish timer
+    auto end_time = chrono::steady_clock::now();
 
     // if player dead
     if (!match_point) {
         cout << "You lost!! Better luck next time." << endl << endl;
     }
-    // if robots dead, register time
+    // if player won
     else {
         char name[15];
 
@@ -235,175 +179,6 @@ void play() {
     }
 }
 
-/**
-bool player(vector<string> &vec, int &y, int &x, bool& exitGame){
-    while(true) {
-
-        char play;
-        string check = "QWEASDZXC"; //possible plays
-
-        // ask for a play
-        cout << "What's your play" << endl;
-
-        while(true){
-            cin >> play;
-            if (cin.eof()) {
-                exitGame = true;
-                return true;
-            }
-            if(!cin.fail()) {
-                cin.ignore(10000, '\n');
-                if (check.find((char) toupper(play)) != string::npos) break;
-            }
-            else {
-                cin.clear();
-                cin.ignore(10000, '\n');
-            }
-        }
-
-        // Move, if collision -> he dies. Game over
-        switch (toupper(play)) {
-            case 'W': // move up
-                if (!validMove(vec, y, x, -1)) break;  // test valid move
-                return movePlayer(vec, y, x, -1);  // update player status ( alive or dead)
-
-            case 'E': // move diagonal right up
-                if (!validMove(vec, y, x, -1, +1)) break;
-                return movePlayer(vec, y, x, -1, +1);
-
-            case 'D': // move right
-                if (!validMove(vec, y, x, 0, +1)) break;
-                return movePlayer(vec, y, x, 0, +1);
-
-            case 'C': // move diagonal right down
-                if (!validMove(vec, y, x, +1, +1)) break;
-                return movePlayer(vec, y, x, +1, +1);
-
-            case 'X': // move down
-                if (!validMove(vec, y, x, +1)) break;
-                return movePlayer(vec, y, x, +1);
-
-            case 'Z': // move diagonal left down
-                if (!validMove(vec, y, x, +1, -1)) break;
-                return movePlayer(vec, y, x, +1, -1);
-
-            case 'A': // move left
-                if (!validMove(vec, y, x, 0, -1)) break;
-                return movePlayer(vec, y, x, 0, -1);
-
-            case 'Q': // move diagonal left up
-                if (!validMove(vec, y, x, -1, -1)) break;
-                return movePlayer(vec, y, x, -1, -1);
-
-            default:   // stay place
-                return true;
-        }
-    }
-}
-*/
-
-/**
-bool movePlayer(vector<string> &vec, int &y, int &x, int vertical, int horizontal)
-{
-    swap(vec[y + vertical][x + horizontal], vec[y][x]);  // move player
-    if (vec[y][x] == '*' || vec[y][x] == 'R') {  // if player moves causes death
-        vec[y][x] = ' ';
-        vec[y + vertical][x + horizontal] = 'h';  // update player's status
-        return false;
-    }
-    // update player's position
-    y += vertical;
-    x += horizontal;
-    return true;
-}
-*/
-
-
-/**
-bool validMove(vector<string> &vec, int &y, int &x, int vertical, int horizontal)
-{
-    if (vec[y + vertical][x + horizontal] == 'r') {   // if player move is against a stuck robot
-        cout << "Not the play you wanted to do, try another! ";
-        return false; // Not a valid move
-    }
-    return true;
-}
-*/
-
-/**
-bool robots(vector<string> &vec, int &yp, int &xp, int &yr, int &xr, int &yrO, int &xrO)
-{
-    int indice;
-    double q,w,e,a,d,z,x,c, minor = 999999;
-    vector<double> minor_d;
-
-    //case 0
-    q = sqrt((pow(xp-(xr-1), 2) + pow(yp - (yr-1), 2))); minor_d.push_back(q);
-    //case 1
-    w = sqrt((pow(xp-xr, 2) + pow(yp - (yr-1), 2))); minor_d.push_back(w);
-    //case 2
-    e = sqrt((pow(xp-(xr+1), 2) + pow(yp - (yr-1), 2))); minor_d.push_back(e);
-    //case 3
-    a = sqrt((pow(xp-(xr-1), 2) + pow(yp - yr, 2))); minor_d.push_back(a);
-    //case 4
-    d = sqrt((pow(xp-(xr+1), 2) + pow(yp - yr, 2))); minor_d.push_back(d);
-    //case 5
-    z = sqrt((pow(xp-(xr-1), 2) + pow(yp - (yr+1), 2))); minor_d.push_back(z);
-    //case 6
-    x = sqrt((pow(xp-xr, 2) + pow(yp - (yr+1), 2))); minor_d.push_back(x);
-    //case 7
-    c = sqrt((pow(xp-(xr+1), 2) + pow(yp - (yr+1), 2))); minor_d.push_back(c);
-
-    for(int j=0; j<=7; j++)
-    {
-        if (minor_d[j] <= minor) // see which distance is minor
-        {
-            minor = minor_d[j];
-            indice = j;
-        }
-    }
-
-    switch(indice)
-    {
-        case 0:  // Q
-            return moveRobot(vec, yr, xr, yrO, xrO, -1, -1);
-        case 1: // W
-            return moveRobot(vec, yr, xr,yrO, xrO, -1);
-        case 2: // E
-            return moveRobot(vec, yr, xr,yrO, xrO, -1, +1);
-        case 3:  // A
-            return moveRobot(vec, yr, xr,yrO, xrO, 0, -1);
-        case 4: // D
-            return moveRobot(vec, yr, xr,yrO, xrO, 0, +1);
-        case 5: // Z
-            return moveRobot(vec, yr, xr,yrO, xrO, +1, -1);
-        case 6:  // X
-            return moveRobot(vec, yr, xr,yrO, xrO, +1);
-        case 7: // C
-            return moveRobot(vec, yr, xr,yrO, xrO, +1, +1);
-        default:
-            return true;
-    }
-}
-*/
-/**
-bool moveRobot(vector<string> &vec, int &yr, int &xr, int &yrO, int &xrO, int vertical, int horizontal)
-{
-    swap(vec[yr + vertical][xr + horizontal], vec[yr][xr]);  // move robot
-    if (vec[yr][xr] == '*' || vec[yr][xr] == 'r' || vec[yr][xr] == 'R')  // if move causes death to the robot
-    {
-        yrO = yr + vertical;
-        xrO = xr + horizontal;
-        vec[yr][xr] = ' ';  // eliminate cause of death
-        vec[yr + vertical][xr + horizontal] = 'r';  // new position of R is now a stuck robot
-        yr=0; xr=0;
-        return false;
-    }
-    else if(vec[yr][xr] == 'H') vec[yr][xr] = ' ';  // if robot catches player
-    yr += vertical; xr += horizontal;
-    return true;
-}
-*/
 
 void winner(char name[15],int time,int maze) {
     string path = "MAZE_XX_WINNERS.txt";   // path of file to write winners
@@ -466,13 +241,16 @@ void winner(char name[15],int time,int maze) {
     }
 }
 
+// function to order time of plays
 bool order(const string& a, const string& b) {return (stoi (a.substr(16, 8), nullptr) < stoi (b.substr(16, 8), nullptr));}
+
 
 void leaderboard(){
     int level;
     int ret;
     string path = "MAZE_xx_WINNERS.txt";
 
+    // Ask for a level to display leaderboard
     cout << "Which level do you want to beat the records?" << endl;
 
     while(true){
@@ -490,8 +268,10 @@ void leaderboard(){
         cerr << "empty list! try another or '0' to return to main menu" << endl;
     }
 
-    //read_level
+    //read file MAZE_XX_WINNERS
     DisplayFile(path);
+
+    //Back to main menu
     cout << "\n\n0 to go back to main menu\n";
 
     while(true){

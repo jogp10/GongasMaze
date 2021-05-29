@@ -1,15 +1,6 @@
 //T02_G11
 
 #include "Maze.h"
-#include <iostream>
-
-using namespace std;
-
-Maze::Maze(unsigned int numRows, unsigned int numCols)
-{
-    this->numRows = numRows;
-    this->numCols = numCols;
-}
 
 void Maze::setCols(unsigned int numCols)
 {
@@ -23,15 +14,9 @@ void Maze::setRows(unsigned int numRows)
 
 bool Maze::checkPost(const Post& post) const
 {
-    for(int i=0; i<posts.size(); i++)
+    for(auto i : posts)
     {
-        unsigned int j, w;
-        j = post.getRow();
-        w = posts[i].getRow();
-        //assert(post.getRow() == posts[i].getRow());
-        //assert(post.getCol() == posts[i].getCol());
-        //assert(post.getSymbol() == posts[i].getSymbol());
-        if(post.getRow() == posts[i].getRow()&& post.getCol() == posts[i].getCol() && post.getEletric() == posts[i].getEletric()) 
+        if(post.getRow() == i.getRow()&& post.getCol() == i.getCol() && post.getElectric() == i.getElectric())
         {
             return true;
         }
@@ -41,9 +26,9 @@ bool Maze::checkPost(const Post& post) const
 
 bool Maze::checkExit(const Exit& exit) const
 {
-    for(int i=0; i<exits.size(); i++)
+    for(auto i : exits)
     {
-        if(exit.O_row == exits[i].O_row && exit.O_col == exits[i].O_col)
+        if(exit.O_row == i.O_row && exit.O_col == i.O_col)
         {
             return true;
         }
@@ -69,10 +54,4 @@ unsigned int Maze::getnumRows() const
 unsigned int Maze::getnumCols() const
 {
     return numCols;
-}
-
-void Maze::show() const
-{
-    cout << "nRows: " << numRows << " nCols: " << numCols << endl;
-    cout << "The maze has " << posts.size() << " posts" << endl;
 }

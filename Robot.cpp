@@ -1,9 +1,6 @@
 //T02_G11
 
 #include "Robot.h"
-#include <iostream>
-
-using namespace std;
 
 unsigned int Robot::robotCounter = 0;
 
@@ -81,13 +78,4 @@ char Robot::getSymbol() const
 bool Robot::getLive() const
 {
     return live;
-}
-
-/**
- * show -> show info's
- */
-void Robot::show() const 
-{
-    cout << "Y: " << row << "/" << "X: " << col << '/' << "Status: " << live << endl;
-    cout << "id: " << id << endl;
 }

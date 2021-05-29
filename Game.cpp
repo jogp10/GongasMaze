@@ -3,7 +3,6 @@
 #include "Game.h"
 #include <iostream> 
 #include <fstream>
-#include <string>
 #include <cmath>
 
 using namespace std;
@@ -48,9 +47,7 @@ Game::Game(const string & filename)
 
                 else if (line[i] == 'O') // hole 2 win
                 {
-                    Exit exit;
-                    exit.O_col = i;
-                    exit.O_row = nLines;
+                    Exit exit = {(unsigned int) nLines, (unsigned int) i};
                     maze.addExit(exit);
                 }
             }
@@ -148,12 +145,12 @@ void Game::robots_turn()
     for (auto & robot : robots)
     {
         if(robot.getLive()){
-            int rowP, colP, rowR, colR, indice = 0; 
+            int rowP, colP, rowR, colR, indice = 0;
             
-            rowP = player.getRow(); 
-            colP = player.getCol();
-            rowR = robot.getRow();
-            colR = robot.getCol();
+            rowP = (int) player.getRow();
+            colP = (int) player.getCol();
+            rowR = (int) robot.getRow();
+            colR = (int) robot.getCol();
 
             double q,w,e,a,d,z,x,c, minor = 999999;
             vector<double> minor_d;
@@ -212,6 +209,8 @@ void Game::robots_turn()
                 case 7: // C
                     mov = {1,1}; 
                     break;
+                default:
+                    break;
             }
             robot.setMove(mov);
             Game::checkCollide(robot, mov);
@@ -222,7 +221,7 @@ void Game::robots_turn()
 
 bool Game::isValid(Movement& movement)
 {
-    int i, j;
+    unsigned int i, j;
     i = player.getRow() + movement.dRow;
     j = player.getCol() + movement.dCol;
 
