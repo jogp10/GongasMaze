@@ -2,9 +2,7 @@ T02_G11
 
 Player          - Time
 -----------------------
-oofff                 6
-done it               7
+done!                 9
 working just f       11
 finish               26
-done                 40
-okok                122
+tono                 37
