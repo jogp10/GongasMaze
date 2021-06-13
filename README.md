@@ -1,5 +1,5 @@
 # Maze Game
 
-Game developed for the subject of Porgramação in FEUP
+Game developed for the subject of Programação in FEUP
 
 Compile all the files and run code on main to start playing
