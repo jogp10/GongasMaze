@@ -5,4 +5,5 @@ Player          - Time
 done!                 9
 working just f       11
 finish               26
+A RUA MAE            30
 tono                 37
